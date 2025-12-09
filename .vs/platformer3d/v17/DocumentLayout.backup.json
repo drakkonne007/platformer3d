@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "D:\\platformer3d\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|D:\\platformer3d\\assets\\resources\\scripts\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\scripts\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|d:\\platformer3d\\assets\\colliderstarter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|solutionrelative:assets\\colliderstarter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|d:\\platformer3d\\assets\\resources\\scripts\\coin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|D:\\platformer3d\\assets\\resources\\scripts\\coin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\scripts\\coin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|d:\\platformer3d\\assets\\resources\\scripts\\mainhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|D:\\platformer3d\\assets\\resources\\scripts\\mainhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\scripts\\mainhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|D:\\platformer3d\\assets\\resources\\scripts\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\scripts\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{90B3A34F-5C39-D42F-2DE3-D2A08F47C80E}|Assembly-CSharp.csproj|D:\\platformer3d\\assets\\pushtrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,11 +34,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ColliderStarter.cs",
+              "DocumentMoniker": "D:\\platformer3d\\Assets\\ColliderStarter.cs",
+              "RelativeDocumentMoniker": "Assets\\ColliderStarter.cs",
+              "ToolTip": "D:\\platformer3d\\Assets\\ColliderStarter.cs",
+              "RelativeToolTip": "Assets\\ColliderStarter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-04T04:54:33.634Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -44,10 +61,9 @@
               "RelativeDocumentMoniker": "Assets\\Resources\\Scripts\\MainHandler.cs",
               "ToolTip": "D:\\platformer3d\\Assets\\Resources\\Scripts\\MainHandler.cs",
               "RelativeToolTip": "Assets\\Resources\\Scripts\\MainHandler.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAIwBAAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T04:47:35.912Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-04T04:47:35.912Z"
             },
             {
               "$type": "Document",
@@ -57,27 +73,25 @@
               "RelativeDocumentMoniker": "Assets\\Resources\\Scripts\\Coin.cs",
               "ToolTip": "D:\\platformer3d\\Assets\\Resources\\Scripts\\Coin.cs",
               "RelativeToolTip": "Assets\\Resources\\Scripts\\Coin.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T04:45:57.923Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-04T04:45:57.923Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Item.cs",
               "DocumentMoniker": "D:\\platformer3d\\Assets\\Resources\\Scripts\\Item.cs",
               "RelativeDocumentMoniker": "Assets\\Resources\\Scripts\\Item.cs",
               "ToolTip": "D:\\platformer3d\\Assets\\Resources\\Scripts\\Item.cs",
               "RelativeToolTip": "Assets\\Resources\\Scripts\\Item.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T04:45:44.385Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-04T04:45:44.385Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PushTrap.cs",
               "DocumentMoniker": "D:\\platformer3d\\Assets\\PushTrap.cs",
               "RelativeDocumentMoniker": "Assets\\PushTrap.cs",
@@ -89,7 +103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ExampleCharacterController.cs",
               "DocumentMoniker": "D:\\platformer3d\\Assets\\KinematicCharacterController\\ExampleCharacter\\Scripts\\ExampleCharacterController.cs",
               "RelativeDocumentMoniker": "Assets\\KinematicCharacterController\\ExampleCharacter\\Scripts\\ExampleCharacterController.cs",

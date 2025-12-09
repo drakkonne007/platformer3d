@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Coin : Item
 {
-    [SerializeField] float value = 10;
-    public override void getEffect() 
+    [SerializeField] int value = 10;
+    public override void getEffect(Collider other) 
     {
-        MainHandler.Instance.addMoney(10);
+        MainHandler.Instance.addMoney(value);
     }
 }

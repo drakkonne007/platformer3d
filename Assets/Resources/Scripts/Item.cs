@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    virtual public void getEffect(Collider2D other){}
+    virtual public void getEffect(Collider other){}
 
-    void startTrigger(Collider2D other)
+    void startTrigger(Collider other)
     {
         getEffect(other);
         Destroy(gameObject);
