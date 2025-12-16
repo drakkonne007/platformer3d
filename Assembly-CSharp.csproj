@@ -103,6 +103,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Trigger.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\15- Root motion example\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\7- Orienting towards arbitrary up direction\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\13- Swimming state\Scripts\MyCharacterController.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\12- NoClip state\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\KinematicCharacterController\Core\ICharacterController.cs" />
     <Compile Include="Assets\KinematicCharacterController\Core\PhysicsMover.cs" />
+    <Compile Include="Assets\Resources\Scripts\TimeDelay.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\6- Crouching\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
@@ -147,9 +149,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\9- Custom collision filtering\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\KinematicCharacterController\Examples\Scripts\PrefabLauncher.cs" />
+    <Compile Include="Assets\Resources\Scripts\ReduceHealth.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Resources\Scripts\TriggerAction.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\2- Basic Movement and Gravity\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\1- Player Camera Character Setup\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\KinematicCharacterController\Core\IMoverController.cs" />
