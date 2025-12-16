@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TimeDelay : TriggerAction
 {
-    Mutex mutex;
     public override void Action()
     {
         Time.timeScale = 0.5f;

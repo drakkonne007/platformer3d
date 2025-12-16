@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-    [SerializeField] List<TriggerAction> action;
+    [SerializeField] List<TriggerAction> actions;
     [SerializeField] bool isOnce = true;
     [SerializeField] bool isConitues = false;
     [SerializeField] bool isActive = true;
@@ -17,7 +17,7 @@ public class Trigger : MonoBehaviour
 
     bool Check()
     {
-        if(action == null)
+        if(actions == null || actions.Count == 0)
         {
             Debug.LogWarning("NO ACTION IN TRIGGER");
             return false;
@@ -39,7 +39,10 @@ public class Trigger : MonoBehaviour
         {
             return;
         }
-        action.Action();
+        foreach (var action in actions)
+        {
+            action.Action();
+        }
         if (isDeleteAfter)
         {
             Destroy(gameObject);
@@ -51,7 +54,10 @@ public class Trigger : MonoBehaviour
         {
             return;
         }
-        action.Action();
+        foreach (var action in actions)
+        {
+            action.Action();
+        }
         if (isDeleteAfter)
         {
             Destroy(gameObject);
