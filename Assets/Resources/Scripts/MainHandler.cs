@@ -38,4 +38,23 @@ public class MainHandler : MonoBehaviour
         money += value;
         scoresTxt.text = money.ToString();
     }
+    public void addHealth(float value)
+    {
+        health += value;
+        if(health <= 0)
+        {
+            lives--;
+            if(lives < 0)
+            {
+                Time.timeScale = 0;
+                Debug.Log("Game is end");
+            }
+            else
+            {
+                health = 100;
+            }
+            livesTxt.text = lives.ToString();
+        }
+        healthTxt.text = health.ToString();
+    }
 }
