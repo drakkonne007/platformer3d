@@ -12,7 +12,7 @@ public class SmallGravity : TriggerAction
     public override void Action()
     {
         controller.Gravity.y /= 2; 
-        StartCoroutine(StopGravity());
+        MainHandler.Instance.StartCoroutine(StopGravity());
     }
     public IEnumerator StopGravity()
     {
