@@ -9,6 +9,7 @@ namespace KinematicCharacterController.Examples
     public enum CharacterState
     {
         Default,
+        Swimm,
     }
 
     public enum OrientationMethod
@@ -25,6 +26,7 @@ namespace KinematicCharacterController.Examples
         public bool JumpDown;
         public bool CrouchDown;
         public bool CrouchUp;
+        public bool AttackDown;
     }
 
     public struct AICharacterInputs
@@ -43,6 +45,7 @@ namespace KinematicCharacterController.Examples
     public class ExampleCharacterController : MonoBehaviour, ICharacterController
     {
         public KinematicCharacterMotor Motor;
+        public Animator Animator;
 
         [Header("Stable Movement")]
         public float MaxStableMoveSpeed = 10f;
@@ -54,6 +57,7 @@ namespace KinematicCharacterController.Examples
         public float MaxAirMoveSpeed = 15f;
         public float AirAccelerationSpeed = 15f;
         public float Drag = 0.1f;
+        public int isFly = 0;
 
         [Header("Jumping")]
         public bool AllowJumpingWhenSliding = false;
@@ -85,6 +89,24 @@ namespace KinematicCharacterController.Examples
         private Vector3 _internalVelocityAdd = Vector3.zero;
         private bool _shouldBeCrouching = false;
         private bool _isCrouching = false;
+
+        // Combo & Attack
+        public float ComboResetTime = 1.0f;
+        public float InputBlockTime = 0.01f; 
+        private int _comboIndex = 0;
+        private float _lastAttackTime;
+        private bool _isAttacking;
+        private float _attackEndTime;
+
+        // Animator Hashes
+        private readonly int _animIDSpeed = Animator.StringToHash("Speed");
+        private readonly int _animIDIsGrounded = Animator.StringToHash("IsGrounded");
+        private readonly int _animIDHorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
+        private readonly int _animIDJump = Animator.StringToHash("Jump");
+        private readonly int _animIDGrounded = Animator.StringToHash("Grounded");
+        private readonly int _animIDAttack = Animator.StringToHash("Attack");
+        private readonly int _animIDAttackIndex = Animator.StringToHash("AttackIndex");
+        private readonly int _animRun = Animator.StringToHash("Run");
 
         private Vector3 lastInnerNormal = Vector3.zero;
         private Vector3 lastOuterNormal = Vector3.zero;
@@ -158,7 +180,41 @@ namespace KinematicCharacterController.Examples
                 case CharacterState.Default:
                     {
                         // Move and look inputs
-                        _moveInputVector = cameraPlanarRotation * moveInputVector;
+                        if (!_isAttacking)
+                        {
+                            _moveInputVector = cameraPlanarRotation * moveInputVector;
+                        }
+                        else
+                        {
+                            _moveInputVector = Vector3.zero;
+                        }
+
+                        // Attack Logic
+                        if (Time.time - _lastAttackTime > ComboResetTime && _comboIndex > 0 && !_isAttacking)
+                        {
+                            _comboIndex = 0;
+                        }
+                        if (_isAttacking && Time.time > _attackEndTime)
+                        {
+                            _isAttacking = false;
+                        }
+                        if (inputs.AttackDown && !_isAttacking)
+                        {
+                            _isAttacking = true;
+                            _attackEndTime = Time.time + InputBlockTime;
+                            
+                            if (Animator)
+                            {
+                                Animator.SetInteger(_animIDAttackIndex, _comboIndex);
+                                if(_comboIndex == 0)
+                                {
+                                    Animator.SetTrigger(_animIDAttack);
+                                }
+                            }
+                            _comboIndex++;
+                            if (_comboIndex > 3) _comboIndex = 0;
+                            _lastAttackTime = Time.time;
+                        }
 
                         switch (OrientationMethod)
                         {
@@ -242,7 +298,7 @@ namespace KinematicCharacterController.Examples
                         if (BonusOrientationMethod == BonusOrientationMethod.TowardsGravity)
                         {
                             // Rotate from current up to invert gravity
-                            Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Gravity.normalized, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
+                            Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, isFly == 0 ? - Gravity.normalized : Gravity.normalized, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
                             currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
                         }
                         else if (BonusOrientationMethod == BonusOrientationMethod.TowardsGroundSlopeAndGravity)
@@ -259,7 +315,7 @@ namespace KinematicCharacterController.Examples
                             }
                             else
                             {
-                                Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Gravity.normalized, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
+                                Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, isFly == 0 ? -Gravity.normalized : Gravity.normalized, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
                                 currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
                             }
                         }
@@ -374,6 +430,11 @@ namespace KinematicCharacterController.Examples
                                 _jumpRequested = false;
                                 _jumpConsumed = true;
                                 _jumpedThisFrame = true;
+                                if (Animator)
+                                {
+                                    Animator.SetTrigger(_animIDJump);
+                                    Animator.ResetTrigger(_animIDGrounded);
+                                }
                             }
                         }
 
@@ -447,6 +508,26 @@ namespace KinematicCharacterController.Examples
                         break;
                     }
             }
+
+            // Sync Animation
+            if (Animator)
+            {
+                // Convert world velocity to local character space 
+                // to get Forward (Z) and Right (X) components for the BlendTree
+                Vector3 localVelocity = transform.InverseTransformDirection(Motor.Velocity);
+                float speed = Motor.Velocity.magnitude;
+
+                // Sync parameters:
+                // Speed (X Axis in BlendTree) -> Local Right/Left
+                // HorizontalSpeed (Y Axis in BlendTree) -> Local Forward/Backward
+                Animator.SetFloat(_animIDSpeed, localVelocity.z);
+                Animator.SetFloat(_animIDHorizontalSpeed, localVelocity.x * -1);
+                
+                Animator.SetBool(_animIDIsGrounded, Motor.GroundingStatus.IsStableOnGround);
+                
+                // Sync 'Run' bool based on movement
+                Animator.SetBool(_animRun, speed > 0.1f);
+            }
         }
 
         public void PostGroundingUpdate(float deltaTime)
@@ -503,6 +584,10 @@ namespace KinematicCharacterController.Examples
 
         protected void OnLanded()
         {
+            if(Animator)
+            {
+                Animator.SetTrigger(_animIDGrounded);
+            }
         }
 
         protected void OnLeaveStableGround()

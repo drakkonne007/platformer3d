@@ -64,11 +64,14 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\12- NoClip state\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\14- Climbing Ladders\Scripts\MyCharacterController.cs" />
+    <Compile Include="Assets\Scripts\UnderwaterEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Resources\Scripts\Item.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\16- FramePerfect Rotation\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\KinematicCharacterController\ExampleCharacter\Scripts\ExampleCharacterController.cs" />
+    <Compile Include="Assets\Scripts\UnderwaterRenderFeature.cs" />
+    <Compile Include="Assets\SoStylized\Environment\Trees\Scripts\MS_StylizedTreeCollision.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\2- Basic Movement and Gravity\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\KinematicCharacterController\Examples\Scripts\Teleporter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="Assets\KinematicCharacterController\Examples\Scripts\PlayableMover.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\5- Adding velocities and impulses\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\RPG Tiny Hero Duo\Scripts\AnimatorDebugger.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\13- Swimming state\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\4- Landing and leaving ground\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\Resources\Scripts\Coin.cs" />
@@ -105,6 +109,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Trigger.cs" />
+    <Compile Include="Assets\SoStylized\Demo\Scripts\MS_CameraMovement.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\15- Root motion example\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\7- Orienting towards arbitrary up direction\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\13- Swimming state\Scripts\MyCharacterController.cs" />
@@ -142,6 +147,7 @@
     <Compile Include="Assets\KinematicCharacterController\Core\ICharacterController.cs" />
     <Compile Include="Assets\KinematicCharacterController\Core\PhysicsMover.cs" />
     <Compile Include="Assets\Resources\Scripts\TimeDelay.cs" />
+    <Compile Include="Assets\Scripts\WaterBox.cs" />
     <Compile Include="Assets\KinematicCharacterController\Walkthrough\6- Crouching\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
@@ -186,14 +192,17 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\Shaders\UnderwaterEffect.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\SoStylized\Demo\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Shaders\InvertedWaterFog.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
   </ItemGroup>
@@ -1372,6 +1381,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="SingularityGroup.HotReload.Runtime.Public.csproj">
+      <Project>{165354C5-D75B-2EC0-6D86-8A74E6374698}</Project>
+      <Name>SingularityGroup.HotReload.Runtime.Public</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
