@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: UnderwaterRenderFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  settings: {material: {fileID: 2100000, guid: 0c555276490bfd94e86d2c206568d104, type: 2}, renderPassEvent: 1000}
+  settings:
+    material: {fileID: 2100000, guid: 0c555276490bfd94e86d2c206568d104, type: 2}
+    renderPassEvent: 550
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
