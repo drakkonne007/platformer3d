@@ -22,7 +22,6 @@ public class Trigger : MonoBehaviour
         if (actions == null || actions.Count == 0)
         {
             Debug.LogWarning("NO ACTION IN TRIGGER");
-            return false;
         }
         if (!isActive)
         {
@@ -43,7 +42,7 @@ public class Trigger : MonoBehaviour
         }
         foreach (var action in actions)
         {
-            action.Action();
+            action?.Action(other);
         }
         if (isDeleteAfter)
         {
@@ -58,7 +57,7 @@ public class Trigger : MonoBehaviour
         }
         foreach (var action in actions)
         {
-            action.ExitAction();
+            action?.ExitAction(other);
         }
     }
     void Stay(Collider other)
@@ -69,7 +68,7 @@ public class Trigger : MonoBehaviour
         }
         foreach (var action in actions)
         {
-            action.Action();
+            action?.Action(other);
         }
         if (isDeleteAfter)
         {

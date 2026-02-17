@@ -16,7 +16,7 @@ public class Fan : TriggerAction
             mesh.enabled = false;
         }
     }
-    public override void Action() 
+    public override void Action(Collider other) 
     {
         if (!isTrigger)
         {
@@ -34,7 +34,7 @@ public class Fan : TriggerAction
             GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().linearVelocity = new Vector3(temp.x,0,temp.z);
         }
     }
-    public override void ExitAction()
+    public override void ExitAction(Collider other)
     {
         if (isTrigger)
         {

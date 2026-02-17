@@ -104,9 +104,6 @@ namespace KinematicCharacterController.Examples
         private readonly int _animIDAttackIndex = Animator.StringToHash("AttackIndex");
         private readonly int _animRun = Animator.StringToHash("Run");
 
-        private Vector3 lastInnerNormal = Vector3.zero;
-        private Vector3 lastOuterNormal = Vector3.zero;
-
         private void Awake()
         {
             // Handle initial state
@@ -176,16 +173,7 @@ namespace KinematicCharacterController.Examples
                 case CharacterState.Default:
                     {
                         // Move and look inputs
-                        if (!_isAttacking)
-                        {
-                            _moveInputVector = cameraPlanarRotation * moveInputVector;
-                        }
-                        else
-                        {
-                            _moveInputVector = Vector3.zero;
-                        }
-
-                        // Attack Logic
+                        _moveInputVector = cameraPlanarRotation * moveInputVector;
 
                         if (inputs.AttackDown)
                         {

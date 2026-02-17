@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TimeDelay : TriggerAction
 {
-    public override void Action()
+    public override void Action(Collider other)
     {
         Time.timeScale = 0.5f;
         MainHandler.Instance.StartCoroutine(StopDelay());

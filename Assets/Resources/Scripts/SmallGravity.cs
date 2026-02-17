@@ -9,7 +9,7 @@ public class SmallGravity : TriggerAction
     {
         controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ExampleCharacterController>();
     }
-    public override void Action()
+    public override void Action(Collider other)
     {
         controller.Gravity.y /= 2; 
         MainHandler.Instance.StartCoroutine(StopGravity());
