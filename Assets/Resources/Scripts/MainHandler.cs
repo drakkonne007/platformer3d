@@ -19,7 +19,7 @@ public class MainHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoresTxt;
     [SerializeField] TextMeshProUGUI healthTxt;
 
-    
+    PlayerGameLogic playerGameLogic_;
 
     public static MainHandler Instance;
     private void Awake()
@@ -30,7 +30,8 @@ public class MainHandler : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);        
+        DontDestroyOnLoad(gameObject);
+        playerGameLogic_ = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGameLogic>();
     }
 
     private void Start()
@@ -47,7 +48,19 @@ public class MainHandler : MonoBehaviour
     }
     public void addHealth(float value, DamageType type)
     {
-        health += value;
+        if(value < 0)
+        {
+            if((playerGameLogic_.isGold() && type == DamageType.Gold)
+                 || (!playerGameLogic_.isGold() && type == DamageType.Silver))
+            {
+                return;
+            }
+            health += value;
+        }
+        else
+        {
+            health += value;
+        }        
         if(health <= 0)
         {
             lives--;

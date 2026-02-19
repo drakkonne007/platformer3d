@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ReduceHealth : TriggerAction
 {
-    DamageType damageType = DamageType.Phys;
+    [SerializeField] DamageType damageType = DamageType.Phys;
     public override void Action(Collider other) {
         try
         {

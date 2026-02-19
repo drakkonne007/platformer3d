@@ -27,6 +27,7 @@ namespace KinematicCharacterController.Examples
         public bool CrouchDown;
         public bool CrouchUp;
         public bool AttackDown;
+        public bool ChangeColorDown;
     }
 
     public struct AICharacterInputs
@@ -46,6 +47,8 @@ namespace KinematicCharacterController.Examples
     {
         public KinematicCharacterMotor Motor;
         public Animator Animator;
+        public PlayerGameLogic PlayerLogic;
+        public List<Collider> WeaponCollider;
 
         [Header("Stable Movement")]
         public float MaxStableMoveSpeed = 10f;
@@ -111,6 +114,10 @@ namespace KinematicCharacterController.Examples
 
             // Assign the characterController to the motor
             Motor.CharacterController = this;
+            if (PlayerLogic == null)
+            {
+                PlayerLogic = GetComponentInChildren<PlayerGameLogic>();
+            }
         }
 
         /// <summary>
@@ -182,6 +189,11 @@ namespace KinematicCharacterController.Examples
                         else
                         {
                             Animator.ResetTrigger(_animIDAttack);
+                        }
+
+                        if (inputs.ChangeColorDown && PlayerLogic != null)
+                        {
+                            PlayerLogic.changeMaterial();
                         }
 
                         switch (OrientationMethod)
@@ -429,9 +441,20 @@ namespace KinematicCharacterController.Examples
                 if (!stateInfo.IsName("Attack01") && !stateInfo.IsName("Attack02") &&
                     !stateInfo.IsName("Attack03") && !stateInfo.IsName("Attack04"))
                 {
+                    foreach (var coll in WeaponCollider)
+                    {
+                        coll.enabled = false;
+                    }
                     _comboIndex = 0;
                     _isAttacking = false;
                     Animator.SetInteger(_animIDAttackIndex, _comboIndex);
+                }
+                else
+                {
+                    foreach (var coll in WeaponCollider)
+                    {
+                        coll.enabled = true;
+                    }
                 }
             }
             switch (CurrentCharacterState)

@@ -21,7 +21,7 @@ public class Trigger : MonoBehaviour
     {
         if (actions == null || actions.Count == 0)
         {
-            Debug.LogWarning("NO ACTION IN TRIGGER");
+            //Debug.LogWarning("NO ACTION IN TRIGGER");
         }
         if (!isActive)
         {

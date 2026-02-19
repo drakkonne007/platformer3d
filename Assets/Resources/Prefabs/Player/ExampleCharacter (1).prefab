@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 7990833783351922413}
   - component: {fileID: 525413389751921238}
   - component: {fileID: 9178533314517241036}
+  - component: {fileID: 5138965322945695567}
   m_Layer: 0
   m_Name: ExampleCharacter (1)
   m_TagString: Player
@@ -107,6 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Motor: {fileID: 525413389751921238}
   Animator: {fileID: 5460339899941767548}
+  PlayerLogic: {fileID: 0}
+  WeaponCollider:
+  - {fileID: 8472755083912304724}
   MaxStableMoveSpeed: 20
   StableMovementSharpness: 15
   OrientationSharpness: 20
@@ -198,6 +202,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5138965322945695567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751989099870031299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30571ef8aac1cd4db378cd10cd36d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyMaterialGold:
+  - {fileID: 2100000, guid: 34d3b3f06301db34ea14a71539be6cb0, type: 2}
+  bodyMaterialSilver:
+  - {fileID: 2100000, guid: 01e57f0dac27aca4fb49f06153ad6f71, type: 2}
+  cloakMaterialGold:
+  - {fileID: 2100000, guid: 34d3b3f06301db34ea14a71539be6cb0, type: 2}
+  cloakMaterialSilver:
+  - {fileID: 2100000, guid: 01e57f0dac27aca4fb49f06153ad6f71, type: 2}
+  hairMaterialGold:
+  - {fileID: 2100000, guid: 34d3b3f06301db34ea14a71539be6cb0, type: 2}
+  hairMaterialSilver:
+  - {fileID: 2100000, guid: 01e57f0dac27aca4fb49f06153ad6f71, type: 2}
+  body: {fileID: 3930207974022581023}
+  cloak: {fileID: 5835464330261939130}
+  hair: {fileID: 4429837436532211981}
 --- !u!1 &5808946424276574679
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,5 +527,10 @@ Transform:
 --- !u!137 &5835464330261939130 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7373927306290738416, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+  m_PrefabInstance: {fileID: 3940306853748733770}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8472755083912304724 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4844621882990833438, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
   m_PrefabInstance: {fileID: 3940306853748733770}
   m_PrefabAsset: {fileID: 0}

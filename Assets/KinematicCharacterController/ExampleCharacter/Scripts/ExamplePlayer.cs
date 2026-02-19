@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 
@@ -11,11 +12,23 @@ namespace KinematicCharacterController.Examples
         public ExampleCharacterController Character;
         public ExampleCharacterCamera CharacterCamera;
 
-        private const string MouseXInput = "Mouse X";
-        private const string MouseYInput = "Mouse Y";
-        private const string MouseScrollInput = "Mouse ScrollWheel";
-        private const string HorizontalInput = "Horizontal";
-        private const string VerticalInput = "Vertical";
+        private InputSystem_Actions _inputActions;
+        PlayerGameLogic playerGameLogic;
+        private void Awake()
+        {
+            playerGameLogic = GetComponent<PlayerGameLogic>();
+            _inputActions = new InputSystem_Actions();
+        }
+
+        private void OnEnable()
+        {
+            _inputActions.Player.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _inputActions.Player.Disable();
+        }
 
         private void Start()
         {
@@ -31,7 +44,7 @@ namespace KinematicCharacterController.Examples
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (_inputActions.Player.Attack.WasPressedThisFrame())
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -54,9 +67,10 @@ namespace KinematicCharacterController.Examples
         private void HandleCameraInput()
         {
             // Create the look input vector for the camera
-            float mouseLookAxisUp = Input.GetAxisRaw(MouseYInput);
-            float mouseLookAxisRight = Input.GetAxisRaw(MouseXInput);
-            Vector3 lookInputVector = new Vector3(mouseLookAxisRight, mouseLookAxisUp, 0f);
+            Vector2 lookInput = _inputActions.Player.Look.ReadValue<Vector2>();
+            // Apply sensitivity to match legacy behavior (approx 0.1)
+            lookInput *= 0.1f;
+            Vector3 lookInputVector = new Vector3(lookInput.x, lookInput.y, 0f);
 
             // Prevent moving the camera while the cursor isn't locked
             if (Cursor.lockState != CursorLockMode.Locked)
@@ -65,7 +79,19 @@ namespace KinematicCharacterController.Examples
             }
 
             // Input for zooming the camera (disabled in WebGL because it can cause problems)
-            float scrollInput = -Input.GetAxis(MouseScrollInput);
+            float scrollInput = 0f;
+            
+            // Use the new Zoom action
+            // Scroll values are typically 120 per click, legacy GetAxis is around 0.1 per click (depending heavily on setup).
+            // Input System passes raw values. 
+            // Let's try to normalize it. 
+            float zoomValue = _inputActions.Player.Zoom.ReadValue<float>();
+            // Scroll values are typically 120 per click.
+            // Legacy GetAxis was smoothed over multiple frames.
+            // Input System value is raw (1 frame). We need to increase impact.
+            // 120 * 0.01 = 1.2. 
+            scrollInput = -zoomValue * 0.01f;
+
 #if UNITY_WEBGL
         scrollInput = 0f;
 #endif
@@ -73,8 +99,8 @@ namespace KinematicCharacterController.Examples
             // Apply inputs to the camera
             CharacterCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector);
 
-            // Handle toggling zoom level
-            if (Input.GetMouseButtonDown(1))
+            // Handle toggling zoom level (Mapped to Right Click / Block in default Input Actions)
+            if (_inputActions.Player.Block.WasPressedThisFrame())
             {
                 CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
             }
@@ -85,13 +111,15 @@ namespace KinematicCharacterController.Examples
             PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
             // Build the CharacterInputs struct
-            characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
-            characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
+            Vector2 moveInput = _inputActions.Player.Move.ReadValue<Vector2>();
+            characterInputs.MoveAxisForward = moveInput.y;
+            characterInputs.MoveAxisRight = moveInput.x;
             characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
-            characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
-            characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
-            characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
-            characterInputs.AttackDown = Input.GetMouseButtonDown(0);
+            characterInputs.JumpDown = _inputActions.Player.Jump.WasPressedThisFrame();
+            characterInputs.CrouchDown = _inputActions.Player.Crouch.WasPressedThisFrame();
+            characterInputs.CrouchUp = _inputActions.Player.Crouch.WasReleasedThisFrame();
+            characterInputs.AttackDown = _inputActions.Player.Attack.WasPressedThisFrame();
+            characterInputs.ChangeColorDown = _inputActions.Player.ChangeColor.WasPressedThisFrame();
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);
