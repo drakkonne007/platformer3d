@@ -1,6 +1,13 @@
 using TMPro;
 using UnityEngine;
 
+public enum DamageType
+{
+    Gold = 1,
+    Silver = 2,
+    Phys = 4
+}
+
 public class MainHandler : MonoBehaviour
 {
 
@@ -12,6 +19,7 @@ public class MainHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoresTxt;
     [SerializeField] TextMeshProUGUI healthTxt;
 
+    
 
     public static MainHandler Instance;
     private void Awake()
@@ -37,7 +45,7 @@ public class MainHandler : MonoBehaviour
         money += value;
         scoresTxt.text = money.ToString();
     }
-    public void addHealth(float value)
+    public void addHealth(float value, DamageType type)
     {
         health += value;
         if(health <= 0)

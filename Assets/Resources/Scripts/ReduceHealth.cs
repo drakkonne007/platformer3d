@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class ReduceHealth : TriggerAction
 {
+    DamageType damageType = DamageType.Phys;
     public override void Action(Collider other) {
         try
         {
             var obj = other.GetComponentsInParent<ExampleCharacterController>();
-            MainHandler.Instance.addHealth(-5);
+            MainHandler.Instance.addHealth(-5, damageType);
         }
         catch
         {
