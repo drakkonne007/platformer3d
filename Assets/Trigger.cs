@@ -68,6 +68,7 @@ public class Trigger : MonoBehaviour
         }
         foreach (var action in actions)
         {
+            action?.ActionStay(other, Time.deltaTime);
             action?.Action(other);
         }
         if (isDeleteAfter)

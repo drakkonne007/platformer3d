@@ -28,6 +28,7 @@ namespace KinematicCharacterController.Examples
         public bool CrouchUp;
         public bool AttackDown;
         public bool ChangeColorDown;
+        public bool DashDown;
     }
 
     public struct AICharacterInputs
@@ -78,6 +79,11 @@ namespace KinematicCharacterController.Examples
         public Transform CameraFollowPoint;
         public float CrouchedCapsuleHeight = 1f;
 
+        [Header("Dash")]
+        public float DashSpeed = 30f;
+        public float DashDuration = 0.2f;
+        public float DashCooldown = 1f;
+
         public CharacterState CurrentCharacterState { get; private set; }
 
         private Collider[] _probedColliders = new Collider[8];
@@ -92,6 +98,11 @@ namespace KinematicCharacterController.Examples
         private Vector3 _internalVelocityAdd = Vector3.zero;
         private bool _shouldBeCrouching = false;
         private bool _isCrouching = false;
+
+        private float _dashTimer = 0f;
+        private float _dashCooldownTimer = 0f;
+        private bool _isDashing = false;
+        private Vector3 _dashDirection = Vector3.forward;
 
         // Combo & Attack
         private int _comboIndex = 0;
@@ -228,6 +239,14 @@ namespace KinematicCharacterController.Examples
                         else if (inputs.CrouchUp)
                         {
                             _shouldBeCrouching = false;
+                        }
+
+                        if (inputs.DashDown && _dashCooldownTimer <= 0f && !_isDashing)
+                        {
+                            _isDashing = true;
+                            _dashTimer = DashDuration;
+                            _dashCooldownTimer = DashCooldown;
+                            _dashDirection = Motor.CharacterForward;
                         }
 
                         break;
@@ -385,6 +404,28 @@ namespace KinematicCharacterController.Examples
                             currentVelocity *= (1f / (1f + (Drag * deltaTime)));
                         }
 
+                        if (_isDashing)
+                        {
+                            _dashTimer -= deltaTime;
+                            if (_dashTimer <= 0f)
+                            {
+                                _isDashing = false;
+                                // After dash, limit velocity to max speed to prevent excessive momentum in air
+                                if (!Motor.GroundingStatus.IsStableOnGround)
+                                {
+                                    currentVelocity = Vector3.ClampMagnitude(currentVelocity, MaxAirMoveSpeed);
+                                }
+                                else
+                                {
+                                    currentVelocity = Vector3.ClampMagnitude(currentVelocity, MaxStableMoveSpeed);
+                                }
+                            }
+                            else
+                            {
+                                currentVelocity = _dashDirection * DashSpeed;
+                            }
+                        }
+
                         // Handle jumping
                         _jumpedThisFrame = false;
                         _timeSinceJumpRequested += deltaTime;
@@ -457,6 +498,12 @@ namespace KinematicCharacterController.Examples
                     }
                 }
             }
+
+            if (_dashCooldownTimer > 0f)
+            {
+                _dashCooldownTimer -= deltaTime;
+            }
+
             switch (CurrentCharacterState)
             {
                 case CharacterState.Default:

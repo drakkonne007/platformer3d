@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Motor: {fileID: 525413389751921238}
   Animator: {fileID: 5460339899941767548}
-  PlayerLogic: {fileID: 0}
+  PlayerLogic: {fileID: 5138965322945695567}
   WeaponCollider:
   - {fileID: 8472755083912304724}
   MaxStableMoveSpeed: 20
@@ -133,6 +133,9 @@ MonoBehaviour:
   MeshRoot: {fileID: 2149398107274216686}
   CameraFollowPoint: {fileID: 7462966128903147469}
   CrouchedCapsuleHeight: 1
+  DashSpeed: 100
+  DashDuration: 0.1
+  DashCooldown: 1
 --- !u!114 &525413389751921238
 MonoBehaviour:
   m_ObjectHideFlags: 0

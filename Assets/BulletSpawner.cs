@@ -27,7 +27,6 @@ public class BulletSpawner : MonoBehaviour
     float lastMicroTick = 0;
     Transform player;
     int bulletIndex = 0;
-    Quaternion startRotation;
 
     void Start()
     {
@@ -37,6 +36,11 @@ public class BulletSpawner : MonoBehaviour
 
     void Update()
     {
+        if (spin && spawnMode == SpawnMode.Circle)
+        {
+            transform.Rotate(0, maxAngle * Time.deltaTime, 0);
+        }
+
         lastAction += Time.deltaTime;
         lastMicroTick += Time.deltaTime;
 
@@ -68,39 +72,13 @@ public class BulletSpawner : MonoBehaviour
         }
         else if (spawnMode == SpawnMode.Circle)
         {
-            if (spin)
+            // Shoot from all angles (Fan)
+            // If spin is enabled, the transform itself is continuously rotating in Update.
+            for (int i = 0; i < angleCount; i++)
             {
-                if (currentCount == 0)
-                {
-                    // First shot: align first angle to player
-                    Vector3 dir = GetDirectionToPlayer();
-                    transform.forward = dir;
-                    startRotation = transform.rotation;
-                    SpawnBullet(prefab, transform.position, dir);
-                }
-                else
-                {
-                    // Subsequent shots: rotate and shoot from all angles
-                    float currentRotationAngle = (currentCount / (float)bulletCount) * maxAngle;
-                    transform.rotation = startRotation * Quaternion.Euler(0, currentRotationAngle, 0);
-                    
-                    for (int i = 0; i < angleCount; i++)
-                    {
-                        float angle = i * (360f / angleCount);
-                        Vector3 direction = Quaternion.Euler(0, angle, 0) * transform.forward;
-                        SpawnBullet(prefab, transform.position, direction);
-                    }
-                }
-            }
-            else
-            {
-                // No spin: just shoot from all angles
-                for (int i = 0; i < angleCount; i++)
-                {
-                    float angle = i * (360f / angleCount);
-                    Vector3 direction = Quaternion.Euler(0, angle, 0) * transform.forward;
-                    SpawnBullet(prefab, transform.position, direction);
-                }
+                float angle = i * (360f / angleCount);
+                Vector3 direction = Quaternion.Euler(0, angle, 0) * transform.forward;
+                SpawnBullet(prefab, transform.position, direction);
             }
         }
     }

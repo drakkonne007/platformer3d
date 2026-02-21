@@ -120,6 +120,7 @@ namespace KinematicCharacterController.Examples
             characterInputs.CrouchUp = _inputActions.Player.Crouch.WasReleasedThisFrame();
             characterInputs.AttackDown = _inputActions.Player.Attack.WasPressedThisFrame();
             characterInputs.ChangeColorDown = _inputActions.Player.ChangeColor.WasPressedThisFrame();
+            characterInputs.DashDown = _inputActions.Player.Sprint.WasPressedThisFrame();
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);
