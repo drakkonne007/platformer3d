@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f262818b55b0f4418296bad0176bdab, type: 3}
+  m_Name: 1770613675
+  m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
+  <DialogueName>k__BackingField: 1770613675
+  <TextRu>k__BackingField: Dialogue text.
+  <TextEn>k__BackingField: Dialogue text.
+  <TextKg>k__BackingField: Dialogue text.
+  <TextCh>k__BackingField: Dialogue text.
+  <TextGm>k__BackingField: Dialogue text.
+  <DoSmth>k__BackingField: 0
+  <Predicate>k__BackingField: 1
+  <Final>k__BackingField: 0
+  <Choices>k__BackingField:
+  - <TextRu>k__BackingField: 
+    <TextEn>k__BackingField: 
+    <TextKg>k__BackingField: 
+    <TextCh>k__BackingField: 
+    <TextGm>k__BackingField: 
+    <DoSmth>k__BackingField: 0
+    <End>k__BackingField: 0
+    <Final>k__BackingField: 0
+    <NextDialogue>k__BackingField: {fileID: 0}
+  <DialogueType>k__BackingField: 1
+  <IsStartingDialogue>k__BackingField: 0
