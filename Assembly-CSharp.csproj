@@ -226,6 +226,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Shaders\Lava_Flowing_Shader\ReadMe.txt" />
     <None Include="Assets\Shaders\Free Slash VFX\Model\Katana\Katana License.txt" />
+    <None Include="Assets\Shaders\Blood_Effect\Blood Effect.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\Creatures\Ghost\Documents\readme_txt.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />

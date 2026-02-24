@@ -461,23 +461,29 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   throwPoint: {fileID: 0}
   dialogColllider_: {fileID: 0}
-  idleProbability: 30
-  citizen: 0
-  isTreater: 0
-  noDialog: 0
-  isRangeFirst: 0
   stanIcon: {fileID: 8234784493056493988}
   attackIcon: {fileID: 2735633039815759641}
   _dialogAttention: {fileID: 8123556626751382310}
   _dangerSaw: {fileID: 7161875094840943085}
   crystall_: {fileID: 0}
   _shadowNpc: {fileID: 2200115590516258362}
+  bloodParticles_: {fileID: 2217007224458897739, guid: af25060634c4fef4fb97d7397892fc67, type: 3}
+  idleProbability: 30
+  citizen: 0
+  isTreater: 0
+  noDialog: 0
+  hasSecondAttack: 0
+  isRangeFirst: 0
+  countSuperDash: 0
+  health: 100
+  armor: 10
   questHandler: {fileID: 0}
   _hitBar: {fileID: 0}
+  loots: []
   hitBoxColl_:
   - {fileID: 3615859935654119136}
-  dialogColl_: {fileID: 1076977546032459383}
   weaponColl_: []
+  dialogColl_: {fileID: 1076977546032459383}
   wasHit: 0
   wasSeen: 0
 --- !u!54 &1334612232287741665

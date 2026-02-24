@@ -1,0 +1,6 @@
+C:\platformer3d\Temp\bin\Debug\SingularityGroup.HotReload.Runtime.Public.dll
+C:\platformer3d\Temp\bin\Debug\SingularityGroup.HotReload.Runtime.Public.pdb
+C:\platformer3d\obj\Debug\SingularityGroup.HotReload.Runtime.Public.csproj.AssemblyReference.cache
+C:\platformer3d\obj\Debug\SingularityGroup.HotReload.Runtime.Public.csproj.CoreCompileInputs.cache
+C:\platformer3d\obj\Debug\SingularityGroup.HotReload.Runtime.Public.dll
+C:\platformer3d\obj\Debug\SingularityGroup.HotReload.Runtime.Public.pdb
