@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358579477562849585, guid: c53b397c978486544abfedb2c680e007, type: 3}
+      propertyPath: damageType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1312667827573572455, guid: c53b397c978486544abfedb2c680e007, type: 3}
       propertyPath: m_Name
       value: SilverBullet Variant
@@ -16,6 +20,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 1019dec167ec4814495e43f051c0bf49, type: 2}
+    - target: {fileID: 5753397439145744657, guid: c53b397c978486544abfedb2c680e007, type: 3}
+      propertyPath: damageType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5851882699848677543, guid: c53b397c978486544abfedb2c680e007, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.184394

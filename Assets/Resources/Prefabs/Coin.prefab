@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5086365702231780739}
   - component: {fileID: 7035852371974602125}
   - component: {fileID: 2863931632688798845}
+  - component: {fileID: 4569104594842263647}
   m_Layer: 6
   m_Name: Coin
   m_TagString: Untagged
@@ -100,10 +101,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1911
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -158,3 +159,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4569104594842263647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2862632930690371321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7598154371852045bc38d8ca57a0799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -63,8 +63,8 @@
   <ItemGroup>
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\DialogueSystem\Utilities\SerializableDictionary.cs" />
-    <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\FPSCounter.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\16- FramePerfect Rotation\Scripts\MyCharacterController.cs" />
+    <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\FPSCounter.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Examples\Scripts\BuildManager.cs" />
     <Compile Include="Assets\DialogueSystem\Enumerations\DSDialogueType.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\3- Jumping\Scripts\a- Simple Jumping\MyCharacterController.cs" />
@@ -148,8 +148,8 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\12- NoClip state\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\11- Charging state\Scripts\MyPlayer.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\10- Multiple movement states setup\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\Scripts\DQuestSystem\DQuestTriggerParent.cs" />
@@ -167,6 +167,7 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\14- Climbing Ladders\Scripts\MyLadder.cs" />
     <Compile Include="Assets\Scripts\DUtils.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\1- Player Camera Character Setup\Scripts\MyCharacterController.cs" />
+    <Compile Include="Assets\MagnetWalker.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\AttackerController.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Assets\Scripts\Trigger.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\2- Basic Movement and Gravity\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Examples\Scripts\FrameratePanel.cs" />
+    <Compile Include="Assets\EnemyThrowBullet.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\Projectile.cs" />

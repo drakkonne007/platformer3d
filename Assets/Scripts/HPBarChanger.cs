@@ -94,4 +94,20 @@ public class HPBarChanger : MonoBehaviour
             backImage.color = col;
         }
     }
+
+    private Transform mainCameraTransform;
+
+    private void LateUpdate()
+    {
+        if (mainCameraTransform == null)
+        {
+            mainCameraTransform = Camera.main.transform;
+        }
+
+        if (mainCameraTransform != null)
+        {
+            transform.LookAt(transform.position + mainCameraTransform.rotation * Vector3.forward,
+                             mainCameraTransform.rotation * Vector3.up);
+        }
+    }
 }

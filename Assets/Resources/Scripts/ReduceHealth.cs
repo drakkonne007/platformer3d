@@ -7,27 +7,22 @@ public class ReduceHealth : TriggerAction
 {
     [SerializeField] DamageType damageType = DamageType.Phys;
     [SerializeField] float damage = 1;
-    public override void Action(Collider other) {
-        try
+    public override void Action(Collider other)
+    {
+        var obj = other.GetComponentsInParent<ExampleCharacterController>();
+        if (obj != null)
         {
-            var obj = other.GetComponentsInParent<ExampleCharacterController>();
             MainHandler.Instance.addHealth(-damage, damageType);
         }
-        catch
-        {
-
-        }        
     }
 
-    public override void ActionStay(Collider other, float time) {
-        try
+    public override void ActionStay(Collider other, float time)
+    {
+        var obj = other.GetComponentsInParent<ExampleCharacterController>();
+        if (obj != null)
         {
-            var obj = other.GetComponentsInParent<ExampleCharacterController>();
             MainHandler.Instance.addHealth(-damage * time, damageType);
         }
-        catch
-        {
 
-        }
     }
 }

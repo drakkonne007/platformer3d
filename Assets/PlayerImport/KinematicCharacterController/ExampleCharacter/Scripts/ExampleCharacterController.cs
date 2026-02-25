@@ -131,8 +131,29 @@ namespace KinematicCharacterController.Examples
             {
                 PlayerLogic = GetComponentInChildren<PlayerGameLogic>();
             }
+            foreach(var coll in WeaponCollider)
+            {
+                coll.GetComponent<ColliderStarter>().OnEnter += attack;
+            }
         }
 
+        void OnDestroy()
+        {
+            foreach (var coll in WeaponCollider)
+            {
+                coll.GetComponent<ColliderStarter>().OnEnter -= attack;
+            }
+        }
+
+        void attack(Collider other)
+        {
+            GiantAI.GiantAI enemy = other.transform.root.GetComponent<GiantAI.GiantAI>();
+            if (enemy != null)
+            {
+                enemy.doHurt(10, other.ClosestPointOnBounds(transform.position), inArmor: false, isPlayer: true);
+            }
+
+        }
         /// <summary>
         /// Handles movement state transitions and enter/exit callbacks
         /// </summary>

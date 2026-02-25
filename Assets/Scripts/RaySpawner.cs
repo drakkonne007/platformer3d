@@ -220,7 +220,7 @@ public class RaySpawner : MonoBehaviour
         System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
         bool hasHit = false;
-        
+
         foreach (var hit in hits)
         {
             bool ignoreThisHit = false;
@@ -228,7 +228,7 @@ public class RaySpawner : MonoBehaviour
             // Check if hit object is the player
             if (hit.collider.CompareTag("Player") || (player != null && hit.collider.transform.root == player.root))
             {
-                PlayerGameLogic pgl = hit.collider.GetComponentInParent<PlayerGameLogic>();
+                PlayerGameLogic pgl = hit.collider.transform.root.GetComponent<PlayerGameLogic>();
                 if (pgl == null && player != null)
                 {
                     pgl = player.GetComponent<PlayerGameLogic>();
@@ -237,7 +237,7 @@ public class RaySpawner : MonoBehaviour
                 if (pgl != null)
                 {
                     bool isPlayerGold = pgl.isGold();
-                    
+
                     // Ignore if player is gold and ray is gold
                     if (isPlayerGold && rayType == RayType.Gold)
                     {
@@ -250,18 +250,16 @@ public class RaySpawner : MonoBehaviour
                     }
                 }
             }
+            if (hit.collider.transform.root.GetComponent<GiantAI.GiantAI>() != null)
+            {
+                ignoreThisHit = true;
+            }
 
             if (!ignoreThisHit)
             {
                 // This is the first valid hit that we should stop at
                 hasHit = true;
                 endPos = hit.point;
-
-                if (hit.collider.CompareTag("Player") || (player != null && hit.collider.transform.root == player.root))
-                {
-                    Debug.Log("врезался");
-                }
-                
                 break;
             }
         }

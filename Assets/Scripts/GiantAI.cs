@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using KinematicCharacterController.Examples;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -97,6 +99,27 @@ namespace GiantAI
             actionParent.doSmth = changeDialog;
             dialogColl_.GetComponent<ColliderStarter>().OnEnter += OnDialogEnter;
             dialogColl_.GetComponent<ColliderStarter>().OnExit += OnDialogExit;
+
+            foreach(var coll in weaponColl_)
+            {
+                coll.GetComponent<ColliderStarter>().OnEnter += doHit;
+            }
+            maxHp_ = health;
+        }
+        private void OnDestroy()
+        {
+            foreach (var coll in weaponColl_)
+            {
+                coll.GetComponent<ColliderStarter>().OnEnter -= doHit;
+            }
+        }
+        void doHit(Collider other)
+        {
+            ExampleCharacterController player = other.transform.root.GetComponentInParent<ExampleCharacterController>();
+            if (player != null)
+            {
+                MainHandler.Instance.addHealth(-10, DamageType.Phys);
+            }
         }
         void changeDialog()
         {
@@ -212,10 +235,7 @@ namespace GiantAI
                 _shadowNpc.SetActive(true);
             }
         }
-        virtual public void doBlood(Vector3 pos)
-        {
-            var temp = Instantiate(bloodParticles_, pos, Quaternion.identity, transform);
-        }
+        
         public bool internalPhysHurt(float hurt, bool inArmor, Vector3 pos, bool needCountDamage = true)
         {
             
@@ -257,8 +277,7 @@ namespace GiantAI
                 }
                 if (health > 1)
                 {
-                    createSpecEffect();
-                    doBlood(pos);
+                    createSpecEffect(pos);                    
                 }
             }
             else
@@ -269,7 +288,7 @@ namespace GiantAI
                 }
                 if (health > 1)
                 {
-                    createSpecEffect();
+                    createSpecEffect(pos);
                 }
             }
             if (health != maxHp_)
@@ -282,19 +301,41 @@ namespace GiantAI
         {
             return true;
         }
-        void createSpecEffect()
+        void createSpecEffect(Vector3 pos)
         {
-            //flashWhite.Flash();
+            var temp = Instantiate(bloodParticles_, pos, Quaternion.identity);
             _hitBar.SetHealth(health / maxHp_);
-
             // gameRef.gameMap?.skyTile.add(HitText(health.toStringAsFixed(0), position: Vector2(position.x, position.y + highQuest - 30)));
             // gameRef.gameMap!.container.add(ddText);
+        }
+        public void CallNearEnemies()
+        {
+            if (wasSeen) return;
+            wasSeen = true;
+
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange - detectionRange/3);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.gameObject == gameObject) continue;
+                
+                GiantAI neighbor = hitCollider.transform.root.GetComponent<GiantAI>();
+                if (neighbor != null)
+                {
+                    neighbor.CallNearEnemies();
+                }
+            }
         }
         virtual public void doHurt(float hurt, Vector3 pos, bool inArmor = true, bool isPlayer = false)
         {
             if (rpgState_ == RpgState.Death)
             {
                 return;
+            }
+            if(isPlayer)
+            {
+                CallNearEnemies();
+                wasSeen = true;
+                needSeeSplash = false;
             }
             if (attackIcon.activeInHierarchy)
             {
@@ -314,11 +355,6 @@ namespace GiantAI
                 {
                     coll.enabled = false;
                 }
-            }
-            if (isPlayer)
-            {
-                wasSeen = true;
-                needSeeSplash = false;
             }
             if (skipAllDamage())
             {
@@ -422,6 +458,45 @@ namespace GiantAI
                 //    worldName: _worldName,
                 //    used: true);
             //}
+            StartCoroutine(FadeAndDestroy());
+        }
+        
+        private IEnumerator FadeAndDestroy()
+        {
+            yield return new WaitForSeconds(3f);
+
+            // Cleanup physics to allow sinking
+            if (agent != null) agent.enabled = false;
+            
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+                rb.useGravity = false;
+            }
+
+            Collider mainColl = GetComponent<Collider>();
+            if (mainColl != null) mainColl.enabled = false;
+
+            float duration = 2f;
+            float elapsed = 0f;
+            Vector3 initialScale = transform.localScale;
+            Vector3 targetScale = Vector3.zero;
+            Vector3 initialPos = transform.position;
+            Vector3 targetPos = initialPos + Vector3.down * 1.5f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / duration;
+
+                transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
+                transform.position = Vector3.Lerp(initialPos, targetPos, t);
+
+                yield return null;
+            }
+
+            Destroy(gameObject);
         }
         virtual public bool skipAllDamage()
         {
@@ -484,7 +559,7 @@ namespace GiantAI
         {
             if (Time.time < nextDecisionTime) return;
             
-            nextDecisionTime = Time.time + 1f;
+            nextDecisionTime = Time.time + (!wasSeen && !wasHit ? 1 : 0.2f);
 
             if (citizen)
             {
@@ -539,10 +614,22 @@ namespace GiantAI
             int random = UnityEngine.Random.Range(0, 2);
             if (random != 0 || wasHit)
             {
-                SafeSetStopped(false);
+                SafeSetStopped(false); 
                 if (isSee && player != null)
                 {
-                    agent.SetDestination(player.position);
+                    Vector3 targetPos = player.position;
+                    Vector3 direction = (transform.position - player.position).normalized;
+                    if (direction != Vector3.zero)
+                    {
+                        targetPos += direction * (attackDistance * 0.5f);
+                    }
+                    agent.SetDestination(targetPos);
+
+                    float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+                    if (distanceToPlayer < attackDistance)
+                    {
+                        wasHit = true;
+                    }
                 }
                 else
                 {
@@ -563,6 +650,7 @@ namespace GiantAI
             {
                 SwitchToState(RpgState.Idle);
             }
+            
         }
 
         private void FindPlayer(AnimatorStateInfo stateInfo)
@@ -576,17 +664,42 @@ namespace GiantAI
                 Vector3 origin = transform.position + Vector3.up * 1f; // Offset from ground 
                 Vector3 targetCenter = target.bounds.center;
                 
-                int defaultLayerMask = LayerMask.GetMask("Default");
-                if (Physics.Linecast(origin, targetCenter, defaultLayerMask))
+                Vector3 dir = targetCenter - origin;
+                float dist = dir.magnitude;
+                int combinedMask = playerLayer.value | LayerMask.GetMask("Default");
+                
+                RaycastHit[] hits = Physics.RaycastAll(origin, dir.normalized, dist, combinedMask, QueryTriggerInteraction.Collide);
+                System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+                
+                bool canSeePlayer = false;
+                foreach (var h in hits)
                 {
-                    // Hit an obstacle on the Default layer
-                    continue; 
+                    if (h.transform.IsChildOf(transform)) continue; // ignore self
+                    
+                    bool isPlayerLayer = (playerLayer.value & (1 << h.collider.gameObject.layer)) != 0;
+                    
+                    if (isPlayerLayer || h.transform.IsChildOf(target.transform))
+                    {
+                        canSeePlayer = true;
+                        break;
+                    }
+                    
+                    // IF we hit something else on Default (like a wall or another enemy), LOS is blocked
+                    // BUT ignore it if it's a trigger, because we only want solid objects to block LOS
+                    if (h.collider.isTrigger) continue;
+                    
+                    break;
                 }
+                
+                if (!canSeePlayer) continue;
 
-                Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+                Vector3 directionToTarget = target.transform.position - transform.position;
                 directionToTarget.y = 0;
+                if (directionToTarget != Vector3.zero) directionToTarget.Normalize();
+                
                 Vector3 forward = transform.forward;
                 forward.y = 0;
+                if (forward != Vector3.zero) forward.Normalize();
                 
                 float angle = Vector3.Angle(forward, directionToTarget);
                 if (angle <= 55f) // 110 degrees total (55 degrees left and right)
@@ -595,6 +708,7 @@ namespace GiantAI
                     if (!wasSeen && needSeeSplash)
                     {
                         if (_dangerSaw != null) _dangerSaw.SetActive(true);
+                        CallNearEnemies();
                         Invoke(nameof(HideDangerSaw), 1.5f);
                     }
                     wasSeen = true;
@@ -609,7 +723,13 @@ namespace GiantAI
             if (!agent.isOnNavMesh) return;
             if (player == null) return;
             
-            agent.SetDestination(player.position);
+            Vector3 targetPos = player.position;
+            Vector3 direction = (transform.position - player.position).normalized;
+            if (direction != Vector3.zero)
+            {
+                targetPos += direction * (attackDistance * 0.5f);
+            }
+            agent.SetDestination(targetPos);
             SafeSetStopped(false);
             
             float distance = Vector3.Distance(transform.position, player.position);
@@ -702,7 +822,7 @@ namespace GiantAI
             if (agent == null || animator == null) return;
 
             bool isNavMeshActive = agent.isActiveAndEnabled && agent.isOnNavMesh;
-            bool isMoving = isNavMeshActive && agent.hasPath && agent.remainingDistance > 0.1f && !agent.isStopped;
+            bool isMoving = isNavMeshActive && agent.hasPath && agent.remainingDistance > attackDistance/2 && !agent.isStopped;
 
             animator.SetBool("walk", isMoving);
             animator.SetBool("idle", !isMoving);
