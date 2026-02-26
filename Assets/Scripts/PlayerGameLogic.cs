@@ -46,18 +46,18 @@ public class PlayerGameLogic : MonoBehaviour
     }
     void changeColor()
     {
-        if (isGold_)
-        {
-            body.SetMaterials(bodyMaterialGold);
-            cloak.SetMaterials(cloakMaterialGold);
-            hair.SetMaterials(hairMaterialGold);
-        }
-        else
-        {
-            body.SetMaterials(bodyMaterialSilver);
-            cloak.SetMaterials(cloakMaterialSilver);
-            hair.SetMaterials(hairMaterialSilver);
-        }
+        //if (isGold_)
+        //{
+        //    body?.SetMaterials(bodyMaterialGold);
+        //    cloak?.SetMaterials(cloakMaterialGold);
+        //    hair?.SetMaterials(hairMaterialGold);
+        //}
+        //else
+        //{
+        //    body?.SetMaterials(bodyMaterialSilver);
+        //    cloak?.SetMaterials(cloakMaterialSilver);
+        //    hair?.SetMaterials(hairMaterialSilver);
+        //}
     }
     public bool isGold()
     {
