@@ -259,11 +259,11 @@ namespace KinematicCharacterController.Examples
                                 break;
                             case OrientationMethod.TowardsMovement:
                                 _lookInputVector = _moveInputVector.normalized;
-                                break;
+                                break; 
                         }
 
                         // Jumping input
-                        if (inputs.JumpDown && !_isAttacking && !_isBlocking)
+                        if (inputs.JumpDown && !_isBlocking)
                         {
                             _timeSinceJumpRequested = 0f;
                             _jumpRequested = true;
@@ -286,7 +286,7 @@ namespace KinematicCharacterController.Examples
                             _shouldBeCrouching = false;
                         }
 
-                        if (inputs.DashDown && _dashCooldownTimer <= 0f && !_isDashing && !_isAttacking && !_isBlocking)
+                        if (inputs.DashDown && _dashCooldownTimer <= 0f && !_isDashing && !_isBlocking)
                         {
                             _isDashing = true;
                             _dashTimer = DashDuration;
@@ -503,7 +503,7 @@ namespace KinematicCharacterController.Examples
                         // Handle jumping
                         _jumpedThisFrame = false;
                         _timeSinceJumpRequested += deltaTime;
-                        if (_jumpRequested && !_isAttacking && !_isBlocking)
+                        if (_jumpRequested && !_isBlocking)
                         {
                             // See if we actually are allowed to jump
                             if (!_jumpConsumed && ((AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround) || _timeSinceLastAbleToJump <= JumpPostGroundingGraceTime))
