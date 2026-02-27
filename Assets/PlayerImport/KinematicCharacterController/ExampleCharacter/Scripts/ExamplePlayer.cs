@@ -98,12 +98,6 @@ namespace KinematicCharacterController.Examples
 
             // Apply inputs to the camera
             CharacterCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector);
-
-            // Handle toggling zoom level (Mapped to Right Click / Block in default Input Actions)
-            if (_inputActions.Player.Block.WasPressedThisFrame())
-            {
-                CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
-            }
         }
 
         private void HandleCharacterInput()
@@ -121,6 +115,7 @@ namespace KinematicCharacterController.Examples
             characterInputs.AttackDown = _inputActions.Player.Attack.WasPressedThisFrame();
             characterInputs.ChangeColorDown = _inputActions.Player.ChangeColor.WasPressedThisFrame();
             characterInputs.DashDown = _inputActions.Player.Sprint.WasPressedThisFrame();
+            characterInputs.BlockDown = _inputActions.Player.Block.IsPressed();
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);

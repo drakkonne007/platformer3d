@@ -29,7 +29,6 @@ public class Fan : TriggerAction
         }
         if(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().linearVelocity.y < 0)
         {
-            print("Hoho");
             var temp = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().linearVelocity;
             GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().linearVelocity = new Vector3(temp.x,0,temp.z);
         }

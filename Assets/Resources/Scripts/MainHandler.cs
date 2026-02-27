@@ -212,7 +212,7 @@ public class MainHandler : MonoBehaviour
         if(health <= 0)
         {
             lives--;
-            if(lives < 0)
+            if(lives < 0 && false)
             {
                 Time.timeScale = 0;
                 Debug.Log("Game is end");

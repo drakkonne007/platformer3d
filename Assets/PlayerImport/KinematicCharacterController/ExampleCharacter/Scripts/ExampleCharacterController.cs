@@ -29,6 +29,7 @@ namespace KinematicCharacterController.Examples
         public bool AttackDown;
         public bool ChangeColorDown;
         public bool DashDown;
+        public bool BlockDown;
     }
 
     public struct AICharacterInputs
@@ -109,6 +110,7 @@ namespace KinematicCharacterController.Examples
         // Combo & Attack
         private int _comboIndex = 0;
         private bool _isAttacking;
+        private bool _isBlocking;
 
         // Animator Hashes
         private readonly int _animIDSpeed = Animator.StringToHash("Speed");
@@ -119,6 +121,7 @@ namespace KinematicCharacterController.Examples
         private readonly int _animIDAttack = Animator.StringToHash("Attack");
         private readonly int _animIDAttackIndex = Animator.StringToHash("AttackIndex");
         private readonly int _animRun = Animator.StringToHash("Run");
+        private readonly int _animBlock = Animator.StringToHash("Block");
 
         private void Awake()
         {
@@ -225,6 +228,24 @@ namespace KinematicCharacterController.Examples
                             Animator.ResetTrigger(_animIDAttack);
                         }
 
+                        _isBlocking = inputs.BlockDown;
+                        if (Animator)
+                        {
+                            Animator.SetBool(_animBlock, _isBlocking);
+                        }
+
+                        if (_isAttacking || _isBlocking)
+                        {
+                            if (MaxStableMoveSpeed > 0f)
+                            {
+                                _moveInputVector = Vector3.ClampMagnitude(_moveInputVector, 0.5f / MaxStableMoveSpeed);
+                            }
+                            else
+                            {
+                                _moveInputVector = Vector3.zero;
+                            }
+                        }
+
                         if (inputs.ChangeColorDown && PlayerLogic != null)
                         {
                             PlayerLogic.changeMaterial();
@@ -264,7 +285,7 @@ namespace KinematicCharacterController.Examples
                             _shouldBeCrouching = false;
                         }
 
-                        if (inputs.DashDown && _dashCooldownTimer <= 0f && !_isDashing)
+                        if (inputs.DashDown && _dashCooldownTimer <= 0f && !_isDashing && !_isAttacking && !_isBlocking)
                         {
                             _isDashing = true;
                             _dashTimer = DashDuration;
@@ -531,8 +552,14 @@ namespace KinematicCharacterController.Examples
             if (Animator)
             {
                 AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
-                if (!stateInfo.IsName("Attack01") && !stateInfo.IsName("Attack02") &&
-                    !stateInfo.IsName("Attack03") && !stateInfo.IsName("Attack04"))
+                AnimatorStateInfo nextStateInfo = Animator.GetNextAnimatorStateInfo(0);
+                
+                bool inAttackState = stateInfo.IsName("Attack01") || stateInfo.IsName("Attack02") ||
+                                     stateInfo.IsName("Attack03") || stateInfo.IsName("Attack04");
+                bool transitioningToAttack = nextStateInfo.IsName("Attack01") || nextStateInfo.IsName("Attack02") ||
+                                             nextStateInfo.IsName("Attack03") || nextStateInfo.IsName("Attack04");
+
+                if (!inAttackState && !transitioningToAttack)
                 {
                     foreach (var coll in WeaponCollider)
                     {

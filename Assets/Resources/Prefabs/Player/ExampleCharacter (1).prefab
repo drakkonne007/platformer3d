@@ -215,7 +215,7 @@ MonoBehaviour:
   MaxStableSlopeAngle: 60
   StableGroundLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   DiscreteCollisionEvents: 0
   StepHandling: 2
   MaxStepHeight: 0.5
@@ -262,7 +262,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &5138965322945695567
 MonoBehaviour:
   m_ObjectHideFlags: 0

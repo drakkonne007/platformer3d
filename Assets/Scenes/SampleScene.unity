@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -958,16 +958,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 576118fa53778b34597e4f0f357a803e, type: 2}
     - target: {fileID: 5866666021909216657, guid: 711fc5aeb542f8347881b458aa15f09b, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Thumb.r'\n\tTransform 'Ring.R'\n\tTransform
-        'Pinky.R'\n\tTransform 'Ring.R.001'\n\tTransform 'Index.r'\n\tTransform 'Arm.R'\n\tTransform
-        'Foot.r'\n\tTransform 'Shin.r'\n\tTransform 'Hand.L'\n\tTransform 'Pinky.L.001'\n\tand
-        more ...\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom
-        animation clip 'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation
-        clip 'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip
-        'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom
-        animation clip 'mixamo.com'\n\tand more ..."
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1206,7 +1197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9137904178190238727, guid: 20818fda9cf85f94ca4d9803d50fb8d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.1200008
+      value: -21.91
       objectReference: {fileID: 0}
     - target: {fileID: 9137904178190238727, guid: 20818fda9cf85f94ca4d9803d50fb8d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1214,7 +1205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9137904178190238727, guid: 20818fda9cf85f94ca4d9803d50fb8d8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -38.829998
+      value: -7.99
       objectReference: {fileID: 0}
     - target: {fileID: 9137904178190238727, guid: 20818fda9cf85f94ca4d9803d50fb8d8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4182,6 +4173,10 @@ PrefabInstance:
       propertyPath: _meshRoot
       value: 
       objectReference: {fileID: 950615000}
+    - target: {fileID: 9178533314517241036, guid: c393ada98a34bbc4ea52f9c4da1738ca, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5117901054876690076, guid: c393ada98a34bbc4ea52f9c4da1738ca, type: 3}
