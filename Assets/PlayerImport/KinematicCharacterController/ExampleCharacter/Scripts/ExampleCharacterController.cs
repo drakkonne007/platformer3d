@@ -118,6 +118,7 @@ namespace KinematicCharacterController.Examples
         private readonly int _animIDHorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
         private readonly int _animIDJump = Animator.StringToHash("Jump");
         private readonly int _animIDGrounded = Animator.StringToHash("Grounded");
+        private readonly int _animIDFly = Animator.StringToHash("InAir");
         private readonly int _animIDAttack = Animator.StringToHash("Attack");
         private readonly int _animIDAttackIndex = Animator.StringToHash("AttackIndex");
         private readonly int _animRun = Animator.StringToHash("Run");
@@ -262,7 +263,7 @@ namespace KinematicCharacterController.Examples
                         }
 
                         // Jumping input
-                        if (inputs.JumpDown)
+                        if (inputs.JumpDown && !_isAttacking && !_isBlocking)
                         {
                             _timeSinceJumpRequested = 0f;
                             _jumpRequested = true;
@@ -502,7 +503,7 @@ namespace KinematicCharacterController.Examples
                         // Handle jumping
                         _jumpedThisFrame = false;
                         _timeSinceJumpRequested += deltaTime;
-                        if (_jumpRequested)
+                        if (_jumpRequested && !_isAttacking && !_isBlocking)
                         {
                             // See if we actually are allowed to jump
                             if (!_jumpConsumed && ((AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround) || _timeSinceLastAbleToJump <= JumpPostGroundingGraceTime))
@@ -643,7 +644,7 @@ namespace KinematicCharacterController.Examples
                 // Convert world velocity to local character space 
                 // to get Forward (Z) and Right (X) components for the BlendTree
                 Vector3 localVelocity = transform.InverseTransformDirection(Motor.Velocity);
-                float speed = Motor.Velocity.magnitude;
+                float speed = new Vector2(Motor.Velocity.x, Motor.Velocity.z).magnitude;
 
                 // Sync parameters:
                 // Speed (X Axis in BlendTree) -> Local Right/Left
@@ -655,6 +656,20 @@ namespace KinematicCharacterController.Examples
 
                 // Sync 'Run' bool based on movement
                 Animator.SetBool(_animRun, speed > 0.1f);
+
+                // Delayed falling animation
+                if (!Motor.GroundingStatus.IsStableOnGround && _timeSinceLastAbleToJump > 0.8f)
+                {
+                    AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+                    AnimatorStateInfo nextStateInfo = Animator.GetNextAnimatorStateInfo(0);
+                    bool alreadyInAir = stateInfo.IsName("JumpStart") || stateInfo.IsName("AirFly") || stateInfo.IsName("JumpEnd") ||
+                                        nextStateInfo.IsName("JumpStart") || nextStateInfo.IsName("AirFly") || nextStateInfo.IsName("JumpEnd");
+                    
+                    if (!alreadyInAir)
+                    {
+                        Animator.SetBool(_animIDFly, true);
+                    }
+                }
             }
         }
 
@@ -715,6 +730,8 @@ namespace KinematicCharacterController.Examples
             if (Animator)
             {
                 Animator.SetTrigger(_animIDGrounded);
+                Animator.ResetTrigger(_animIDJump);
+                Animator.SetBool(_animIDFly, false);
             }
         }
 

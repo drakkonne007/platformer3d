@@ -79,7 +79,10 @@ namespace GiantAI
         ActionParent actionParent;
         NavMeshAgent agent;
         Animator animator;
+        Rigidbody rb;
         Transform player;
+        private bool _isApplyingPhysics = false;
+        private float _impactRecoveryTimer = 0f;
         private enum RpgState
         {
             Move,
@@ -95,6 +98,7 @@ namespace GiantAI
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
+            rb = GetComponent<Rigidbody>();
             actionParent = gameObject.AddComponent<ActionParent>();
             actionParent.doSmth = changeDialog;
             dialogColl_.GetComponent<ColliderStarter>().OnEnter += OnDialogEnter;
@@ -505,6 +509,28 @@ namespace GiantAI
         private void Update()
         {
             if (rpgState_ == RpgState.Death) return;
+
+            if (_isApplyingPhysics)
+            {
+                _impactRecoveryTimer -= Time.deltaTime;
+                // Wait at least a bit before recovering, and wait until we stop moving significantly
+                if (_impactRecoveryTimer <= 0f && rb.linearVelocity.magnitude < 0.2f)
+                {
+                    // Check if we are on the ground
+                    if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out RaycastHit hit, 0.5f))
+                    {
+                        // Try to snap back to NavMesh
+                        if (NavMesh.SamplePosition(transform.position, out NavMeshHit navHit, 2f, NavMesh.AllAreas))
+                        {
+                            _isApplyingPhysics = false;
+                            rb.isKinematic = true;
+                            agent.enabled = true;
+                            agent.Warp(navHit.position);
+                        }
+                    }
+                }
+                return; // Skip normal AI logic while flying/falling
+            }
             
             if (stanIcon != null && stanIcon.activeInHierarchy)
             {
@@ -835,6 +861,25 @@ namespace GiantAI
             {
                 GameObject proj = Instantiate(projectilePrefab, throwPoint.position, throwPoint.rotation);
                 // Add velocity to proj if needed, e.g. proj.GetComponent<Rigidbody>().velocity = ...
+            }
+        }
+
+        public void ApplyImpact(Vector3 force)
+        {
+            if (rpgState_ == RpgState.Death) return;
+
+            _isApplyingPhysics = true;
+            _impactRecoveryTimer = 0.5f; // Minimum time in physics mode
+
+            agent.enabled = false;
+            rb.isKinematic = false;
+            rb.useGravity = true;
+
+            rb.AddForce(force, ForceMode.Impulse);
+
+            if (animator != null)
+            {
+                animator.SetTrigger("hurt");
             }
         }
 
