@@ -28,7 +28,6 @@ namespace GiantAI
         [Header("References")]
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private Transform throwPoint;
-        [SerializeField] private Collider dialogColllider_;
         [Space(5)]
         [SerializeField] public GameObject stanIcon;
         [SerializeField] public GameObject attackIcon;
@@ -770,6 +769,14 @@ namespace GiantAI
             rpgState_ = RpgState.Attack;
             SafeSetStopped(true);
             FacePlayer();
+            if (hasSecondAttack)
+            {
+                animator.SetFloat("attackIndex", UnityEngine.Random.value < 0.5 ? 0 : 1);
+            }
+            else
+            {
+                animator.SetFloat("attackIndex", 0);
+            }
             animator.SetTrigger("attack");
             
             // Attack Icon Logic (Random 1 in 3 chance)
