@@ -1,39 +1,46 @@
 using UnityEngine;
+using KinematicCharacterController;
 
-public class PushTrap : MonoBehaviour
+[RequireComponent(typeof(PhysicsMover))]
+public class PushTrap : MonoBehaviour, IMoverController
 {
-
     [SerializeField] float speed = 1;
     [SerializeField] GameObject start;
     [SerializeField] GameObject end;
 
+    private PhysicsMover _mover;
+
     Vector3 positionStart = new(), positionEnd = new();
-    bool isEnd = false;
+    bool isGoingToEnd = true;
+
+    private void Awake()
+    {
+        _mover = GetComponent<PhysicsMover>();
+        _mover.MoverController = this;
+    }
 
     void Start()
     {
         positionStart = start.transform.position;
         positionEnd = end.transform.position;
-        start.SetActive(false);
-        end.SetActive(false);
+        
+        if (start != null) start.SetActive(false);
+        if (end != null) end.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    // This is called by the PhysicsMover to determine the next position and rotation
+    public void UpdateMovement(out Vector3 goalPosition, out Quaternion goalRotation, float deltaTime)
     {
-        Vector3 target;
-        if (isEnd)
+        goalRotation = transform.rotation;
+
+        Vector3 target = isGoingToEnd ? positionEnd : positionStart;
+        
+        // Use move towards on the current position
+        goalPosition = Vector3.MoveTowards(transform.position, target, speed * deltaTime);
+
+        if (Vector3.Distance(goalPosition, target) < 0.1f)
         {
-            target = positionStart;
-        }
-        else
-        {
-            target = positionEnd;
-        }
-        transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * speed);
-        if(Vector3.Distance(transform.position, target) < 0.5f)
-        {
-            isEnd = !isEnd;
+            isGoingToEnd = !isGoingToEnd;
         }
     }
 }

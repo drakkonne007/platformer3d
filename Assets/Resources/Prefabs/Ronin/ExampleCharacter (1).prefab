@@ -168,16 +168,16 @@ MonoBehaviour:
   WeaponCollider: []
   DashEffect: {fileID: 2735234480680728544}
   DashParticles: {fileID: 9198201911609640764}
-  MaxStableMoveSpeed: 20
-  StableMovementSharpness: 15
-  OrientationSharpness: 20
+  MaxStableMoveSpeed: 10
+  StableMovementSharpness: 10
+  OrientationSharpness: 10
   OrientationMethod: 1
-  MaxAirMoveSpeed: 15
-  AirAccelerationSpeed: 30
-  Drag: 0
+  MaxAirMoveSpeed: 10
+  AirAccelerationSpeed: 100
+  Drag: 1
   isFly: 0
-  AllowJumpingWhenSliding: 1
-  JumpUpSpeed: 14
+  AllowJumpingWhenSliding: 0
+  JumpUpSpeed: 17
   JumpScalableForwardSpeed: 0
   JumpPreGroundingGraceTime: 0.1
   JumpPostGroundingGraceTime: 0.1

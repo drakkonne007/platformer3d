@@ -12,6 +12,10 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] int angleCount = 2;
     [SerializeField] bool spin = false;
     [SerializeField] float maxAngle = 90f;
+    
+    [Header("Sniper")]
+    [SerializeField] float aimRadius = 10f;
+    [SerializeField] Vector3 aimCenterOffset;
 
     [Header("Default")]
     [SerializeField] List<GameObject> bullets;
@@ -48,6 +52,19 @@ public class BulletSpawner : MonoBehaviour
         {
             if (currentCount < bulletCount && lastMicroTick >= microTick)
             {
+                if (spawnMode == SpawnMode.Sniper && player != null)
+                {
+                    Vector3 detectionCenter = transform.position + transform.TransformDirection(aimCenterOffset);
+                    float distance = Vector3.Distance(detectionCenter, player.position);
+                    if (distance > aimRadius)
+                    {
+                        // Player is outside radius, skip this burst cycle or just wait?
+                        // User said "not shoot", so we just don't call Shoot().
+                        // But we should probably reset the cycle counters if we want it to "try again" later.
+                        return; 
+                    }
+                }
+
                 Shoot();
                 currentCount++;
                 lastMicroTick = 0;
@@ -107,5 +124,16 @@ public class BulletSpawner : MonoBehaviour
             rb.linearVelocity = direction * bulletSpeed;
         }
         bullet.transform.forward = direction;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (spawnMode == SpawnMode.Sniper)
+        {
+            Vector3 detectionCenter = transform.position + transform.TransformDirection(aimCenterOffset);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(detectionCenter, aimRadius);
+            Gizmos.DrawLine(transform.position, detectionCenter); // Line to show offset relationship
+        }
     }
 }
