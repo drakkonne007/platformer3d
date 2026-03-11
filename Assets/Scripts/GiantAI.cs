@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using KinematicCharacterController.Examples;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -22,7 +22,7 @@ namespace GiantAI
         [SerializeField] private float throwCooldown = 5f;
 
         [SerializeField] private float attackDistance = 3f;
-        [SerializeField] private float attackCooldown = 3f;
+        [SerializeField] private float attackCooldown = 1f;
         [SerializeField] private float rotationSpeed = 5f;
 
         [Header("References")]
@@ -70,6 +70,7 @@ namespace GiantAI
         bool isUvorot = false;
         bool needSeeSplash = true;
         bool wasCitizien_ = false;
+        bool playerHited_ = false;
         int countOfDamages_ = 0;
         float nextThrowTime;
         float nextAttackTime;
@@ -106,6 +107,8 @@ namespace GiantAI
             foreach(var coll in weaponColl_)
             {
                 coll.GetComponent<ColliderStarter>().OnEnter += doHit;
+                coll.GetComponent<ColliderStarter>().OnStay += doHit;
+                coll.enabled = false;
             }
             maxHp_ = health;
         }
@@ -114,13 +117,19 @@ namespace GiantAI
             foreach (var coll in weaponColl_)
             {
                 coll.GetComponent<ColliderStarter>().OnEnter -= doHit;
+                coll.GetComponent<ColliderStarter>().OnStay -= doHit;
             }
         }
         void doHit(Collider other)
         {
-            ExampleCharacterController player = other.transform.root.GetComponentInParent<ExampleCharacterController>();
-            if (player != null)
+            if (playerHited_)
             {
+                return;
+            }
+            ExampleCharacterController playerController = other.transform.root.GetComponentInParent<ExampleCharacterController>();
+            if (playerController != null)
+            {
+                playerHited_ = true;
                 MainHandler.Instance.addHealth(-10, DamageType.Phys);
             }
         }
@@ -338,6 +347,7 @@ namespace GiantAI
             {
                 CallNearEnemies();
                 wasSeen = true;
+                wasHit = true;
                 needSeeSplash = false;
             }
             if (attackIcon.activeInHierarchy)
@@ -466,7 +476,15 @@ namespace GiantAI
         
         private IEnumerator FadeAndDestroy()
         {
-            yield return new WaitForSeconds(3f);
+            while (true)
+            {
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                if (stateInfo.IsName("death") && stateInfo.normalizedTime >= 1.0f)
+                {
+                    break;
+                }
+                yield return null;
+            }
 
             // Cleanup physics to allow sinking
             if (agent != null) agent.enabled = false;
@@ -565,6 +583,15 @@ namespace GiantAI
                 rpgState_ = RpgState.Death;
                 return;
             }
+            else if (rpgState_ == RpgState.Attack)
+            {
+                // Attack animation finished naturally
+                foreach (var coll in weaponColl_)
+                {
+                    coll.enabled = false;
+                }
+                rpgState_ = RpgState.Idle;
+            }
             
             FindPlayer(stateInfo);
 
@@ -576,6 +603,10 @@ namespace GiantAI
 
             SelectBehaviour(stateInfo);
             UpdateAnimations();
+            if (player != null)
+            {
+                FacePlayer();
+            }
         }
 
         private float nextDecisionTime = 0f;
@@ -596,7 +627,6 @@ namespace GiantAI
             {
                 if (player != null)
                 {
-                    FacePlayer();
                     float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
                     if (distanceToPlayer <= attackDistance)
@@ -768,7 +798,6 @@ namespace GiantAI
         {
             rpgState_ = RpgState.Attack;
             SafeSetStopped(true);
-            FacePlayer();
             if (hasSecondAttack)
             {
                 animator.SetFloat("attackIndex", UnityEngine.Random.value < 0.5 ? 0 : 1);
@@ -776,6 +805,11 @@ namespace GiantAI
             else
             {
                 animator.SetFloat("attackIndex", 0);
+            }
+            foreach (var coll in weaponColl_)
+            {
+                coll.enabled = true;
+                playerHited_ = false;
             }
             animator.SetTrigger("attack");
             
@@ -810,7 +844,6 @@ namespace GiantAI
         {
             rpgState_ = RpgState.Throw;
             SafeSetStopped(true);
-            FacePlayer();
             animator.SetTrigger("throw");
             nextThrowTime = Time.time + throwCooldown;
         }

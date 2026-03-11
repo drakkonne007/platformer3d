@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
@@ -111,6 +111,8 @@ namespace KinematicCharacterController.Examples
         private int _comboIndex = 0;
         private bool _isAttacking;
         private bool _isBlocking;
+        HashSet<Collider> wasHited = new();
+        private int _lastAttackAnimationHash = 0;
 
         // Animator Hashes
         private readonly int _animIDSpeed = Animator.StringToHash("Speed");
@@ -138,6 +140,7 @@ namespace KinematicCharacterController.Examples
             foreach(var coll in WeaponCollider)
             {
                 coll.GetComponent<ColliderStarter>().OnEnter += attack;
+                coll.GetComponent<ColliderStarter>().OnStay += attack;
             }
         }
 
@@ -146,11 +149,17 @@ namespace KinematicCharacterController.Examples
             foreach (var coll in WeaponCollider)
             {
                 coll.GetComponent<ColliderStarter>().OnEnter -= attack;
+                coll.GetComponent<ColliderStarter>().OnStay -= attack;
             }
         }
 
         void attack(Collider other)
         {
+            if (wasHited.Contains(other))
+            {
+                return;
+            }
+            wasHited.Add(other);
             GiantAI.GiantAI enemy = other.transform.root.GetComponent<GiantAI.GiantAI>();
             if (enemy != null)
             {
@@ -569,9 +578,17 @@ namespace KinematicCharacterController.Examples
                     _comboIndex = 0;
                     _isAttacking = false;
                     Animator.SetInteger(_animIDAttackIndex, _comboIndex);
+                    _lastAttackAnimationHash = 0; // Reset hash when not attacking
                 }
                 else
                 {
+                    // If we just entered a NEW attack animation state, clear the hit list
+                    if (inAttackState && stateInfo.fullPathHash != _lastAttackAnimationHash)
+                    {
+                        wasHited.Clear();
+                        _lastAttackAnimationHash = stateInfo.fullPathHash;
+                    }
+                    
                     foreach (var coll in WeaponCollider)
                     {
                         coll.enabled = true;
@@ -744,14 +761,17 @@ namespace KinematicCharacterController.Examples
         }
         private void ExecuteAttack()
         {
+            
             if (Animator)
             {
+                int var = _comboIndex;
                 AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
                 if (stateInfo.IsName("Attack01") && stateInfo.normalizedTime > 0.6f) _comboIndex = 1;
                 else if (stateInfo.IsName("Attack02") && stateInfo.normalizedTime > 0.6f) _comboIndex = 2;
                 else if (stateInfo.IsName("Attack03") && stateInfo.normalizedTime > 0.6f) _comboIndex = 3;
                 else _comboIndex = 0;
                 Animator.SetInteger(_animIDAttackIndex, _comboIndex);
+                
                 if (!_isAttacking)
                 {
                     Animator.SetTrigger(_animIDAttack);
