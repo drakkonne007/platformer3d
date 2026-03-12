@@ -81,6 +81,7 @@ namespace KinematicCharacterController.Examples
         public Transform MeshRoot;
         public Transform CameraFollowPoint;
         public float CrouchedCapsuleHeight = 1f;
+        public GameObject currentWeapon_;
 
         [Header("Dash")]
         public float DashSpeed = 30f;
@@ -113,6 +114,7 @@ namespace KinematicCharacterController.Examples
         private bool _isBlocking;
         HashSet<Collider> wasHited = new();
         private int _lastAttackAnimationHash = 0;
+        private TrailRenderer swordTrail_;
 
         // Animator Hashes
         private readonly int _animIDSpeed = Animator.StringToHash("Speed");
@@ -129,6 +131,10 @@ namespace KinematicCharacterController.Examples
         private void Awake()
         {
             // Handle initial state
+            if(currentWeapon_ != null)
+            {
+                swordTrail_ = currentWeapon_.GetComponentInChildren<TrailRenderer>();
+            }
             TransitionToState(CharacterState.Default);
 
             // Assign the characterController to the motor
@@ -575,6 +581,12 @@ namespace KinematicCharacterController.Examples
                     {
                         coll.enabled = false;
                     }
+
+                    if (swordTrail_ != null)
+                    {
+                        swordTrail_.emitting = false;
+                    }
+
                     _comboIndex = 0;
                     _isAttacking = false;
                     Animator.SetInteger(_animIDAttackIndex, _comboIndex);
@@ -587,6 +599,11 @@ namespace KinematicCharacterController.Examples
                     {
                         wasHited.Clear();
                         _lastAttackAnimationHash = stateInfo.fullPathHash;
+
+                        if (swordTrail_ != null && stateInfo.normalizedTime > 0.3)
+                        {
+                            swordTrail_.emitting = true;
+                        }
                     }
                     
                     foreach (var coll in WeaponCollider)
