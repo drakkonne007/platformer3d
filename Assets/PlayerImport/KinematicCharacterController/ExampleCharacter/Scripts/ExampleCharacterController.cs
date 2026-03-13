@@ -169,7 +169,7 @@ namespace KinematicCharacterController.Examples
             GiantAI.GiantAI enemy = other.transform.root.GetComponent<GiantAI.GiantAI>();
             if (enemy != null)
             {
-                enemy.doHurt(10, other.ClosestPointOnBounds(transform.position), inArmor: false, isPlayer: true);
+                enemy.doHurt(10, other.ClosestPointOnBounds(transform.position), inArmor: false, isPlayer: true, attacker: transform);
             }
 
         }
@@ -594,16 +594,15 @@ namespace KinematicCharacterController.Examples
                 }
                 else
                 {
-                    // If we just entered a NEW attack animation state, clear the hit list
                     if (inAttackState && stateInfo.fullPathHash != _lastAttackAnimationHash)
                     {
                         wasHited.Clear();
                         _lastAttackAnimationHash = stateInfo.fullPathHash;
+                    }
 
-                        if (swordTrail_ != null && stateInfo.normalizedTime > 0.3)
-                        {
-                            swordTrail_.emitting = true;
-                        }
+                    if (inAttackState && swordTrail_ != null)
+                    {
+                        swordTrail_.emitting = stateInfo.normalizedTime > 0.3f && stateInfo.normalizedTime < 0.6f;
                     }
                     
                     foreach (var coll in WeaponCollider)

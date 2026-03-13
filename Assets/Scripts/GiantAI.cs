@@ -16,6 +16,9 @@ namespace GiantAI
         public class WeaponMapping
         {
             public int attackIndex;
+            public bool split = false;
+            public List<float> refreshPoints0 = new();
+            public List<float> refreshPoints1 = new();
             public List<Collider> colliders;
         }
 
@@ -53,6 +56,9 @@ namespace GiantAI
 
         [Header("Randomization")]
         [SerializeField][Range(0, 100)] private int idleProbability = 30;
+        [SerializeField][Range(0, 1)] float startEmmit = 0.3f;
+        [SerializeField][Range(0, 1)] float endEmmit = 0.8f;
+
 
         [Header("RpgSettings")]
         [SerializeField] bool citizen = false;
@@ -90,6 +96,10 @@ namespace GiantAI
         bool needSeeSplash = true;
         bool wasCitizien_ = false;
         bool playerHited_ = false;
+        HashSet<Collider> splitHitColliders_ = new HashSet<Collider>();
+        WeaponMapping currentWeaponMapping_ = null;
+        int lastRefreshIndex_ = -1;
+        Dictionary<Collider, System.Action<Collider>> weaponHitDelegates_ = new Dictionary<Collider, System.Action<Collider>>();
         int countOfDamages_ = 0;
         float nextThrowTime;
         float nextAttackTime;
@@ -121,7 +131,22 @@ namespace GiantAI
                 foreach (var coll in weaponColl_[key])
                 {
                     coll.enabled = enabled;
-                    if (enabled) playerHited_ = false;
+                }
+                if (enabled)
+                {
+                    playerHited_ = false;
+                    splitHitColliders_.Clear();
+                    lastRefreshIndex_ = -1;
+                    // Find the WeaponMapping by the resolved key (not original variant)
+                    currentWeaponMapping_ = null;
+                    foreach (var mapping in weaponMappings)
+                    {
+                        if (mapping.attackIndex == key)
+                        {
+                            currentWeaponMapping_ = mapping;
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -189,8 +214,11 @@ namespace GiantAI
                 {
                     foreach (var coll in weaponColl_[key])
                     {
-                        coll.GetComponent<ColliderStarter>().OnEnter += doHit;
-                        coll.GetComponent<ColliderStarter>().OnStay += doHit;
+                        Collider weaponRef = coll;
+                        System.Action<Collider> handler = (other) => doHit(weaponRef, other);
+                        weaponHitDelegates_[coll] = handler;
+                        coll.GetComponent<ColliderStarter>().OnEnter += handler;
+                        coll.GetComponent<ColliderStarter>().OnStay += handler;
                         coll.enabled = false;
                     }
                 }
@@ -205,24 +233,41 @@ namespace GiantAI
                 {
                     foreach (var coll in weaponColl_[key])
                     {
-                        coll.GetComponent<ColliderStarter>().OnEnter -= doHit;
-                        coll.GetComponent<ColliderStarter>().OnStay -= doHit;
+                        if (weaponHitDelegates_.TryGetValue(coll, out var handler))
+                        {
+                            coll.GetComponent<ColliderStarter>().OnEnter -= handler;
+                            coll.GetComponent<ColliderStarter>().OnStay -= handler;
+                        }
                         coll.enabled = false;
                     }
                 }
             }
         }
-        void doHit(Collider other)
+        void doHit(Collider weaponCollider, Collider other)
         {
-            if (playerHited_)
+            if (currentWeaponMapping_ != null && currentWeaponMapping_.split)
             {
-                return;
+                // Split mode: each weapon collider can hit once independently
+                if (splitHitColliders_.Contains(weaponCollider)) return;
+
+                ExampleCharacterController playerController = other.transform.root.GetComponentInParent<ExampleCharacterController>();
+                if (playerController != null)
+                {
+                    splitHitColliders_.Add(weaponCollider);
+                    MainHandler.Instance.addHealth(-10, DamageType.Phys);
+                }
             }
-            ExampleCharacterController playerController = other.transform.root.GetComponentInParent<ExampleCharacterController>();
-            if (playerController != null)
+            else
             {
-                playerHited_ = true;
-                MainHandler.Instance.addHealth(-10, DamageType.Phys);
+                // Normal mode: one hit per attack
+                if (playerHited_) return;
+
+                ExampleCharacterController playerController = other.transform.root.GetComponentInParent<ExampleCharacterController>();
+                if (playerController != null)
+                {
+                    playerHited_ = true;
+                    MainHandler.Instance.addHealth(-10, DamageType.Phys);
+                }
             }
         }
         void changeDialog()
@@ -429,7 +474,7 @@ namespace GiantAI
                 }
             }
         }
-        virtual public void doHurt(float hurt, Vector3 pos, bool inArmor = true, bool isPlayer = false)
+        virtual public void doHurt(float hurt, Vector3 pos, bool inArmor = true, bool isPlayer = false, Transform attacker = null)
         {
             if (rpgState_ == RpgState.Death)
             {
@@ -437,6 +482,10 @@ namespace GiantAI
             }
             if (isPlayer)
             {
+                if (attacker != null)
+                {
+                    player = attacker;
+                }
                 CallNearEnemies();
                 wasSeen = true;
                 wasHit = true;
@@ -489,7 +538,7 @@ namespace GiantAI
                 {
                     return;
                 }
-                if (rpgState_ == RpgState.Attack)
+                if (rpgState_ == RpgState.Attack || UnityEngine.Random.value < 0.5)
                 {
                     return;
                 }
@@ -641,7 +690,7 @@ namespace GiantAI
             bool noThrowAttack = stateInfo.IsName("attack") || stateInfo.IsName("attack2");
             if (noThrowAttack || stateInfo.IsName("throw"))
             {
-                if (noThrowAttack && stateInfo.normalizedTime > 0.3f && stateInfo.normalizedTime < 0.8f)
+                if (noThrowAttack && stateInfo.normalizedTime > startEmmit && stateInfo.normalizedTime < endEmmit)
                 {
                     SetTrailsEmitting(nowAttackVariant, true);
                 }
@@ -649,6 +698,29 @@ namespace GiantAI
                 {
                     SetTrailsEmitting(nowAttackVariant, false);
                 }
+
+                // Check refreshPoints to reset hit tracking mid-animation
+                if (currentWeaponMapping_ != null)
+                {
+                    List<float> activeRefreshPoints = nowAttackVariant == 1 
+                        ? currentWeaponMapping_.refreshPoints1 
+                        : currentWeaponMapping_.refreshPoints0;
+                    if (activeRefreshPoints.Count > 0)
+                    {
+                        float normalizedTime = stateInfo.normalizedTime;
+                        for (int i = 0; i < activeRefreshPoints.Count; i++)
+                        {
+                            if (normalizedTime > activeRefreshPoints[i] && i > lastRefreshIndex_)
+                            {
+                                lastRefreshIndex_ = i;
+                                playerHited_ = false;
+                                splitHitColliders_.Clear();
+                                Debug.Log($"[GiantAI] RefreshPoint {i} triggered at normalizedTime={normalizedTime:F3}, threshold={activeRefreshPoints[i]}, variant={nowAttackVariant}");
+                            }
+                        }
+                    }
+                }
+
                 rpgState_ = RpgState.Attack;
                 wasHit = true;
             }
@@ -723,7 +795,7 @@ namespace GiantAI
                             if (UnityEngine.Random.Range(0, 101) < idleProbability)
                             {
                                 SwitchToState(RpgState.Idle);
-                                nextAttackTime = Time.time + 1f;
+                                nextAttackTime = Time.time + attackCooldown;
                             }
                             else
                             {

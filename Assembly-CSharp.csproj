@@ -184,7 +184,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\8- Creating a moving platform\Scripts\MyCharacterController.cs" />
-    <Compile Include="Assets\Creatures\Demo_Animals\DemoData\AnimationDemo.cs" />
     <Compile Include="Assets\Scripts\TreeReplacer.cs" />
     <Compile Include="Assets\Scripts\DashGhost.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\ScriptableObjects\DSDialogueContainerSO.cs" />

@@ -329,7 +329,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -727,7 +727,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   canThrow: 0
-  throwDistance: 0
+  throwDistance: -1.65
   throwCooldown: 5
   attackDistance: 2.16
   attackCooldown: 0.2
@@ -742,6 +742,8 @@ MonoBehaviour:
   _shadowNpc: {fileID: 7756020937271338091}
   bloodParticles_: {fileID: 2217007224458897739, guid: af25060634c4fef4fb97d7397892fc67, type: 3}
   idleProbability: 30
+  startEmmit: 0.3
+  endEmmit: 0.8
   citizen: 0
   isTreater: 0
   noDialog: 0
@@ -755,8 +757,14 @@ MonoBehaviour:
   loots: []
   hitBoxColl_:
   - {fileID: 8390580737845074268}
-  weaponColl_:
-  - {fileID: 8412175708635773781}
+  weaponMappings:
+  - attackIndex: 0
+    colliders:
+    - {fileID: 8412175708635773781}
+  trailMappings:
+  - attackIndex: 0
+    trails:
+    - {fileID: 7386957425881081474}
   dialogColl_: {fileID: 4104616337777751526}
   wasHit: 0
   wasSeen: 0
@@ -1227,7 +1235,7 @@ CapsuleCollider:
     m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1911
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -1865,6 +1873,11 @@ PrefabInstance:
 --- !u!4 &1340063332791396466 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3278185419076979145, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
+  m_PrefabInstance: {fileID: 4604553234915025339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &7386957425881081474 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 6441579449785714489, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
   m_PrefabInstance: {fileID: 4604553234915025339}
   m_PrefabAsset: {fileID: 0}
 --- !u!65 &8412175708635773781 stripped
