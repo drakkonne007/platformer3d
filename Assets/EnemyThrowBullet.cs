@@ -7,6 +7,14 @@ public class EnemyThrowBullet : TriggerAction
 {
     [SerializeField] DamageType damageType = DamageType.Phys;
     [SerializeField] float damage = 1;
+    [SerializeField] float rotateSpeed = 1;
+    Vector3 randomRotate = Vector3.zero;
+
+    private void Start()
+    {
+        randomRotate = new Vector3(UnityEngine.Random.value * 2 - 1, UnityEngine.Random.value * 2 - 1
+            , UnityEngine.Random.value * 2 - 1);
+    }
     public override void Action(Collider other)
     {
         // Проверяем корень объекта, чтобы не менять тэги всем вложенным хитбоксам
@@ -22,6 +30,11 @@ public class EnemyThrowBullet : TriggerAction
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Update()
+    {
+        transform.Rotate(randomRotate * rotateSpeed * Time.deltaTime);
     }
 
     //public override void ActionStay(Collider other, float time)

@@ -2,8 +2,6 @@ using System.Collections;
 using KinematicCharacterController.Examples;
 using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -33,19 +31,23 @@ namespace GiantAI
         [SerializeField] private float detectionRange = 15f;
         [SerializeField] private LayerMask playerLayer;
 
-        [Header("Combat Settings")]
-        [SerializeField] private bool canThrow = true;
+        [Header("Throw Settings")]
+        [SerializeField] private bool canThrow = false;
         [SerializeField] private float throwDistance = 10f;
-        [SerializeField] private float throwCooldown = 5f;
+        [SerializeField] private float throwCooldown = 2f;
+        [SerializeField] private GameObject throwStub;
+        [SerializeField] private GameObject projectilePrefab;
+        [SerializeField] private float projectileSpeed = 2f;
+        [SerializeField][Range(0, 1)] float startThrowStub = 0;
+        [SerializeField][Range(0, 1)] float endThrowStub = 0.5f;
 
+        [Header("Combat Settings")]
         [SerializeField] private float attackDistance = 3f;
         [SerializeField] private float attackCooldown = 1f;
         [SerializeField] private float rotationSpeed = 5f;
 
-        [Header("References")]
-        [SerializeField] private GameObject projectilePrefab;
-        [SerializeField] private Transform throwPoint;
         [Space(5)]
+        [Header("References")]        
         [SerializeField] public GameObject stanIcon;
         [SerializeField] public GameObject attackIcon;
         [SerializeField] GameObject _dialogAttention;
@@ -53,6 +55,14 @@ namespace GiantAI
         [SerializeField] GameObject crystall_;
         [SerializeField] GameObject _shadowNpc;
         [SerializeField] GameObject bloodParticles_;
+        [Header("Colliders")]
+        [SerializeField] public List<Collider> hitBoxColl_;
+        [SerializeField] private List<WeaponMapping> weaponMappings = new List<WeaponMapping>();
+        [SerializeField] private List<TrailMapping> trailMappings = new List<TrailMapping>();
+        [SerializeField] public HPBarChanger _hitBar;
+        public Dictionary<int, List<Collider>> weaponColl_ = new Dictionary<int, List<Collider>>();
+        public Collider dialogColl_;
+        public Dictionary<int, List<TrailRenderer>> swordTrails = new Dictionary<int, List<TrailRenderer>>();
 
         [Header("Randomization")]
         [SerializeField][Range(0, 100)] private int idleProbability = 30;
@@ -71,17 +81,10 @@ namespace GiantAI
         [SerializeField] float health = 100;
         [SerializeField] float armor = 10;
         [SerializeField] public DQuestTriggerParent questHandler;
-        [SerializeField] public HPBarChanger _hitBar;
+        
         [SerializeField] List<GameObject> loots;
 
-        [Header("Colliders")]
-        [SerializeField] public List<Collider> hitBoxColl_;
-        [SerializeField] private List<WeaponMapping> weaponMappings = new List<WeaponMapping>();
-        [SerializeField] private List<TrailMapping> trailMappings = new List<TrailMapping>();
-        
-        public Dictionary<int, List<Collider>> weaponColl_ = new Dictionary<int, List<Collider>>();
-        public Collider dialogColl_;
-        public Dictionary<int, List<TrailRenderer>> swordTrails = new Dictionary<int, List<TrailRenderer>>();
+      
 
         [Space(10)]
         [Header("Thrash")]
@@ -102,6 +105,7 @@ namespace GiantAI
         Dictionary<Collider, System.Action<Collider>> weaponHitDelegates_ = new Dictionary<Collider, System.Action<Collider>>();
         int countOfDamages_ = 0;
         float nextThrowTime;
+        bool throwStubActive_ = false;
         float nextAttackTime;
         float maxHp_;
         RpgState rpgState_ = RpgState.Idle;
@@ -224,6 +228,7 @@ namespace GiantAI
                 }
             }
             maxHp_ = health;
+            if (throwStub != null) throwStub.SetActive(false);
         }
         private void OnDestroy()
         {
@@ -688,7 +693,17 @@ namespace GiantAI
 
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             bool noThrowAttack = stateInfo.IsName("attack") || stateInfo.IsName("attack2");
-            if (noThrowAttack || stateInfo.IsName("throw"))
+            bool isThrowAnim = stateInfo.IsName("throw");
+
+            // Also detect transitions TO throw/attack so we don't briefly lose state
+            if (!isThrowAnim && !noThrowAttack && animator.IsInTransition(0))
+            {
+                AnimatorStateInfo nextState = animator.GetNextAnimatorStateInfo(0);
+                if (nextState.IsName("throw")) isThrowAnim = true;
+                else if (nextState.IsName("attack") || nextState.IsName("attack2")) noThrowAttack = true;
+            }
+
+            if (noThrowAttack || isThrowAnim)
             {
                 if (noThrowAttack && stateInfo.normalizedTime > startEmmit && stateInfo.normalizedTime < endEmmit)
                 {
@@ -699,8 +714,29 @@ namespace GiantAI
                     SetTrailsEmitting(nowAttackVariant, false);
                 }
 
+                // Handle throw stub visibility and projectile spawning
+                if (isThrowAnim && throwStub != null)
+                {
+                    float nt = stateInfo.normalizedTime;
+                    if (nt >= startThrowStub && nt < endThrowStub)
+                    {
+                        if (!throwStubActive_)
+                        {
+                            throwStub.SetActive(true);
+                            throwStubActive_ = true;
+                        }
+                    }
+                    else if (nt >= endThrowStub && throwStubActive_)
+                    {
+                        // Hide stub and spawn projectile
+                        throwStubActive_ = false;
+                        throwStub.SetActive(false);
+                        SpawnProjectileAtStub();
+                    }
+                }
+
                 // Check refreshPoints to reset hit tracking mid-animation
-                if (currentWeaponMapping_ != null)
+                if (noThrowAttack && currentWeaponMapping_ != null)
                 {
                     List<float> activeRefreshPoints = nowAttackVariant == 1 
                         ? currentWeaponMapping_.refreshPoints1 
@@ -721,7 +757,7 @@ namespace GiantAI
                     }
                 }
 
-                rpgState_ = RpgState.Attack;
+                rpgState_ = isThrowAnim ? RpgState.Throw : RpgState.Attack;
                 wasHit = true;
             }
             else if (stateInfo.IsName("block"))
@@ -749,6 +785,13 @@ namespace GiantAI
             {
                 // Attack animation finished naturally
                 DisableAllCollidersAndTrails();
+                rpgState_ = RpgState.Idle;
+            }
+            else if (rpgState_ == RpgState.Throw)
+            {
+                // Throw animation finished naturally
+                throwStubActive_ = false;
+                if (throwStub != null) throwStub.SetActive(false);
                 rpgState_ = RpgState.Idle;
             }
 
@@ -862,7 +905,14 @@ namespace GiantAI
             }
             else
             {
-                SwitchToState(RpgState.Idle);
+                if (canThrow && player != null && Time.time >= nextThrowTime)
+                {
+                    PerformThrow();
+                }
+                else
+                {
+                    SwitchToState(RpgState.Idle);
+                }
             }
 
         }
@@ -947,7 +997,7 @@ namespace GiantAI
             SafeSetStopped(false);
 
             float distance = Vector3.Distance(transform.position, player.position);
-            if (canThrow && distance <= throwDistance && distance > attackDistance && Time.time >= nextThrowTime)
+            if (canThrow && distance <= throwDistance && distance > attackDistance && Time.time >= nextThrowTime && UnityEngine.Random.value < 0.5f)
             {
                 PerformThrow();
             }
@@ -1000,6 +1050,13 @@ namespace GiantAI
         {
             rpgState_ = RpgState.Throw;
             SafeSetStopped(true);
+            if (agent.isOnNavMesh)
+            {
+                agent.ResetPath();
+                agent.velocity = Vector3.zero;
+            }
+            throwStubActive_ = false;
+            if (throwStub != null) throwStub.SetActive(false);
             animator.SetTrigger("throw");
             nextThrowTime = Time.time + throwCooldown;
         }
@@ -1050,13 +1107,30 @@ namespace GiantAI
             animator.SetBool("idle", !isMoving);
         }
 
-        // Potential Animation Event Call
-        public void LaunchProjectile()
+        private void SpawnProjectileAtStub()
         {
-            if (projectilePrefab != null && throwPoint != null)
+            if (projectilePrefab == null || throwStub == null || player == null) return;
+
+            Vector3 spawnPos = throwStub.transform.position;
+            Vector3 targetPos = player.position;
+            targetPos.y += 1.5f; // aim at player center mass
+
+            Vector3 direction = (targetPos - spawnPos).normalized;
+
+            GameObject proj = Instantiate(projectilePrefab, spawnPos, throwStub.transform.rotation);
+            Destroy(proj, 15f);
+
+            if (proj.TryGetComponent(out Rigidbody projRb))
             {
-                GameObject proj = Instantiate(projectilePrefab, throwPoint.position, throwPoint.rotation);
-                // Add velocity to proj if needed, e.g. proj.GetComponent<Rigidbody>().velocity = ...
+                projRb.linearVelocity = direction * projectileSpeed;
+            }
+            else
+            {
+                var rigid = proj.GetComponentInChildren<Rigidbody>();
+                if (rigid != null)
+                {
+                    rigid.linearVelocity = direction * projectileSpeed;
+                }
             }
         }
 
