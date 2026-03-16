@@ -5,13 +5,15 @@ using UnityEngine.InputSystem.XR;
 public class Fan : TriggerAction
 {
     ExampleCharacterController controller;
+    Rigidbody playerBody;
     [SerializeField] MeshRenderer mesh;      
     
     bool isTrigger = false;
     private void Start()
     {
         controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ExampleCharacterController>();
-        if(mesh != null)
+        playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        if (mesh != null)
         {
             mesh.enabled = false;
         }
@@ -27,10 +29,10 @@ public class Fan : TriggerAction
         {
             controller.Gravity.y *= -1;
         }
-        if(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().linearVelocity.y < 0)
+        if(playerBody.linearVelocity.y < 0)
         {
-            var temp = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().linearVelocity;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().linearVelocity = new Vector3(temp.x,0,temp.z);
+            var temp = playerBody.linearVelocity;
+            playerBody.linearVelocity = new Vector3(temp.x,0,temp.z);
         }
     }
     public override void ExitAction(Collider other)

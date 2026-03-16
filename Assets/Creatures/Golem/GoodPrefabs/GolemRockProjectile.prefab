@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 4209034949507381803}
   - component: {fileID: 7030973579267498812}
   - component: {fileID: 615441129348991338}
-  - component: {fileID: 3000137281378287759}
-  - component: {fileID: 8069033933019344673}
   - component: {fileID: 5962381095315008977}
   - component: {fileID: 1603146775092258596}
+  - component: {fileID: 8812782675627517102}
   m_Layer: 10
   m_Name: GolemRockProjectile
   m_TagString: Untagged
@@ -68,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 63d68c3ba5d7b90418069b96d9c35a4a, type: 2}
+  - {fileID: 2100000, guid: 8f0029f077d0f4c4fa259d719bc3590c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,39 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3000137281378287759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176480834405765281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d00d3c7920c9f41b86ba0d6a18a2ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageType: 4
-  damage: 20
-  rotateSpeed: 300
---- !u!114 &8069033933019344673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176480834405765281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d763c6be233971f47ae3c90fe48aa2b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actions:
-  - {fileID: 3000137281378287759}
-  isOnce: 1
-  isConitues: 0
-  isActive: 1
-  isDeleteAfter: 0
 --- !u!54 &5962381095315008977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -173,3 +139,20 @@ CapsuleCollider:
   m_Height: 238.65
   m_Direction: 0
   m_Center: {x: -9.54, y: 0, z: -5.57}
+--- !u!114 &8812782675627517102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176480834405765281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f94f945c11e5bd4e8066154b479c72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageType: 4
+  damage: 10
+  rotateSpeed: 300
+  pushForce: 10
+  effect: {fileID: 2759504499108243061, guid: 4fda5935e856a66429c2aa49dc8ddda9, type: 3}
