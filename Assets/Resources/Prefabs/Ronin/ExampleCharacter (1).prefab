@@ -123,7 +123,6 @@ Transform:
   m_Children:
   - {fileID: 2388822200168209937}
   - {fileID: 6108845582889124370}
-  - {fileID: 147397194065257873}
   - {fileID: 865500029881689540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
@@ -165,9 +164,10 @@ MonoBehaviour:
   Motor: {fileID: 3813207328556861096}
   Animator: {fileID: 323055904348209401}
   PlayerLogic: {fileID: 2209010812462127067}
-  WeaponCollider: []
+  WeaponCollider:
+  - {fileID: 0}
   DashEffect: {fileID: 2735234480680728544}
-  DashParticles: {fileID: 9198201911609640764}
+  DashParticles: {fileID: 0}
   MaxStableMoveSpeed: 10
   StableMovementSharpness: 10
   OrientationSharpness: 10
@@ -181,6 +181,7 @@ MonoBehaviour:
   JumpScalableForwardSpeed: 0
   JumpPreGroundingGraceTime: 0.1
   JumpPostGroundingGraceTime: 0.1
+  jumpEffect: {fileID: 7736877644102025101, guid: b578560a9fcc4fe4bb3a18f397cc6ff0, type: 3}
   IgnoredColliders: []
   BonusOrientationMethod: 1
   BonusOrientationSharpness: 20
@@ -188,6 +189,7 @@ MonoBehaviour:
   MeshRoot: {fileID: 7491231226223599269}
   CameraFollowPoint: {fileID: 8827159455922895122}
   CrouchedCapsuleHeight: 1
+  currentWeapon_: {fileID: 0}
   DashSpeed: 100
   DashDuration: 0.1
   DashCooldown: 1
@@ -421,73 +423,6 @@ CapsuleCollider:
   m_Height: 1.74
   m_Direction: 1
   m_Center: {x: 0, y: 0.84, z: 0}
---- !u!1001 &1704155574972080278
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2830452877198981067}
-    m_Modifications:
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7494257583536580522, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-      propertyPath: m_Name
-      value: Dash
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
---- !u!4 &147397194065257873 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1562125102027392263, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-  m_PrefabInstance: {fileID: 1704155574972080278}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &9198201911609640764 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7494257583536580522, guid: 4f75448600c4fbe4cb1a1c1170241d1b, type: 3}
-  m_PrefabInstance: {fileID: 1704155574972080278}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2376899980209908841
 PrefabInstance:
   m_ObjectHideFlags: 0

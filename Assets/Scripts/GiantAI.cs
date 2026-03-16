@@ -45,6 +45,7 @@ namespace GiantAI
         [SerializeField] private float attackDistance = 3f;
         [SerializeField] private float attackCooldown = 1f;
         [SerializeField] private float rotationSpeed = 5f;
+        [SerializeField] private bool skipHurtAnim = false;
 
         [Space(5)]
         [Header("References")]        
@@ -106,6 +107,7 @@ namespace GiantAI
         int countOfDamages_ = 0;
         float nextThrowTime;
         bool throwStubActive_ = false;
+        bool isStartingThrow_ = false;
         float nextAttackTime;
         float maxHp_;
         RpgState rpgState_ = RpgState.Idle;
@@ -547,6 +549,10 @@ namespace GiantAI
                 {
                     return;
                 }
+                if (skipHurtAnim)
+                {
+                    return;
+                }
                 if (!needHurtAnim())
                 {
                     return;
@@ -703,7 +709,9 @@ namespace GiantAI
                 else if (nextState.IsName("attack") || nextState.IsName("attack2")) noThrowAttack = true;
             }
 
-            if (noThrowAttack || isThrowAnim)
+            if (isThrowAnim || noThrowAttack) isStartingThrow_ = false;
+
+            if (noThrowAttack || isThrowAnim || isStartingThrow_)
             {
                 if (noThrowAttack && stateInfo.normalizedTime > startEmmit && stateInfo.normalizedTime < endEmmit)
                 {
@@ -715,7 +723,7 @@ namespace GiantAI
                 }
 
                 // Handle throw stub visibility and projectile spawning
-                if (isThrowAnim && throwStub != null)
+                if (stateInfo.IsName("throw") && throwStub != null)
                 {
                     float nt = stateInfo.normalizedTime;
                     if (nt >= startThrowStub && nt < endThrowStub)
@@ -757,7 +765,7 @@ namespace GiantAI
                     }
                 }
 
-                rpgState_ = isThrowAnim ? RpgState.Throw : RpgState.Attack;
+                rpgState_ = (isThrowAnim || isStartingThrow_) ? RpgState.Throw : RpgState.Attack;
                 wasHit = true;
             }
             else if (stateInfo.IsName("block"))
@@ -797,6 +805,11 @@ namespace GiantAI
 
             FindPlayer(stateInfo);
 
+            if (player != null)
+            {
+                FacePlayer();
+            }
+
             if (rpgState_ == RpgState.Attack || rpgState_ == RpgState.Block || rpgState_ == RpgState.Hurt || rpgState_ == RpgState.Throw)
             {
                 // Let animation finish before choosing behavior
@@ -805,10 +818,6 @@ namespace GiantAI
 
             SelectBehaviour(stateInfo);
             UpdateAnimations();
-            if (player != null)
-            {
-                FacePlayer();
-            }
         }
 
         private float nextDecisionTime = 0f;
@@ -1049,6 +1058,7 @@ namespace GiantAI
         private void PerformThrow()
         {
             rpgState_ = RpgState.Throw;
+            isStartingThrow_ = true;
             SafeSetStopped(true);
             if (agent.isOnNavMesh)
             {

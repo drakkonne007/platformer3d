@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sword_wood 1 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27f19f244afa43c43b7c5bff88b185bb, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -89,10 +93,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1911
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -168,6 +172,10 @@ PrefabInstance:
     - target: {fileID: 5189365475778182371, guid: dec6650b13ad56746a6088f1494f581e, type: 3}
       propertyPath: m_Name
       value: CoolSwordEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5189365475778182371, guid: dec6650b13ad56746a6088f1494f581e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

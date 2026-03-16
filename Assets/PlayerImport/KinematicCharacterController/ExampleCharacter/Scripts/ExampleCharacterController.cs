@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using System;
+using UnityEngine.VFX;
 
 namespace KinematicCharacterController.Examples
 {
@@ -72,6 +73,7 @@ namespace KinematicCharacterController.Examples
         public float JumpScalableForwardSpeed = 10f;
         public float JumpPreGroundingGraceTime = 0f;
         public float JumpPostGroundingGraceTime = 0f;
+        public ParticleSystem jumpEffect; 
 
         [Header("Misc")]
         public List<Collider> IgnoredColliders = new List<Collider>();
@@ -127,6 +129,7 @@ namespace KinematicCharacterController.Examples
         private readonly int _animIDAttackIndex = Animator.StringToHash("AttackIndex");
         private readonly int _animRun = Animator.StringToHash("Run");
         private readonly int _animBlock = Animator.StringToHash("Block");
+        bool _alreadyAir = false;
 
         private void Awake()
         {
@@ -169,7 +172,7 @@ namespace KinematicCharacterController.Examples
             GiantAI.GiantAI enemy = other.transform.root.GetComponent<GiantAI.GiantAI>();
             if (enemy != null)
             {
-                enemy.doHurt(10, other.ClosestPointOnBounds(transform.position), inArmor: false, isPlayer: true, attacker: transform);
+                enemy.doHurt(40, other.ClosestPointOnBounds(transform.position), inArmor: false, isPlayer: true, attacker: transform);
             }
 
         }
@@ -540,6 +543,7 @@ namespace KinematicCharacterController.Examples
                                 _jumpRequested = false;
                                 _jumpConsumed = true;
                                 _jumpedThisFrame = true;
+                                _alreadyAir = true;
                                 if (Animator)
                                 {
                                     Animator.SetTrigger(_animIDJump);
@@ -700,6 +704,7 @@ namespace KinematicCharacterController.Examples
                     
                     if (!alreadyInAir)
                     {
+                        _alreadyAir = true;
                         Animator.SetBool(_animIDFly, true);
                     }
                 }
@@ -766,6 +771,11 @@ namespace KinematicCharacterController.Examples
                 Animator.ResetTrigger(_animIDJump);
                 Animator.SetBool(_animIDFly, false);
             }
+            if(jumpEffect != null && _alreadyAir)
+            {
+                Instantiate(jumpEffect, transform.position + new Vector3(0,0.2f,0), Quaternion.identity * Quaternion.Euler(-90,0,0));
+            }
+            _alreadyAir = false;
         }
 
         protected void OnLeaveStableGround()
