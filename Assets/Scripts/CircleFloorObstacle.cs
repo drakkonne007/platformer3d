@@ -10,6 +10,7 @@ public class CircleFloorObstacle : MonoBehaviour
     [SerializeField] float speedRotate = 100;
     [SerializeField] bool isActive = true;
     GameObject parentPower;
+    float refresh = 0.5f;
 
     void Start()
     {
@@ -48,20 +49,22 @@ public class CircleFloorObstacle : MonoBehaviour
     }
     void hitPlayer(Collider other)
     {
-        if (other.transform.root.CompareTag("Player"))
+        if (refresh >= 0.5f && other.transform.root.CompareTag("Player"))
         {
             var controller = other.transform.root.GetComponent<ExampleCharacterController>();
             if (controller != null)
             {
                 Vector3 pushDirection = other.transform.position - parentPower.transform.position;
                 pushDirection.y = 0;
-                controller.SetVelocity(pushDirection.normalized * power);
+                controller.AddVelocity(pushDirection.normalized * power);
+                refresh = 0;
             }
         }
     }
     // Update is called once per frame
     void Update()
     {
+        refresh += Time.deltaTime;
         if (isActive)
         {
             transform.Rotate((clockWise ? Vector3.up : Vector3.down) * (speedRotate * Time.deltaTime));

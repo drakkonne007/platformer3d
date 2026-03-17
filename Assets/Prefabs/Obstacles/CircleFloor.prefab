@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderClockWise: {fileID: 2831634404140655702}
   colliderContrClockWise: {fileID: 5726313842207522283}
-  power: 100
+  power: 30
   clockWise: 1
   speedRotate: 200
   isActive: 1

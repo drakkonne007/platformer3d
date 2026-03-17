@@ -341,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4614690867207968207, guid: 8222fd301797a0e4a9c03c7d66aad7f6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9063079
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4614690867207968207, guid: 8222fd301797a0e4a9c03c7d66aad7f6, type: 3}
       propertyPath: m_LocalRotation.x
@@ -353,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4614690867207968207, guid: 8222fd301797a0e4a9c03c7d66aad7f6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.42261827
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4614690867207968207, guid: 8222fd301797a0e4a9c03c7d66aad7f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -365,7 +365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4614690867207968207, guid: 8222fd301797a0e4a9c03c7d66aad7f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5422752077067308917, guid: 8222fd301797a0e4a9c03c7d66aad7f6, type: 3}
       propertyPath: m_Name
@@ -435,7 +435,7 @@ MonoBehaviour:
   colliderClockWise: {fileID: 9005211904045471937}
   colliderContrClockWise: {fileID: 408994075576917521}
   parentPower: {fileID: 1445055068292946225}
-  power: 100
+  power: 30
   isActive: 1
   rotationAxis: {x: 0, y: 0, z: 1}
   rotationAngle: 160

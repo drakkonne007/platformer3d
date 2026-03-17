@@ -111,8 +111,8 @@
     <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\SlashDecal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\ElementsShowCase.cs" />
-    <Compile Include="Assets\Resources\Scripts\Coin.cs" />
     <Compile Include="Assets\HangHammerObstacle.cs" />
+    <Compile Include="Assets\Resources\Scripts\Coin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\DSDialogue.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />

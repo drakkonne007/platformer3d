@@ -63,6 +63,7 @@ namespace KinematicCharacterController.Examples
 
         [Header("Air Movement")]
         public float MaxAirMoveSpeed = 15f;
+        public float MaxMovementSpeed = 20f;
         public float AirAccelerationSpeed = 15f;
         public float Drag = 0.1f;
         public int isFly = 0;
@@ -479,6 +480,17 @@ namespace KinematicCharacterController.Examples
 
                             // Drag
                             currentVelocity *= (1f / (1f + (Drag * deltaTime)));
+
+                            // Limit horizontal speed if not dashing (in air)
+                            if (!_isDashing)
+                            {
+                                Vector3 horizontalVel = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
+                                if (horizontalVel.magnitude > MaxMovementSpeed)
+                                {
+                                    horizontalVel = horizontalVel * (MaxMovementSpeed / horizontalVel.magnitude);
+                                    currentVelocity = new Vector3(horizontalVel.x, currentVelocity.y, horizontalVel.z);
+                                }
+                            }
                         }
 
                         if (_isDashing)
@@ -548,6 +560,13 @@ namespace KinematicCharacterController.Examples
                                 {
                                     Animator.SetTrigger(_animIDJump);
                                     Animator.ResetTrigger(_animIDGrounded);
+                                }
+                                if (_internalVelocityAdd.sqrMagnitude > 0f)
+                                {
+                                    currentVelocity += new Vector3(_internalVelocityAdd.x * 0.2f
+                                        , _internalVelocityAdd.y * 0.2f
+                                        , _internalVelocityAdd.z * 0.2f);
+                                    _internalVelocityAdd = Vector3.zero;
                                 }
                             }
                         }

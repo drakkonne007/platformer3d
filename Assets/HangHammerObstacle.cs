@@ -19,6 +19,7 @@ public class HangHammerObstacle : MonoBehaviour
     private float timeElapsed = 0f;
     private bool isReversing = false;
     private float randomDelay = 0f;
+    float refresh = 0.5f;
 
     void Start()
     {
@@ -53,19 +54,21 @@ public class HangHammerObstacle : MonoBehaviour
     }
     void hitPlayer(Collider other)
     {
-        if (other.transform.root.CompareTag("Player"))
+        if (refresh >= 0.5f && other.transform.root.CompareTag("Player"))
         {
             var controller = other.transform.root.GetComponent<ExampleCharacterController>();
             if (controller != null)
             {
                 Vector3 pushDirection = other.transform.position - parentPower.transform.position;
                 pushDirection.y = 0;
-                controller.SetVelocity(pushDirection.normalized * power);
+                controller.AddVelocity(pushDirection.normalized * power);
+                refresh = 0;
             }
         }
     }
     void Update()
     {
+        refresh += Time.deltaTime;
         if (!isActive)
         {
             return;
@@ -81,7 +84,7 @@ public class HangHammerObstacle : MonoBehaviour
 
         progress = EaseInOut(progress);
 
-        float currentAngle = rotationAngle * (isReversing ? (1 - progress) : progress);
+        float currentAngle = rotationAngle * (isReversing ? (0.5f - progress) : (progress - 0.5f));
         Quaternion currentRotation = startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
 
         transform.rotation = currentRotation;
