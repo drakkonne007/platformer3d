@@ -3827,32 +3827,22 @@ MonoBehaviour:
   canThrow: 0
   throwDistance: 0
   throwCooldown: 5
+  throwStub: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 2
+  startThrowStub: 0
+  endThrowStub: 0.5
   attackDistance: 3.54
   attackCooldown: 1
   rotationSpeed: 5
-  projectilePrefab: {fileID: 0}
-  throwPoint: {fileID: 0}
+  skipHurtAnim: 0
   stanIcon: {fileID: 1493947361034507691}
   attackIcon: {fileID: 408965436699236768}
   _dialogAttention: {fileID: 4135287343828903899}
   _dangerSaw: {fileID: 5024964404011234645}
-  crystall_: {fileID: 2862632930690371321, guid: 345936f6bbf03154ab453ca0b373b4f3, type: 3}
+  crystall_: {fileID: 6967138284006568684, guid: b1150279f0f685848ade395d57fbb72f, type: 3}
   _shadowNpc: {fileID: 1093604472627066441}
   bloodParticles_: {fileID: 2217007224458897739, guid: af25060634c4fef4fb97d7397892fc67, type: 3}
-  idleProbability: 30
-  startEmmit: 0.3
-  endEmmit: 0.8
-  citizen: 0
-  isTreater: 0
-  noDialog: 0
-  hasSecondAttack: 1
-  isRangeFirst: 0
-  countSuperDash: 0
-  health: 100
-  armor: 10
-  questHandler: {fileID: 0}
-  _hitBar: {fileID: 707198419784459606}
-  loots: []
   hitBoxColl_:
   - {fileID: 527784374267348421}
   weaponMappings:
@@ -3869,7 +3859,21 @@ MonoBehaviour:
     trails:
     - {fileID: 1442360320302939316}
     - {fileID: 1151156195088406086}
+  _hitBar: {fileID: 707198419784459606}
   dialogColl_: {fileID: 3129795647770588865}
+  idleProbability: 30
+  startEmmit: 0.3
+  endEmmit: 0.8
+  citizen: 0
+  isTreater: 0
+  noDialog: 0
+  hasSecondAttack: 1
+  isRangeFirst: 0
+  countSuperDash: 0
+  health: 100
+  armor: 10
+  questHandler: {fileID: 0}
+  loots: []
   wasHit: 0
   wasSeen: 0
 --- !u!54 &7890339087435854743

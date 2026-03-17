@@ -759,6 +759,18 @@ namespace KinematicCharacterController.Examples
             }
         }
 
+        public void SetVelocity(Vector3 velocity)
+        {
+            switch (CurrentCharacterState)
+            {
+                case CharacterState.Default:
+                    {
+                        _internalVelocityAdd = velocity - Motor.Velocity;
+                        break;
+                    }
+            }
+        }
+
         public void ProcessHitStabilityReport(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, Vector3 atCharacterPosition, Quaternion atCharacterRotation, ref HitStabilityReport hitStabilityReport)
         {
         }

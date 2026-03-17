@@ -61,7 +61,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.59f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ThrowProjectile.cs" />
+    <Compile Include="Assets\Platformer_8_Underworld\Scripts\Rnd_Animation.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\DialogueSystem\Utilities\SerializableDictionary.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\16- FramePerfect Rotation\Scripts\MyCharacterController.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="Assets\Shaders\Lava_Flowing_Shader\Scripts\ScrollingUVs_Layers.cs" />
     <Compile Include="Assets\SoStylized\Environment\Trees\Scripts\MS_StylizedTreeCollision.cs" />
     <Compile Include="Assets\Scripts\ShadowFriend.cs" />
+    <Compile Include="Assets\Scripts\CircleFloorObstacle.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Core\IMoverController.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\5- Adding velocities and impulses\Scripts\MyCharacterController.cs" />
@@ -111,11 +112,13 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\ElementsShowCase.cs" />
     <Compile Include="Assets\Resources\Scripts\Coin.cs" />
+    <Compile Include="Assets\HangHammerObstacle.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\DSDialogue.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Resources\Scripts\SmallGravity.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\4- Landing and leaving ground\Scripts\MyPlayer.cs" />
+    <Compile Include="Assets\Scripts\EnemyThrowBullet.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Examples\Scripts\PlanetManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\3- Jumping\Scripts\c- Wall Jumping\MyCharacterController.cs" />
@@ -143,6 +146,7 @@
     <Compile Include="Assets\Scripts\PlayerGameLogic.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\ExampleCharacter\Scripts\ExamplePlayer.cs" />
+    <Compile Include="Assets\Platformer_8_Underworld\Scripts\OscillatePosition.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\3- Jumping\Scripts\b- Double Jumping\MyPlayer.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Examples\Scripts\PlayableMover.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Examples\Scripts\Teleporter.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\12- NoClip state\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\Scripts\ThrowProjectile.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\11- Charging state\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
@@ -170,13 +175,13 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\14- Climbing Ladders\Scripts\MyLadder.cs" />
     <Compile Include="Assets\Scripts\DUtils.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\1- Player Camera Character Setup\Scripts\MyCharacterController.cs" />
-    <Compile Include="Assets\MagnetWalker.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\AttackerController.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\6- Crouching\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\Scripts\ColliderStarter.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\7- Orienting towards arbitrary up direction\Scripts\MyCharacterController.cs" />
+    <Compile Include="Assets\Platformer_8_Underworld\Scripts\BlendShapeAnimator.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\13- Swimming state\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\Resources\Scripts\TimeDelay.cs" />
     <Compile Include="Assets\Scripts\WaterBox.cs" />
@@ -189,10 +194,10 @@
     <Compile Include="Assets\Scripts\DashGhost.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\ScriptableObjects\DSDialogueContainerSO.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Core\ICharacterController.cs" />
+    <Compile Include="Assets\Platformer_8_Underworld\Scripts\OscillateScale.cs" />
     <Compile Include="Assets\Scripts\Trigger.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\2- Basic Movement and Gravity\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Examples\Scripts\FrameratePanel.cs" />
-    <Compile Include="Assets\EnemyThrowBullet.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\Projectile.cs" />
@@ -201,6 +206,7 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Examples\Scripts\ExampleMovingPlatform.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+    <Compile Include="Assets\Scripts\MagnetWalker.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Core\KCCSettings.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Resources\Scripts\TriggerAction.cs" />
@@ -214,27 +220,36 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\8- Creating a moving platform\Scripts\MyMovingPlatform.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\ExampleCharacter\Scripts\ExampleCharacterController.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\14- Climbing Ladders\Scripts\MyPlayer.cs" />
+    <Compile Include="Assets\Platformer_8_Underworld\Scripts\OscillateRotation.cs" />
+    <Compile Include="Assets\Platformer_8_Underworld\Scripts\RotationScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\My_Assets\Nomadic_UV\Foe_Creature\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\URP_Shaders\MainURP.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - License.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Unity - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\URP_Shaders\Glow_URP.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - AFL.txt" />
     <None Include="Assets\Shaders\Lava_Flowing_Shader\Shaders\Diffuse_Lava_Distort.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\SRP_Shaders\Water.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Shaders\Lava_Flowing_Shader\ReadMe.txt" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\SRP_Shaders\SimpleWater.shader" />
     <None Include="Assets\Shaders\Free Slash VFX\Model\Katana\Katana License.txt" />
     <None Include="Assets\Shaders\Blood_Effect\Blood Effect.shader" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\URP_Shaders\WaterURP.shader" />
+    <None Include="Assets\Scripts\CircleFloorObstacle.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\Creatures\Ghost\Documents\readme_txt.txt" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\URP_Shaders\Glass_URP.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\Shaders\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort_Transparent.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -244,8 +259,10 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\Shaders\UnderwaterEffect.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\SRP_Shaders\Glass.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Shaders\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort.shader" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\SRP_Shaders\Glow.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\SoStylized\Demo\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
@@ -255,7 +272,10 @@
     <None Include="Assets\Shaders\Plasma Shader\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\Shaders\Lava_Flowing_Shader\Shaders\Unlit_Lava_Simple.shader" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\SRP_Shaders\Main.shader" />
+    <None Include="Assets\Platformer_8_Underworld\URP_Extract_Me\Documentation.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Platformer_8_Underworld\Shaders\URP_Shaders\SimpleWater_URP.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
   </ItemGroup>

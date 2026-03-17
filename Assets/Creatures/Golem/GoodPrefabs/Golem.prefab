@@ -365,7 +365,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.97260666, z: -0, w: 0.23245715}
   m_LocalPosition: {x: 68.689674, y: 39.326546, z: 79.06241}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3484490346436022613}
   - {fileID: 5311853609416603391}
@@ -451,7 +451,7 @@ MonoBehaviour:
   attackIcon: {fileID: 3129073762121018996}
   _dialogAttention: {fileID: 1703246909507768335}
   _dangerSaw: {fileID: 7745093390667825793}
-  crystall_: {fileID: 2862632930690371321, guid: 345936f6bbf03154ab453ca0b373b4f3, type: 3}
+  crystall_: {fileID: 6967138284006568684, guid: b1150279f0f685848ade395d57fbb72f, type: 3}
   _shadowNpc: {fileID: 2444637241954255261}
   bloodParticles_: {fileID: 2217007224458897739, guid: af25060634c4fef4fb97d7397892fc67, type: 3}
   hitBoxColl_:
