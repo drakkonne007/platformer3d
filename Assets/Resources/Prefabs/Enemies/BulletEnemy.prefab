@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1074369651884412774}
   m_Layer: 10
   m_Name: BulletEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +124,8 @@ MonoBehaviour:
   angleCount: 1
   spin: 0
   maxAngle: 90
+  aimRadius: 10
+  aimCenterOffset: {x: 0, y: 0, z: 0}
   bullets:
   - {fileID: 1312667827573572455, guid: c53b397c978486544abfedb2c680e007, type: 3}
   period: 8

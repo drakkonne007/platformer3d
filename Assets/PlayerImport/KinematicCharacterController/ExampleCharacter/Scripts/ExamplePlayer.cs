@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -116,6 +116,9 @@ namespace KinematicCharacterController.Examples
             characterInputs.ChangeColorDown = _inputActions.Player.ChangeColor.WasPressedThisFrame();
             characterInputs.DashDown = _inputActions.Player.Sprint.WasPressedThisFrame();
             characterInputs.BlockDown = _inputActions.Player.Block.IsPressed();
+
+            var interactAction = _inputActions.FindAction("Interact");
+            characterInputs.InteractDown = interactAction != null && interactAction.WasPressedThisFrame();
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);

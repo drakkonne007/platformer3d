@@ -31,6 +31,7 @@ namespace KinematicCharacterController.Examples
         public bool ChangeColorDown;
         public bool DashDown;
         public bool BlockDown;
+        public bool InteractDown;
     }
 
     public struct AICharacterInputs
@@ -269,6 +270,11 @@ namespace KinematicCharacterController.Examples
                         if (inputs.ChangeColorDown && PlayerLogic != null)
                         {
                             PlayerLogic.changeMaterial();
+                        }
+
+                        if (inputs.InteractDown && MainHandler.Instance != null)
+                        {
+                            MainHandler.Instance.StartInteractive();
                         }
 
                         switch (OrientationMethod)

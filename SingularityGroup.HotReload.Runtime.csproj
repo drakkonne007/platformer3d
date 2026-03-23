@@ -96,6 +96,7 @@
     <Compile Include="Packages\com.singularitygroup.hotreload\Runtime\Demo\Scripts\HotReloadBurstJobsDemo.cs" />
     <Compile Include="Packages\com.singularitygroup.hotreload\Runtime\ThreadUtility.cs" />
     <Compile Include="Packages\com.singularitygroup.hotreload\Runtime\IpHelper.cs" />
+    <Compile Include="Packages\com.singularitygroup.hotreload\Runtime\MultiplayerPlaymodeHelper.cs" />
     <Compile Include="Packages\com.singularitygroup.hotreload\Runtime\MonoBehaviours\QuestionDialog.cs" />
     <Compile Include="Packages\com.singularitygroup.hotreload\Runtime\OnHotReloadDispatch.cs" />
     <Compile Include="Packages\com.singularitygroup.hotreload\Runtime\MonoMethod.cs" />

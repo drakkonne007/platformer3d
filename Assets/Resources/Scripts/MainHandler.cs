@@ -53,7 +53,7 @@ public class MainHandler : MonoBehaviour
     public event Action<DSDialogueContainerSO, int> onAddQuestScript;
     public event Action<DSDialogueContainerSO, DSDialogueSO> onQuestChange;
     PlayerGameLogic playerGameLogic_;
-    public ActionParent currentAction;
+    ActionParent currentAction;
     public static MainHandler Instance;
     GameObject player_;
     
@@ -117,6 +117,11 @@ public class MainHandler : MonoBehaviour
     }
     public void setActiveAction(ActionParent act)
     {
+        if(act == currentAction)
+        {
+            return;
+        }
+        print("SET smth!)");
         if (currentAction != null)
         {
             currentAction.deactivate();

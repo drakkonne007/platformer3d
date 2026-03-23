@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 5307204217045080553}
   m_Layer: 0
   m_Name: Goblin
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,11 +530,15 @@ MonoBehaviour:
   canThrow: 0
   throwDistance: 0
   throwCooldown: 5
+  throwStub: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 2
+  startThrowStub: 0
+  endThrowStub: 0.5
   attackDistance: 1.31
   attackCooldown: 0.6
   rotationSpeed: 5
-  projectilePrefab: {fileID: 0}
-  throwPoint: {fileID: 0}
+  skipHurtAnim: 0
   stanIcon: {fileID: 1103075023308730937}
   attackIcon: {fileID: 2186944243353452082}
   _dialogAttention: {fileID: 2492184099513630793}
@@ -542,20 +546,6 @@ MonoBehaviour:
   crystall_: {fileID: 2862632930690371321, guid: 345936f6bbf03154ab453ca0b373b4f3, type: 3}
   _shadowNpc: {fileID: 1502015000242475483}
   bloodParticles_: {fileID: 2217007224458897739, guid: af25060634c4fef4fb97d7397892fc67, type: 3}
-  idleProbability: 30
-  startEmmit: 0.18
-  endEmmit: 0.8
-  citizen: 0
-  isTreater: 0
-  noDialog: 0
-  hasSecondAttack: 0
-  isRangeFirst: 0
-  countSuperDash: 0
-  health: 100
-  armor: 10
-  questHandler: {fileID: 0}
-  _hitBar: {fileID: 605447369555746175}
-  loots: []
   hitBoxColl_:
   - {fileID: 3955762178207141486}
   weaponMappings:
@@ -569,7 +559,21 @@ MonoBehaviour:
   - attackIndex: 0
     trails:
     - {fileID: 210613371735786447}
+  _hitBar: {fileID: 605447369555746175}
   dialogColl_: {fileID: 9162494336297223755}
+  idleProbability: 30
+  startEmmit: 0.18
+  endEmmit: 0.8
+  citizen: 0
+  isTreater: 0
+  noDialog: 0
+  hasSecondAttack: 0
+  isRangeFirst: 0
+  countSuperDash: 0
+  health: 100
+  armor: 10
+  questHandler: {fileID: 0}
+  loots: []
   wasHit: 0
   wasSeen: 0
 --- !u!54 &9075089494209140682

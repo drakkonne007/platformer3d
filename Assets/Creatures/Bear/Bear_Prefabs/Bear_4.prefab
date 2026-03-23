@@ -2247,7 +2247,7 @@ GameObject:
   - component: {fileID: 5790472766070878818}
   m_Layer: 0
   m_Name: Bear_4
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2337,11 +2337,15 @@ MonoBehaviour:
   canThrow: 0
   throwDistance: 0
   throwCooldown: 5
+  throwStub: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 2
+  startThrowStub: 0
+  endThrowStub: 0.5
   attackDistance: 3
   attackCooldown: 0.7
   rotationSpeed: 5
-  projectilePrefab: {fileID: 0}
-  throwPoint: {fileID: 0}
+  skipHurtAnim: 0
   stanIcon: {fileID: 8461811467586744341}
   attackIcon: {fileID: 7239846884277451806}
   _dialogAttention: {fileID: 6392446710674260581}
@@ -2349,20 +2353,6 @@ MonoBehaviour:
   crystall_: {fileID: 2862632930690371321, guid: 345936f6bbf03154ab453ca0b373b4f3, type: 3}
   _shadowNpc: {fileID: 7996342343084758007}
   bloodParticles_: {fileID: 2217007224458897739, guid: af25060634c4fef4fb97d7397892fc67, type: 3}
-  idleProbability: 30
-  startEmmit: 0.11
-  endEmmit: 0.53
-  citizen: 0
-  isTreater: 0
-  noDialog: 0
-  hasSecondAttack: 1
-  isRangeFirst: 0
-  countSuperDash: 0
-  health: 200
-  armor: 10
-  questHandler: {fileID: 0}
-  _hitBar: {fileID: 6379901505901304833}
-  loots: []
   hitBoxColl_:
   - {fileID: 8365683791635555561}
   weaponMappings:
@@ -2385,7 +2375,21 @@ MonoBehaviour:
   - attackIndex: 0
     trails:
     - {fileID: 2173190874087582624}
+  _hitBar: {fileID: 6379901505901304833}
   dialogColl_: {fileID: 4920156284615777124}
+  idleProbability: 30
+  startEmmit: 0.11
+  endEmmit: 0.53
+  citizen: 0
+  isTreater: 0
+  noDialog: 0
+  hasSecondAttack: 1
+  isRangeFirst: 0
+  countSuperDash: 0
+  health: 200
+  armor: 10
+  questHandler: {fileID: 0}
+  loots: []
   wasHit: 0
   wasSeen: 0
 --- !u!54 &5790472766070878818

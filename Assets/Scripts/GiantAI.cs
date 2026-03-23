@@ -187,7 +187,7 @@ namespace GiantAI
             }
         }
 
-        private void Awake()
+        void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
@@ -290,13 +290,13 @@ namespace GiantAI
         }
         private void OnDialogEnter(Collider col)
         {
-            MainHandler.Instance.currentAction = actionParent;
+            MainHandler.Instance.setActiveAction(actionParent);            
         }
         private void OnDialogExit(Collider col)
         {
-            if (MainHandler.Instance.currentAction == actionParent)
+            if (MainHandler.Instance.currentActiveAction() == actionParent)
             {
-                MainHandler.Instance.currentAction = null;
+                MainHandler.Instance.setActiveAction(null);
             }
         }
         public void checkQuestDialog()
