@@ -60,7 +60,10 @@ public class MainHandler : MonoBehaviour
 
     public PlayerData playerData = new();
 
-
+    public void KillPlayer()
+    {
+        print("Player killed!!!");
+    }
     private void Awake()
     {
         if (Instance != null && Instance != this)

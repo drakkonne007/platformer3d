@@ -73,7 +73,6 @@ public class NPCHandler : MonoBehaviour
         {
             if (col.CompareTag(enemyTag))
             {
-                print("Add enemy");
                 enemies.Add(col.gameObject);
             }
             else if (col.CompareTag(playerTag))
