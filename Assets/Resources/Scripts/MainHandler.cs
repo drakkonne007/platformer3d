@@ -48,6 +48,7 @@ public class MainHandler : MonoBehaviour
     System.Random random_ = new();
     public GameLanguage gameLanguage = GameLanguage.ru;
     
+    
     Dictionary<DSDialogueContainerSO, List<int>> questTriggers = new();
     public Dictionary<DSDialogueContainerSO, DSDialogueSO> quests = new();
     public event Action<DSDialogueContainerSO, int> onAddQuestScript;
@@ -56,7 +57,10 @@ public class MainHandler : MonoBehaviour
     ActionParent currentAction;
     public static MainHandler Instance;
     GameObject player_;
-    
+
+    public PlayerData playerData = new();
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -121,7 +125,6 @@ public class MainHandler : MonoBehaviour
         {
             return;
         }
-        print("SET smth!)");
         if (currentAction != null)
         {
             currentAction.deactivate();
@@ -198,6 +201,7 @@ public class MainHandler : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+
     }
     public void addHealth(float value, DamageType type)
     {

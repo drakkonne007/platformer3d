@@ -72,9 +72,9 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\8- Creating a moving platform\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\Scripts\UnderwaterEffect.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\13- Swimming state\Scripts\MyPlayer.cs" />
+    <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\ScriptableObjects\DSDoSmth.cs" />
-    <Compile Include="Assets\Resources\Scripts\Item.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\ScriptableObjects\DSDialogueGroupSO.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\15- Root motion example\Scripts\MyCharacterController.cs" />
@@ -140,6 +140,7 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\14- Climbing Ladders\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Examples\Scripts\PrefabLauncher.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\5- Adding velocities and impulses\Scripts\MyPlayer.cs" />
+    <Compile Include="Assets\Resources\Scripts\ItemOnMap.cs" />
     <Compile Include="Assets\Scripts\Fan.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\15- Root motion example\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\9- Custom collision filtering\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\DialogueSystem\Utilities\TextUtility.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\ScriptableObjects\DSDialogueSO.cs" />
+    <Compile Include="Assets\Scripts\ItemInventarSO.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Core\KinematicCharacterMotor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\8- Creating a moving platform\Scripts\MyMovingPlatform.cs" />

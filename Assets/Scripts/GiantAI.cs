@@ -83,7 +83,7 @@ namespace GiantAI
         [SerializeField] float armor = 10;
         [SerializeField] public DQuestTriggerParent questHandler;
         
-        [SerializeField] List<GameObject> loots;
+        [SerializeField] List<ItemInventarSO> loots;
 
       
 
@@ -587,7 +587,11 @@ namespace GiantAI
             //rigidBody_.simulated = false;
             for (int i = 0; i < loots!.Count; i++)
             {
-                Instantiate(loots![i], transform.position - new Vector3(i * 15 / 32, 0, 0), Quaternion.identity);
+                var temp = Instantiate(loots![i].prefab, transform.position - new Vector3(i * 15 / 32, 0, 0), Quaternion.identity);
+                if (temp.GetComponent<ItemOnMap>())
+                {
+                    temp.GetComponent<ItemOnMap>().thisPrefab = loots![i];
+                }
             }
 
             foreach (var coll in hitBoxColl_)
