@@ -24,6 +24,8 @@ namespace GiantAI
         public class TrailMapping
         {
             public int attackIndex;
+            [Range(0, 1)] public float startEmmit = 0.3f;
+            [Range(0, 1)] public float endEmmit = 0.8f;
             public List<TrailRenderer> trails;
         }
 
@@ -67,8 +69,6 @@ namespace GiantAI
 
         [Header("Randomization")]
         [SerializeField][Range(0, 100)] private int idleProbability = 30;
-        [SerializeField][Range(0, 1)] float startEmmit = 0.3f;
-        [SerializeField][Range(0, 1)] float endEmmit = 0.8f;
 
 
         [Header("RpgSettings")]
@@ -134,11 +134,16 @@ namespace GiantAI
             int key = (weaponColl_ != null && weaponColl_.ContainsKey(variant)) ? variant : 0;
             if (weaponColl_ != null && weaponColl_.ContainsKey(key))
             {
+                bool anyChanged = false;
                 foreach (var coll in weaponColl_[key])
                 {
-                    coll.enabled = enabled;
+                    if (coll.enabled != enabled)
+                    {
+                        coll.enabled = enabled;
+                        anyChanged = true;
+                    }
                 }
-                if (enabled)
+                if (enabled && anyChanged)
                 {
                     playerHited_ = false;
                     splitHitColliders_.Clear();
@@ -164,7 +169,10 @@ namespace GiantAI
             {
                 foreach (var trail in swordTrails[key])
                 {
-                    trail.emitting = emitting;
+                    if (trail.emitting != emitting)
+                    {
+                        trail.emitting = emitting;
+                    }
                 }
             }
         }
@@ -717,13 +725,40 @@ namespace GiantAI
 
             if (noThrowAttack || isThrowAnim || isStartingThrow_)
             {
-                if (noThrowAttack && stateInfo.normalizedTime > startEmmit && stateInfo.normalizedTime < endEmmit)
+                if (noThrowAttack)
                 {
-                    SetTrailsEmitting(nowAttackVariant, true);
+                    TrailMapping currentTrailMapping = null;
+                    foreach (var mapping in trailMappings)
+                    {
+                        if (mapping.attackIndex == nowAttackVariant)
+                        {
+                            currentTrailMapping = mapping;
+                            break;
+                        }
+                    }
+                    if (currentTrailMapping == null && trailMappings.Count > 0)
+                    {
+                        foreach (var mapping in trailMappings)
+                        {
+                            if (mapping.attackIndex == 0)
+                            {
+                                currentTrailMapping = mapping;
+                                break;
+                            }
+                        }
+                    }
+
+                    float start = currentTrailMapping != null ? currentTrailMapping.startEmmit : 0.3f;
+                    float end = currentTrailMapping != null ? currentTrailMapping.endEmmit : 0.8f;
+                    bool insideCorridor = stateInfo.normalizedTime > start && stateInfo.normalizedTime < end;
+
+                    SetTrailsEmitting(nowAttackVariant, insideCorridor);
+                    SetCollidersEnabled(nowAttackVariant, insideCorridor);
                 }
                 else
                 {
                     SetTrailsEmitting(nowAttackVariant, false);
+                    SetCollidersEnabled(nowAttackVariant, false);
                 }
 
                 // Handle throw stub visibility and projectile spawning
@@ -1029,7 +1064,6 @@ namespace GiantAI
                 nowAttackVariant = 0;
             }
             animator.SetFloat("attackIndex", nowAttackVariant);
-            SetCollidersEnabled(nowAttackVariant, true);
             animator.SetTrigger("attack");
 
             // Attack Icon Logic (Random 1 in 3 chance)

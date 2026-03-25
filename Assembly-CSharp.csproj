@@ -172,6 +172,7 @@
     <Compile Include="Assets\NPCHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\Scripts\DefaulChestAnim.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\ExampleCharacter\Scripts\ExampleCharacterCamera.cs" />
     <Compile Include="Assets\Scripts\BulletSpawner.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Core\KinematicCharacterSystem.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\1- Player Camera Character Setup\Scripts\MyCharacterController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Scripts\MimicAwake.cs" />
     <Compile Include="Assets\Shaders\Free Slash VFX\Demo\Scripts\AttackerController.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\6- Crouching\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\Scripts\ColliderStarter.cs" />

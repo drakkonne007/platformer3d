@@ -729,11 +729,15 @@ MonoBehaviour:
   canThrow: 0
   throwDistance: -1.65
   throwCooldown: 5
+  throwStub: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 2
+  startThrowStub: 0
+  endThrowStub: 0.5
   attackDistance: 2.16
   attackCooldown: 0.2
   rotationSpeed: 150
-  projectilePrefab: {fileID: 0}
-  throwPoint: {fileID: 0}
+  skipHurtAnim: 0
   stanIcon: {fileID: 8085150727307134857}
   attackIcon: {fileID: 6999516790563064706}
   _dialogAttention: {fileID: 6768018981378668025}
@@ -741,9 +745,24 @@ MonoBehaviour:
   crystall_: {fileID: 2862632930690371321, guid: 345936f6bbf03154ab453ca0b373b4f3, type: 3}
   _shadowNpc: {fileID: 7756020937271338091}
   bloodParticles_: {fileID: 2217007224458897739, guid: af25060634c4fef4fb97d7397892fc67, type: 3}
+  hitBoxColl_:
+  - {fileID: 8390580737845074268}
+  weaponMappings:
+  - attackIndex: 0
+    split: 0
+    refreshPoints0: []
+    refreshPoints1: []
+    colliders:
+    - {fileID: 8412175708635773781}
+  trailMappings:
+  - attackIndex: 0
+    startEmmit: 0.35
+    endEmmit: 0.55
+    trails:
+    - {fileID: 7386957425881081474}
+  _hitBar: {fileID: 6721520536347540346}
+  dialogColl_: {fileID: 4104616337777751526}
   idleProbability: 30
-  startEmmit: 0.3
-  endEmmit: 0.8
   citizen: 0
   isTreater: 0
   noDialog: 0
@@ -753,19 +772,7 @@ MonoBehaviour:
   health: 100
   armor: 10
   questHandler: {fileID: 0}
-  _hitBar: {fileID: 6721520536347540346}
   loots: []
-  hitBoxColl_:
-  - {fileID: 8390580737845074268}
-  weaponMappings:
-  - attackIndex: 0
-    colliders:
-    - {fileID: 8412175708635773781}
-  trailMappings:
-  - attackIndex: 0
-    trails:
-    - {fileID: 7386957425881081474}
-  dialogColl_: {fileID: 4104616337777751526}
   wasHit: 0
   wasSeen: 0
 --- !u!54 &3906201392293232480
@@ -1839,31 +1846,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3278185419076979145, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.47174445
+      value: -0.2716049
       objectReference: {fileID: 0}
     - target: {fileID: 3278185419076979145, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.537247
+      value: 0.5473862
       objectReference: {fileID: 0}
     - target: {fileID: 3278185419076979145, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.4653926
+      value: 0.54304403
       objectReference: {fileID: 0}
     - target: {fileID: 3278185419076979145, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5217591
+      value: -0.57593596
       objectReference: {fileID: 0}
     - target: {fileID: 3278185419076979145, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 19.158
       objectReference: {fileID: 0}
     - target: {fileID: 3278185419076979145, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -101.545
       objectReference: {fileID: 0}
     - target: {fileID: 3278185419076979145, guid: 9d5b9848d5cbe4b48bc5ed3661895b8a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 106.145
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -96,7 +96,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7145025948901049941}
-  m_LocalEulerAnglesHint: {x: 0.66067946, y: 16.79154, z: 177.81166}
+  m_LocalEulerAnglesHint: {x: 0.6606782, y: 16.791538, z: 177.81166}
 --- !u!1 &1712128160194259891
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3896221810143957870}
-  m_LocalEulerAnglesHint: {x: -0.66065043, y: -16.791199, z: -2.1882823}
+  m_LocalEulerAnglesHint: {x: -0.66064876, y: -16.791199, z: -2.188281}
 --- !u!1 &2189440311008932223
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,16 +471,18 @@ MonoBehaviour:
     - {fileID: 2903042240358032001}
   trailMappings:
   - attackIndex: 0
+    startEmmit: 0.36
+    endEmmit: 0.55
     trails:
     - {fileID: 6956209027391173394}
   - attackIndex: 1
+    startEmmit: 0.26
+    endEmmit: 0.48
     trails:
     - {fileID: 7873083470632047409}
   _hitBar: {fileID: 4629950376749895712}
   dialogColl_: {fileID: 2260156499230831960}
   idleProbability: 30
-  startEmmit: 0.3
-  endEmmit: 0.455
   citizen: 0
   isTreater: 0
   noDialog: 0
