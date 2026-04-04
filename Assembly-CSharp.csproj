@@ -75,6 +75,7 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\13- Swimming state\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Scripts\FoliageInteractor.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\ScriptableObjects\DSDoSmth.cs" />
     <Compile Include="Assets\DialogueSystem\Scripts\ScriptableObjects\DSDialogueGroupSO.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\14- Climbing Ladders\Scripts\MyPlayer.cs" />
     <Compile Include="Assets\Platformer_8_Underworld\Scripts\OscillateRotation.cs" />
     <Compile Include="Assets\Platformer_8_Underworld\Scripts\RotationScript.cs" />
+    <Compile Include="Assets\Scripts\FoliageDisplacementCamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
