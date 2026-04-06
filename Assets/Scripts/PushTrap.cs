@@ -4,7 +4,7 @@ using KinematicCharacterController;
 [RequireComponent(typeof(PhysicsMover))]
 public class PushTrap : MonoBehaviour, IMoverController
 {
-    [SerializeField] float speed = 1;
+    [SerializeField] float speed = 1; 
     [SerializeField] GameObject start;
     [SerializeField] GameObject end;
 
