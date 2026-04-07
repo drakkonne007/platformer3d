@@ -93,6 +93,8 @@ namespace KinematicCharacterController.Examples
         public float DashSpeed = 30f;
         public float DashDuration = 0.2f;
         public float DashCooldown = 1f;
+        [Tooltip("What fraction of DashSpeed is kept when arriving at a bridge (0 = dead stop, 1 = full speed)")]
+        public float BridgeArrivalSpeedFactor = 0.5f;
 
         public CharacterState CurrentCharacterState { get; private set; }
 
@@ -592,9 +594,12 @@ namespace KinematicCharacterController.Examples
                                 // If close enough to arrive this frame (with 0.3m buffer)
                                 if (distToTarget < (DashSpeed * deltaTime) + 0.3f)
                                 {
+                                    Vector3 exitVelocity = dirToTarget.normalized * DashSpeed * BridgeArrivalSpeedFactor;
                                     Motor.SetTransientPosition(_dashTargetPosition);
                                     stopDash = true;
-                                    currentVelocity = Vector3.zero;
+
+                                    // Preserve some momentum instead of dead stop
+                                    currentVelocity = exitVelocity;
 
                                     // Set per-bridge cooldown
                                     _lastTargetBridge = _currentTargetBridge;
