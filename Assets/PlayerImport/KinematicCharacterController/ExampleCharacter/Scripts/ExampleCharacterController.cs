@@ -53,6 +53,8 @@ namespace KinematicCharacterController.Examples
         public Animator Animator;
         public PlayerGameLogic PlayerLogic;
         public List<Collider> WeaponCollider;
+        public Collider flyBridge;
+        private HashSet<Collider> nearFlyBridges = new();
         public DashEffect DashEffect;
         public GameObject DashParticles;
 
@@ -111,6 +113,11 @@ namespace KinematicCharacterController.Examples
         private float _dashCooldownTimer = 0f;
         private bool _isDashing = false;
         private Vector3 _dashDirection = Vector3.forward;
+        private Vector3 _dashTargetPosition;
+        private bool _isTargetedDash;
+        private Collider _currentTargetBridge;
+        private Collider _lastTargetBridge;
+        private float _lastBridgeCooldownTimer;
 
         // Combo & Attack
         private int _comboIndex = 0;
@@ -153,10 +160,23 @@ namespace KinematicCharacterController.Examples
                 coll.GetComponent<ColliderStarter>().OnEnter += attack;
                 coll.GetComponent<ColliderStarter>().OnStay += attack;
             }
+            flyBridge.GetComponent<ColliderStarter>().OnEnter += AddFlyBridge;
+            flyBridge.GetComponent<ColliderStarter>().OnExit += RemoveFlyBridge;
+        }
+
+        void AddFlyBridge(Collider other)
+        {
+            nearFlyBridges.Add(other);
+        }
+        void RemoveFlyBridge(Collider other)
+        {
+            nearFlyBridges.Remove(other);
         }
 
         void OnDestroy()
         {
+            flyBridge.GetComponent<ColliderStarter>().OnEnter -= AddFlyBridge;
+            flyBridge.GetComponent<ColliderStarter>().OnExit -= RemoveFlyBridge;
             foreach (var coll in WeaponCollider)
             {
                 coll.GetComponent<ColliderStarter>().OnEnter -= attack;
@@ -310,25 +330,73 @@ namespace KinematicCharacterController.Examples
                         {
                             _shouldBeCrouching = false;
                         }
-
-                        if (inputs.DashDown && _dashCooldownTimer <= 0f && !_isDashing && !_isBlocking)
+                        if (inputs.DashDown)
                         {
-                            _isDashing = true;
-                            _dashTimer = DashDuration;
-                            _dashCooldownTimer = DashCooldown;
-                            _dashDirection = Motor.CharacterForward;
-
-                            if (DashEffect != null)
+                            _isTargetedDash = false;
+                            if (nearFlyBridges.Count > 0 && _moveInputVector.sqrMagnitude > 0f)
                             {
-                                DashEffect.StartDashEffect();
-                            }
+                                Collider bestBridge = null;
+                                float minDist = float.MaxValue;
 
-                            if (DashParticles != null)
-                            {
-                                DashParticles.SetActive(true);
-                                foreach (var ps in DashParticles.GetComponentsInChildren<ParticleSystem>())
+                                foreach (var bridge in nearFlyBridges)
                                 {
-                                    ps.Play();
+                                    // Skip if it's the bridge we just arrived at and its cooldown is active
+                                    if (bridge == _lastTargetBridge && _lastBridgeCooldownTimer > 0f) continue;
+
+                                    Vector3 toBridge = (bridge.transform.position - Motor.TransientPosition);
+                                    float dist = toBridge.magnitude;
+                                    Vector3 dirToBridge = toBridge.normalized;
+
+                                    float dot = Vector3.Dot(_moveInputVector.normalized, dirToBridge);
+                                    if (dot > 0.5f)
+                                    {
+                                        if (dist < minDist)
+                                        {
+                                            minDist = dist;
+                                            bestBridge = bridge;
+                                        }
+                                    }
+                                }
+
+                                if (bestBridge != null)
+                                {
+                                    _isTargetedDash = true;
+                                    _dashTargetPosition = bestBridge.transform.position;
+                                    _currentTargetBridge = bestBridge;
+                                    _isDashing = true;
+                                    if (DashEffect != null)
+                                    {
+                                        DashEffect.StartDashEffect();
+                                    }
+
+                                    if (DashParticles != null)
+                                    {
+                                        DashParticles.SetActive(true);
+                                        foreach (var ps in DashParticles.GetComponentsInChildren<ParticleSystem>())
+                                        {
+                                            ps.Play();
+                                        }
+                                    }
+                                }
+                            }
+                            if (!_isTargetedDash && _dashCooldownTimer <= 0f && !_isDashing && !_isBlocking)
+                            {
+                                _isDashing = true;
+                                _dashCooldownTimer = DashCooldown;
+                                _dashTimer = DashDuration;
+                                _dashDirection = _moveInputVector.sqrMagnitude > 0f ? _moveInputVector.normalized : Motor.CharacterForward;
+                                if (DashEffect != null)
+                                {
+                                    DashEffect.StartDashEffect();
+                                }
+
+                                if (DashParticles != null)
+                                {
+                                    DashParticles.SetActive(true);
+                                    foreach (var ps in DashParticles.GetComponentsInChildren<ParticleSystem>())
+                                    {
+                                        ps.Play();
+                                    }
                                 }
                             }
                         }
@@ -501,8 +569,42 @@ namespace KinematicCharacterController.Examples
 
                         if (_isDashing)
                         {
-                            _dashTimer -= deltaTime;
-                            if (_dashTimer <= 0f)
+                            bool stopDash = false;
+                            if (_isTargetedDash)
+                            {
+                                Vector3 dirToTarget = (_dashTargetPosition - Motor.TransientPosition);
+                                float distToTarget = dirToTarget.magnitude;
+
+                                // If close enough to arrive this frame (with 0.3m buffer)
+                                if (distToTarget < (DashSpeed * deltaTime) + 0.3f)
+                                {
+                                    Motor.SetTransientPosition(_dashTargetPosition);
+                                    stopDash = true;
+                                    currentVelocity = Vector3.zero;
+
+                                    // Set per-bridge cooldown
+                                    _lastTargetBridge = _currentTargetBridge;
+                                    _lastBridgeCooldownTimer = 1.0f;
+                                }
+                                else
+                                {
+                                    currentVelocity = dirToTarget.normalized * DashSpeed;
+                                }
+                            }
+                            else
+                            {
+                                _dashTimer -= deltaTime;
+                                if (_dashTimer <= 0f)
+                                {
+                                    stopDash = true;
+                                }
+                                else
+                                {
+                                    currentVelocity = _dashDirection * DashSpeed;
+                                }
+                            }
+
+                            if (stopDash)
                             {
                                 _isDashing = false;
 
@@ -529,10 +631,6 @@ namespace KinematicCharacterController.Examples
                                 {
                                     currentVelocity = Vector3.ClampMagnitude(currentVelocity, MaxStableMoveSpeed);
                                 }
-                            }
-                            else
-                            {
-                                currentVelocity = _dashDirection * DashSpeed;
                             }
                         }
 
@@ -644,6 +742,11 @@ namespace KinematicCharacterController.Examples
             if (_dashCooldownTimer > 0f)
             {
                 _dashCooldownTimer -= deltaTime;
+            }
+
+            if (_lastBridgeCooldownTimer > 0f)
+            {
+                _lastBridgeCooldownTimer -= deltaTime;
             }
 
             switch (CurrentCharacterState)

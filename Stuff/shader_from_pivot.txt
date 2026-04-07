@@ -1,0 +1,17 @@
+// 1. Считаем UV на основе центра объекта (PivotPos), а не конкретной вершины
+float2 uv = (PivotPos.xz - MapPos.xz) / (MapPos.w * 2.0) + 0.5;
+// 2. Проверка границ
+if (uv.x < 0 || uv.x > 1 || uv.y < 0 || uv.y > 1) {
+    Offset = float3(0,0,0);
+    return;
+}
+// 3. Читаем маску (она теперь одинакова для всего цветка сразу)
+float mask = SAMPLE_TEXTURE2D_LOD(Map.tex, Map.samplerstate, uv, 0).r;
+// 4. Проверка высоты (тоже по центру)
+float distY = abs(PivotPos.y - MapPos.y);
+mask *= saturate(1.0 - distY * 0.5); 
+// 5. Финальное смещение
+// Направление считаем от игрока к центру цветка (PivotPos)
+float2 dir = normalize(PivotPos.xz - MapPos.xz + 0.001);
+// Применяем смещение ко всем вершинам одинаково, но с учетом InHeight (у корня 0, на кончиках 1)
+Offset = float3(dir.x, StepDown, dir.y) * mask * StepMulti * InHeight;
