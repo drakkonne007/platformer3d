@@ -194,6 +194,7 @@
     <Compile Include="Assets\Scripts\DeathTrigger.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\ExampleCharacter\Scripts\ExampleCharacterCamera.cs" />
     <Compile Include="Assets\Scripts\BulletSpawner.cs" />
+    <Compile Include="Assets\ActiveSwitcher.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Core\KinematicCharacterSystem.cs" />
     <Compile Include="Assets\PlayerImport\KinematicCharacterController\Walkthrough\14- Climbing Ladders\Scripts\MyLadder.cs" />
     <Compile Include="Assets\Scripts\DUtils.cs" />

@@ -17,7 +17,7 @@ namespace ithappy
 
         void Start()
         {
-            startRotation = transform.rotation;
+            startRotation = transform.localRotation;
 
             if (useRandomDelay)
             {
@@ -41,7 +41,7 @@ namespace ithappy
             float currentAngle = rotationAngle * (isReversing ? (1 - progress) : progress);
             Quaternion currentRotation = startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
 
-            transform.rotation = currentRotation;
+            transform.localRotation = currentRotation;
 
             timeElapsed += Time.deltaTime;
 
