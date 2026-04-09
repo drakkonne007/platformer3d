@@ -7,7 +7,7 @@ public enum HandState
     Ground,
     Idle,
     ToGround,
-    ToIdle
+    ToIdle 
 }
 
 public class BigHand : MonoBehaviour
@@ -82,16 +82,18 @@ public class BigHand : MonoBehaviour
     {
         if (flyBridge != null)
         {
+            print("Set enbled to false");
             flyBridge.enabled = false;
         }
-        if (health <= 0)
-        {
-            return;
-        }
-        playerHited_ = false;
         if (handState_ != HandState.Idle) return;
 
         playerPos_ = MainHandler.Instance.playerPosition();
+
+        // Если игрок уже слишком близко (меньше погрешности), удар не начинаем
+        if (Vector3.Distance(transform.position, playerPos_) < TOLERANCE)
+        {
+            return;
+        }
         
         // Переход к атаке
         transform.DOKill();
@@ -196,4 +198,5 @@ public class BigHand : MonoBehaviour
         lastDistToTarget_ = currentDist;
     }
 }
+
 

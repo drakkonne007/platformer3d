@@ -344,6 +344,10 @@ namespace KinematicCharacterController.Examples
 
                                 foreach (var bridge in nearFlyBridges)
                                 {
+                                    if(!bridge.enabled)
+                                    {
+                                        continue;
+                                    }
                                     // Skip if it's the bridge we just arrived at and its cooldown is active
                                     if (bridge == _lastTargetBridge && _lastBridgeCooldownTimer > 0f) continue;
 
@@ -451,7 +455,7 @@ namespace KinematicCharacterController.Examples
             switch (CurrentCharacterState)
             {
                 case CharacterState.Default:
-                    {
+                    { 
                         if (_lookInputVector.sqrMagnitude > 0f && OrientationSharpness > 0f)
                         {
                             // Smoothly interpolate from current to target look direction
@@ -978,6 +982,9 @@ namespace KinematicCharacterController.Examples
 
                 foreach (var bridge in nearFlyBridges)
                 {
+                    // Skip disabled bridges so they don't get highlighted
+                    if (bridge == null || !bridge.enabled || !bridge.gameObject.activeInHierarchy) continue;
+
                     // Respect the per-bridge cooldown
                     if (bridge == _lastTargetBridge && _lastBridgeCooldownTimer > 0f) continue;
 
