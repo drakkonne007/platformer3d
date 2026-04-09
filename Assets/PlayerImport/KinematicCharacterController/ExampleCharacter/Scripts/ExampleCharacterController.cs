@@ -173,7 +173,7 @@ namespace KinematicCharacterController.Examples
         void RemoveFlyBridge(Collider other)
         {
             nearFlyBridges.Remove(other);
-            other.transform.root.GetComponent<ActiveSwitcher>()?.Disable();
+            other.GetComponentInParent<ActiveSwitcher>()?.Disable();
         }
 
         void OnDestroy()
@@ -1012,7 +1012,7 @@ namespace KinematicCharacterController.Examples
             // Apply Enable/Disable to switchers on all nearby bridges
             foreach (var bridge in nearFlyBridges)
             {
-                var switcher = bridge.transform.root.GetComponent<ActiveSwitcher>();
+                var switcher = bridge.GetComponentInParent<ActiveSwitcher>();
                 if (switcher != null)
                 {
                     if (bridge == potentialTarget)

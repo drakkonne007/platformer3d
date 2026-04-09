@@ -187,6 +187,7 @@
     <Compile Include="Assets\TENKOKU - DYNAMIC SKY\_DEMO\SCRIPTS\CONTROLLER\ten_demo_ControllerFreeCamera.cs" />
     <Compile Include="Assets\SoStylized\Environment\Sky\Scripts\SkyFollowCamera.cs" />
     <Compile Include="Assets\Scripts\InputSystem_Actions.cs" />
+    <Compile Include="Assets\WindZoneShaderBridge.cs" />
     <Compile Include="Assets\TENKOKU - DYNAMIC SKY\_DEMO\SCRIPTS\CONTROLLER\ten_demo_ControllerMaster.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
@@ -325,7 +326,6 @@
     <None Include="Assets\SoStylized\Demo\Readme.txt" />
     <None Include="Assets\TENKOKU - DYNAMIC SKY\SHADERS\AtmosphericScattering.cginc" />
     <None Include="Assets\TENKOKU - DYNAMIC SKY\_Tenkoku_ReadMe.txt" />
-    <None Include="Assets\TENKOKU - DYNAMIC SKY\SHADERS\Tenkoku_VelocityBuffer.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TENKOKU - DYNAMIC SKY\SHADERS\Tenkoku_cloud_sphere.shader" />
     <None Include="Assets\TENKOKU - DYNAMIC SKY\SHADERS\TenkokuBlur.shader" />

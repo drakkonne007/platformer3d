@@ -1,0 +1,213 @@
+029333a6297e45c092ef15ee1221661e [MultiplyNode] Multiply
+02e477c6d99744c8bd41c50f612ce1e1 [PropertyNode] Specular Color
+06da3da109924e3f8c0246fe612e7d54 [Vector3Node] 
+090808174f4d4eceaa7f576df36ad425 [PropertyNode] Max Distance Fade
+0d867dbe12c243a2a3c0ffb20a90805d [MultiplyNode] Multiply
+10b4299998084c98acd3891fc517871b [PropertyNode] Hue Variation
+12199e4dd2864dcd98c55f5f47c4e1d3 [SplitNode] 
+13c9733424f84f95a47a3ed56722758a [PropertyNode] Smoothness
+1683d61143f74782a6eaf6074199d887 [BlockNode] 
+170384f2c2a94a2abfbb0fd57fcd6a67 [NegateNode] 
+1834ba1cd1db4eab831d82fb7ef04c58 [PropertyNode] Foliage Texture
+1a16947a26bc4e97affa2a98b1dc1af4 [BranchNode] 
+1bdcb9c481a14eb8b9f3ecb237130e13 [PositionNode] 
+1fcc530ce18442548af639ae6e787b1b [MultiplyNode] Multiply
+270a4a27147a49aeb8a28c437e41d2d5 [TilingAndOffsetNode] TilingAndOffset
+27d1fe6424244fdc98f3a876ff29e18f [BranchNode] 
+29c82a30de4a4f6ab7ff7cd0cc7011c0 [PropertyNode] Bottom Color
+2a7a9b53597c4682b6db1d7a3ed80a47 [PropertyNode] Tip Color
+2e356fa3be1f46869a05e0dcefcdec9b [BlockNode] 
+2eb44da4dbf548ba949a843c1d1f8988 [SaturateNode] 
+2f5c30ab45d64f20824b3811237fcc0f [PropertyNode] WindWeight
+31eb3dc15c7c43ab9499104989f40a6b [PropertyNode] Hue Variation Scale
+327e1e8802ab4d7da2b6a92ba9a5a092 [PositionNode] 
+33fc3ad2a0bc41118add59cc00158c7d [RedirectNodeData] 
+34495f542b654a22abd66fc9f9b0cd13 [BranchNode] 
+3474bc9b61a649759d44616f5ba4a1da [MultiplyNode] Multiply
+3e12137de85c49479655ff4337b7f08a [VertexColorNode] 
+3fe2cbf074ed400ba6c34731d8a839e7 [PropertyNode] WindSpeed
+41333f5b06174351b36c0f02eb2687a2 [TransformNode] Transform
+423bd78bc81b4bcd88e15c8ee521ad57 [PropertyNode] Displacement Pos
+4304e72a27dd404c8bd9216ecf794411 [DistanceNode] 
+492381aeb70040969e17841823c1fc7c [PropertyNode] Additional Z Offset
+4a5cb6f5a6f6460e82e260e363d545cc [DivideNode] 
+4c94130a7d60440eb09edd12acdb192f [MultiplyNode] Multiply
+4cddf7681aa14d59a73f93290b58b275 [AddNode] Add
+548502b2090f450985e66ec539822b57 [PropertyNode] UseSolidTipColor?
+5939609dfa734e75af433fdf7e62da00 [RedirectNodeData] 
+5abf9cfbaa5744baa4b97f3342cff614 [PropertyNode] Texture Tint
+5d150279e3104e88ab606ff26565f26b [SubGraphNode] 
+5e94c4f2e64d493eb9de801992ecd837 [SampleTexture2DNode] 
+626ed965fa564b10b8971051c5f66730 [Vector3Node] 
+635428dd03544abdab38c949f5e4beaf [MultiplyNode] Multiply
+6c853b02760a42b6be7bcd5a5de01c31 [BranchNode] 
+6dfb237de7b1415f8fe85dde518271a7 [GradientNoiseNode] GradientNoise
+748aaa6c8c9c43c8ad8fa3f85478c5e8 [PropertyNode] End Fade Distance
+7642be3faf8e4d349973353c940119e2 [BranchNode] 
+7c2e76333150418fa5e78838afb15256 [AddNode] Add
+809a8dcfb3424d4abf510d247b47efb1 [PropertyNode] StepDown
+816dcc6be9604c53b537fe5dac7d67e3 [PropertyNode] Min Distance Fade
+838786526d524c078c0745badcdeb4df [BlockNode] 
+8953c63bb9624d7dbd2332f7fab39eca [BlockNode] 
+8d4d867e73974853a438dc938bdcabc1 [AndNode] 
+8d506f0b1c174f9f9415484a79a06bea [PropertyNode] Emissive Strength
+8eedc222fcc54ff28808023d2f7b691f [UVNode] 
+94e04503ed4f41fa8c1e9b1409756f24 [BlockNode] 
+9505b6b500fa4765bc5cad3daf3aaba2 [PropertyNode] Use Texture?
+958dc47e64844eba9e7c7742b6b8d1bd [HueNode] 
+95e56da427bb4133b7ce2da6e743da01 [NotNode] 
+96eddb426ad6479689e5043e9ae5c548 [PropertyNode] Use Texture?
+986bfc38969e4d59adc6860b2266ac63 [Vector2Node] 
+9930a376edff4be09b605dc10aff21b1 [PropertyNode] WindIntensity
+9961a13a64f94dbeaac4cdc225247354 [RandomRangeNode] 
+9bd44a99e1334492b4e2093ffb9edb02 [Vector2Node] 
+9d8863d9e93344b5a968244fe6ecf295 [CameraNode] 
+9dab1a8f165741c39650caadfb650477 [MultiplyNode] Multiply
+a03fa987dd4441dc969506a6962541f3 [CustomFunctionNode] 
+a4bfb74192894529b78bcc498a13bb9d [BlockNode] 
+a7cd3403e1104f1eb465e0e3f4b56fd0 [SplitNode] 
+a7fdf9fad5ce4928b17ade4ebed8e0b6 [PositionNode] 
+ab9436a65a144c02aef8d42abbb1fee8 [BlockNode] 
+abdd6c4672334c0db85ffa2bad2c2267 [PropertyNode] StepMulti
+adfbd17bc4e343909da5bdaa5fcd5abb [MultiplyNode] Multiply
+affc6d68045c43f9a875e74b468cd429 [MultiplyNode] Multiply
+b1928bf5102d4c4588aa2af68583b605 [AddNode] Add
+b1bd7ad973754b47872de53c8a17b730 [PropertyNode] Start Fade Distance
+b3617b89cbb54ff6abe0fe23beb4e6eb [PositionNode] 
+b5a9307ce2ec481398a27540c2b24964 [ObjectNode] 
+b6f7ffc1a5a1412cba82f615487d1ef3 [PropertyNode] ObjectDistanceForFade?
+bba96ab42932411b9eb3f2dc098eddcc [BlockNode] 
+be52869969b641ee927c3ea2f8bb5d65 [PropertyNode] Alpha Clip Threshold
+c4e3cf29b55d47b0918f1b99c2753b01 [PropertyNode] Hue Shift
+c6bf3fdc48b840489fb7dec620d988ce [LerpNode] 
+c8026f09013c4cb193c49dd4c791429e [TimeNode] Time
+c8bb4960613c426197b4f408d42d3a98 [Vector1Node] 
+cb381687933345ec86640559587f1003 [TransformNode] Transform
+cdf1c007b34a416f8cbfdefd10ff4c46 [PropertyNode] LOD?
+ce9a90a4855e4898a35dc4220c4e0dc8 [SubGraphNode] 
+cf139bcbe96d47eabde239cee8eb948c [Vector1Node] 
+d9e4db97788749f0bd6dee7f165d07d4 [Vector2Node] 
+da836b60503543f7adeed3110197d271 [BranchNode] 
+dc495286137c49ae8539513ae379f9f1 [SplitNode] 
+de19352923a940e2bc802f923a3b56aa [AddNode] Add
+e03dc0597cbb4a1d9304a299a8043ed0 [VertexColorNode] 
+e0526eb817ee4305a06642c646ff6ea9 [CustomFunctionNode] 
+e41860cc25f042f4b35997d3df63fcd6 [MultiplyNode] Multiply
+e55ecbde860c449fbe2eeef205a7f821 [SplitNode] 
+e581381ff302442a82c09abfce07f8f8 [BlockNode] 
+e8df177e7048484b8e431cf8a473fa5f [PositionNode] 
+ee49da5bf54741d3badf000b1cad6377 [LerpNode] 
+f18601143cb1457d86f739382063fa47 [PropertyNode] Displacement Map
+f276c90a95974a88a80f3c5c17dbe654 [BlockNode] 
+f3980a3d3bd346cb8dd6a2c8ff90e7c9 [PropertyNode] Tip Color
+f707b35ecdf6407f81b46e8282f2dcad [SampleTexture2DNode] 
+fa46d2af5aed4108a57fc75ab3cc53b2 [RemapNode] 
+fd8883c692764361bf82d02f8be8780b [PropertyNode] UseWind?
+fdd86b42b1e04ce09d17feda08711cc6 [BlockNode] 
+
+EDGES:
+029333a6297e45c092ef15ee1221661e (MultiplyNode:2) -> e41860cc25f042f4b35997d3df63fcd6 (MultiplyNode:0)
+02e477c6d99744c8bd41c50f612ce1e1 (Specular Color:0) -> a4bfb74192894529b78bcc498a13bb9d (BlockNode:0)
+06da3da109924e3f8c0246fe612e7d54 (Vector3Node:0) -> adfbd17bc4e343909da5bdaa5fcd5abb (MultiplyNode:0)
+090808174f4d4eceaa7f576df36ad425 (Max Distance Fade:0) -> 5d150279e3104e88ab606ff26565f26b (SubGraphNode:-960305093)
+0d867dbe12c243a2a3c0ffb20a90805d (MultiplyNode:2) -> 6c853b02760a42b6be7bcd5a5de01c31 (BranchNode:1)
+10b4299998084c98acd3891fc517871b (Hue Variation:0) -> 170384f2c2a94a2abfbb0fd57fcd6a67 (NegateNode:0)
+10b4299998084c98acd3891fc517871b (Hue Variation:0) -> 5939609dfa734e75af433fdf7e62da00 (RedirectNodeData:0)
+12199e4dd2864dcd98c55f5f47c4e1d3 (SplitNode:1) -> d9e4db97788749f0bd6dee7f165d07d4 (Vector2Node:1)
+12199e4dd2864dcd98c55f5f47c4e1d3 (SplitNode:3) -> d9e4db97788749f0bd6dee7f165d07d4 (Vector2Node:2)
+13c9733424f84f95a47a3ed56722758a (Smoothness:0) -> 2e356fa3be1f46869a05e0dcefcdec9b (BlockNode:0)
+170384f2c2a94a2abfbb0fd57fcd6a67 (NegateNode:1) -> 9961a13a64f94dbeaac4cdc225247354 (RandomRangeNode:1)
+1834ba1cd1db4eab831d82fb7ef04c58 (Foliage Texture:0) -> f707b35ecdf6407f81b46e8282f2dcad (SampleTexture2DNode:1)
+1a16947a26bc4e97affa2a98b1dc1af4 (BranchNode:3) -> 029333a6297e45c092ef15ee1221661e (MultiplyNode:0)
+1bdcb9c481a14eb8b9f3ecb237130e13 (PositionNode:0) -> 12199e4dd2864dcd98c55f5f47c4e1d3 (SplitNode:0)
+1fcc530ce18442548af639ae6e787b1b (MultiplyNode:2) -> 3474bc9b61a649759d44616f5ba4a1da (MultiplyNode:0)
+21b3bd10198a44f1b65b04cccafcd02e (:2) -> ee49da5bf54741d3badf000b1cad6377 (LerpNode:0)
+270a4a27147a49aeb8a28c437e41d2d5 (TilingAndOffsetNode:3) -> 6dfb237de7b1415f8fe85dde518271a7 (GradientNoiseNode:0)
+27d1fe6424244fdc98f3a876ff29e18f (BranchNode:3) -> c6bf3fdc48b840489fb7dec620d988ce (LerpNode:1)
+29c82a30de4a4f6ab7ff7cd0cc7011c0 (Bottom Color:0) -> c6bf3fdc48b840489fb7dec620d988ce (LerpNode:0)
+2a7a9b53597c4682b6db1d7a3ed80a47 (Tip Color:0) -> ee49da5bf54741d3badf000b1cad6377 (LerpNode:1)
+2eb44da4dbf548ba949a843c1d1f8988 (SaturateNode:1) -> ee49da5bf54741d3badf000b1cad6377 (LerpNode:2)
+2f5c30ab45d64f20824b3811237fcc0f (WindWeight:0) -> 1fcc530ce18442548af639ae6e787b1b (MultiplyNode:1)
+31eb3dc15c7c43ab9499104989f40a6b (Hue Variation Scale:0) -> cf139bcbe96d47eabde239cee8eb948c (Vector1Node:1)
+327e1e8802ab4d7da2b6a92ba9a5a092 (PositionNode:0) -> 34495f542b654a22abd66fc9f9b0cd13 (BranchNode:1)
+33fc3ad2a0bc41118add59cc00158c7d (RedirectNodeData:1) -> affc6d68045c43f9a875e74b468cd429 (MultiplyNode:0)
+33fc3ad2a0bc41118add59cc00158c7d (RedirectNodeData:1) -> bba96ab42932411b9eb3f2dc098eddcc (BlockNode:0)
+34495f542b654a22abd66fc9f9b0cd13 (BranchNode:3) -> 1683d61143f74782a6eaf6074199d887 (BlockNode:0)
+3474bc9b61a649759d44616f5ba4a1da (MultiplyNode:2) -> de19352923a940e2bc802f923a3b56aa (AddNode:0)
+3e12137de85c49479655ff4337b7f08a (VertexColorNode:0) -> 3474bc9b61a649759d44616f5ba4a1da (MultiplyNode:1)
+3fe2cbf074ed400ba6c34731d8a839e7 (WindSpeed:0) -> 986bfc38969e4d59adc6860b2266ac63 (Vector2Node:1)
+41333f5b06174351b36c0f02eb2687a2 (TransformNode:1) -> 34495f542b654a22abd66fc9f9b0cd13 (BranchNode:2)
+423bd78bc81b4bcd88e15c8ee521ad57 (Displacement Pos:0) -> e0526eb817ee4305a06642c646ff6ea9 (CustomFunctionNode:2)
+4304e72a27dd404c8bd9216ecf794411 (DistanceNode:2) -> fa46d2af5aed4108a57fc75ab3cc53b2 (RemapNode:0)
+492381aeb70040969e17841823c1fc7c (Additional Z Offset:0) -> 06da3da109924e3f8c0246fe612e7d54 (Vector3Node:2)
+4a5cb6f5a6f6460e82e260e363d545cc (DivideNode:2) -> 5e94c4f2e64d493eb9de801992ecd837 (SampleTexture2DNode:2)
+4c94130a7d60440eb09edd12acdb192f (MultiplyNode:2) -> 1fcc530ce18442548af639ae6e787b1b (MultiplyNode:0)
+4cddf7681aa14d59a73f93290b58b275 (AddNode:2) -> 958dc47e64844eba9e7c7742b6b8d1bd (HueNode:1)
+548502b2090f450985e66ec539822b57 (UseSolidTipColor?:0) -> 27d1fe6424244fdc98f3a876ff29e18f (BranchNode:0)
+5939609dfa734e75af433fdf7e62da00 (RedirectNodeData:1) -> 9961a13a64f94dbeaac4cdc225247354 (RandomRangeNode:2)
+5abf9cfbaa5744baa4b97f3342cff614 (Texture Tint:0) -> 0d867dbe12c243a2a3c0ffb20a90805d (MultiplyNode:1)
+5d150279e3104e88ab606ff26565f26b (SubGraphNode:1) -> 029333a6297e45c092ef15ee1221661e (MultiplyNode:1)
+5e94c4f2e64d493eb9de801992ecd837 (SampleTexture2DNode:4) -> 21b3bd10198a44f1b65b04cccafcd02e (:1)
+626ed965fa564b10b8971051c5f66730 (Vector3Node:0) -> 4c94130a7d60440eb09edd12acdb192f (MultiplyNode:1)
+635428dd03544abdab38c949f5e4beaf (MultiplyNode:2) -> 270a4a27147a49aeb8a28c437e41d2d5 (TilingAndOffsetNode:2)
+6c853b02760a42b6be7bcd5a5de01c31 (BranchNode:3) -> 958dc47e64844eba9e7c7742b6b8d1bd (HueNode:0)
+6dfb237de7b1415f8fe85dde518271a7 (GradientNoiseNode:2) -> 4c94130a7d60440eb09edd12acdb192f (MultiplyNode:0)
+748aaa6c8c9c43c8ad8fa3f85478c5e8 (End Fade Distance:0) -> ce9a90a4855e4898a35dc4220c4e0dc8 (SubGraphNode:-960305093)
+7642be3faf8e4d349973353c940119e2 (BranchNode:3) -> cb381687933345ec86640559587f1003 (TransformNode:0)
+7c2e76333150418fa5e78838afb15256 (AddNode:2) -> b1928bf5102d4c4588aa2af68583b605 (AddNode:0)
+809a8dcfb3424d4abf510d247b47efb1 (StepDown:0) -> e0526eb817ee4305a06642c646ff6ea9 (CustomFunctionNode:4)
+816dcc6be9604c53b537fe5dac7d67e3 (Min Distance Fade:0) -> 5d150279e3104e88ab606ff26565f26b (SubGraphNode:981807645)
+8d4d867e73974853a438dc938bdcabc1 (AndNode:2) -> da836b60503543f7adeed3110197d271 (BranchNode:0)
+8d506f0b1c174f9f9415484a79a06bea (Emissive Strength:0) -> affc6d68045c43f9a875e74b468cd429 (MultiplyNode:1)
+8eedc222fcc54ff28808023d2f7b691f (UVNode:0) -> dc495286137c49ae8539513ae379f9f1 (SplitNode:0)
+9505b6b500fa4765bc5cad3daf3aaba2 (Use Texture?:0) -> 6c853b02760a42b6be7bcd5a5de01c31 (BranchNode:0)
+958dc47e64844eba9e7c7742b6b8d1bd (HueNode:2) -> 33fc3ad2a0bc41118add59cc00158c7d (RedirectNodeData:0)
+95e56da427bb4133b7ce2da6e743da01 (NotNode:1) -> 8d4d867e73974853a438dc938bdcabc1 (AndNode:0)
+96eddb426ad6479689e5043e9ae5c548 (Use Texture?:0) -> 1a16947a26bc4e97affa2a98b1dc1af4 (BranchNode:0)
+986bfc38969e4d59adc6860b2266ac63 (Vector2Node:0) -> 635428dd03544abdab38c949f5e4beaf (MultiplyNode:1)
+9930a376edff4be09b605dc10aff21b1 (WindIntensity:0) -> 6dfb237de7b1415f8fe85dde518271a7 (GradientNoiseNode:1)
+9961a13a64f94dbeaac4cdc225247354 (RandomRangeNode:3) -> 4cddf7681aa14d59a73f93290b58b275 (AddNode:0)
+9bd44a99e1334492b4e2093ffb9edb02 (Vector2Node:0) -> 9dab1a8f165741c39650caadfb650477 (MultiplyNode:0)
+9d8863d9e93344b5a968244fe6ecf295 (CameraNode:0) -> 4304e72a27dd404c8bd9216ecf794411 (DistanceNode:0)
+9dab1a8f165741c39650caadfb650477 (MultiplyNode:2) -> 9961a13a64f94dbeaac4cdc225247354 (RandomRangeNode:0)
+a03fa987dd4441dc969506a6962541f3 (CustomFunctionNode:0) -> 95e56da427bb4133b7ce2da6e743da01 (NotNode:0)
+a7cd3403e1104f1eb465e0e3f4b56fd0 (SplitNode:1) -> 9bd44a99e1334492b4e2093ffb9edb02 (Vector2Node:1)
+a7cd3403e1104f1eb465e0e3f4b56fd0 (SplitNode:3) -> 9bd44a99e1334492b4e2093ffb9edb02 (Vector2Node:2)
+a7fdf9fad5ce4928b17ade4ebed8e0b6 (PositionNode:0) -> de19352923a940e2bc802f923a3b56aa (AddNode:1)
+abdd6c4672334c0db85ffa2bad2c2267 (StepMulti:0) -> e0526eb817ee4305a06642c646ff6ea9 (CustomFunctionNode:5)
+adfbd17bc4e343909da5bdaa5fcd5abb (MultiplyNode:2) -> 7c2e76333150418fa5e78838afb15256 (AddNode:1)
+affc6d68045c43f9a875e74b468cd429 (MultiplyNode:2) -> e581381ff302442a82c09abfce07f8f8 (BlockNode:0)
+b1928bf5102d4c4588aa2af68583b605 (AddNode:2) -> 41333f5b06174351b36c0f02eb2687a2 (TransformNode:0)
+b1bd7ad973754b47872de53c8a17b730 (Start Fade Distance:0) -> ce9a90a4855e4898a35dc4220c4e0dc8 (SubGraphNode:981807645)
+b3617b89cbb54ff6abe0fe23beb4e6eb (PositionNode:0) -> 7642be3faf8e4d349973353c940119e2 (BranchNode:1)
+b3617b89cbb54ff6abe0fe23beb4e6eb (PositionNode:0) -> da836b60503543f7adeed3110197d271 (BranchNode:2)
+b5a9307ce2ec481398a27540c2b24964 (ObjectNode:0) -> a7cd3403e1104f1eb465e0e3f4b56fd0 (SplitNode:0)
+b6f7ffc1a5a1412cba82f615487d1ef3 (ObjectDistanceForFade?:0) -> 5d150279e3104e88ab606ff26565f26b (SubGraphNode:1601742276)
+be52869969b641ee927c3ea2f8bb5d65 (Alpha Clip Threshold:0) -> 838786526d524c078c0745badcdeb4df (BlockNode:0)
+c4e3cf29b55d47b0918f1b99c2753b01 (Hue Shift:0) -> 4cddf7681aa14d59a73f93290b58b275 (AddNode:1)
+c6bf3fdc48b840489fb7dec620d988ce (LerpNode:3) -> 6c853b02760a42b6be7bcd5a5de01c31 (BranchNode:2)
+c8026f09013c4cb193c49dd4c791429e (TimeNode:0) -> 635428dd03544abdab38c949f5e4beaf (MultiplyNode:0)
+c8bb4960613c426197b4f408d42d3a98 (Vector1Node:0) -> 9dab1a8f165741c39650caadfb650477 (MultiplyNode:1)
+cb381687933345ec86640559587f1003 (TransformNode:1) -> 7c2e76333150418fa5e78838afb15256 (AddNode:0)
+cb381687933345ec86640559587f1003 (TransformNode:1) -> e0526eb817ee4305a06642c646ff6ea9 (CustomFunctionNode:0)
+cdf1c007b34a416f8cbfdefd10ff4c46 (LOD?:0) -> 7642be3faf8e4d349973353c940119e2 (BranchNode:0)
+ce9a90a4855e4898a35dc4220c4e0dc8 (SubGraphNode:1) -> e41860cc25f042f4b35997d3df63fcd6 (MultiplyNode:1)
+ce9a90a4855e4898a35dc4220c4e0dc8 (SubGraphNode:2) -> 34495f542b654a22abd66fc9f9b0cd13 (BranchNode:0)
+cf139bcbe96d47eabde239cee8eb948c (Vector1Node:0) -> 4a5cb6f5a6f6460e82e260e363d545cc (DivideNode:1)
+d9e4db97788749f0bd6dee7f165d07d4 (Vector2Node:0) -> 4a5cb6f5a6f6460e82e260e363d545cc (DivideNode:0)
+da836b60503543f7adeed3110197d271 (BranchNode:3) -> 7642be3faf8e4d349973353c940119e2 (BranchNode:2)
+dc495286137c49ae8539513ae379f9f1 (SplitNode:2) -> c6bf3fdc48b840489fb7dec620d988ce (LerpNode:2)
+de19352923a940e2bc802f923a3b56aa (AddNode:2) -> da836b60503543f7adeed3110197d271 (BranchNode:1)
+e03dc0597cbb4a1d9304a299a8043ed0 (VertexColorNode:0) -> adfbd17bc4e343909da5bdaa5fcd5abb (MultiplyNode:1)
+e03dc0597cbb4a1d9304a299a8043ed0 (VertexColorNode:0) -> e55ecbde860c449fbe2eeef205a7f821 (SplitNode:0)
+e0526eb817ee4305a06642c646ff6ea9 (CustomFunctionNode:3) -> b1928bf5102d4c4588aa2af68583b605 (AddNode:1)
+e41860cc25f042f4b35997d3df63fcd6 (MultiplyNode:2) -> f276c90a95974a88a80f3c5c17dbe654 (BlockNode:0)
+e55ecbde860c449fbe2eeef205a7f821 (SplitNode:1) -> e0526eb817ee4305a06642c646ff6ea9 (CustomFunctionNode:6)
+e8df177e7048484b8e431cf8a473fa5f (PositionNode:0) -> 4304e72a27dd404c8bd9216ecf794411 (DistanceNode:1)
+ee49da5bf54741d3badf000b1cad6377 (LerpNode:3) -> 27d1fe6424244fdc98f3a876ff29e18f (BranchNode:2)
+f18601143cb1457d86f739382063fa47 (Displacement Map:0) -> e0526eb817ee4305a06642c646ff6ea9 (CustomFunctionNode:1)
+f3980a3d3bd346cb8dd6a2c8ff90e7c9 (Tip Color:0) -> 27d1fe6424244fdc98f3a876ff29e18f (BranchNode:1)
+f707b35ecdf6407f81b46e8282f2dcad (SampleTexture2DNode:0) -> 0d867dbe12c243a2a3c0ffb20a90805d (MultiplyNode:0)
+f707b35ecdf6407f81b46e8282f2dcad (SampleTexture2DNode:7) -> 1a16947a26bc4e97affa2a98b1dc1af4 (BranchNode:1)
+fa46d2af5aed4108a57fc75ab3cc53b2 (RemapNode:3) -> 2eb44da4dbf548ba949a843c1d1f8988 (SaturateNode:0)
+fd8883c692764361bf82d02f8be8780b (UseWind?:0) -> 8d4d867e73974853a438dc938bdcabc1 (AndNode:1)
