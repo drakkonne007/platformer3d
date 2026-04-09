@@ -40,6 +40,7 @@ public class MainHandler : MonoBehaviour
 
     [SerializeField] int lives = 3;
     [SerializeField] float health = 100;
+    public float playerDamage = 10;
 
     [Header("Thrash")]
     int money = 0;    
