@@ -86,6 +86,7 @@ public class BigHand : MonoBehaviour
             flyBridge.enabled = false;
         }
         if (handState_ != HandState.Idle) return;
+        playerHited_ = false;
 
         playerPos_ = MainHandler.Instance.playerPosition();
 

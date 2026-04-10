@@ -223,7 +223,7 @@ Camera:
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -275,7 +275,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -283,6 +282,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &6528705587822756622
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,8 +364,7 @@ MonoBehaviour:
   Motor: {fileID: 3813207328556861096}
   Animator: {fileID: 323055904348209401}
   PlayerLogic: {fileID: 2209010812462127067}
-  WeaponCollider:
-  - {fileID: 0}
+  WeaponCollider: []
   flyBridge: {fileID: 6061513312862913146}
   DashEffect: {fileID: 2735234480680728544}
   DashParticles: {fileID: 0}
@@ -393,8 +392,15 @@ MonoBehaviour:
   CrouchedCapsuleHeight: 1
   currentWeapon_: {fileID: 0}
   DashSpeed: 100
-  DashDuration: 0.1
+  DashDuration: 0.05
   DashCooldown: 1
+  BridgeArrivalSpeedFactor: 0.7
+  WallRunSpeed: 16
+  WallRunInitialUpSpeed: 12
+  WallRunGravity: 6
+  WallJumpForwardForce: 12
+  WallJumpUpForce: 8
+  MaxWallRunTime: 2
 --- !u!114 &3813207328556861096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,10 +450,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6528705587822756622}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -594,7 +600,7 @@ Transform:
   m_GameObject: {fileID: 7837867072843440223}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -619,7 +625,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 9.07
+  m_Radius: 13.02
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6505933537525743067
 MonoBehaviour:

@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using KinematicCharacterController;
-using System;
-using UnityEngine.VFX;
 
 namespace KinematicCharacterController.Examples
 {
@@ -11,6 +7,7 @@ namespace KinematicCharacterController.Examples
     {
         Default,
         Swimm,
+        WallRun,
     }
 
     public enum OrientationMethod
@@ -96,6 +93,14 @@ namespace KinematicCharacterController.Examples
         [Tooltip("What fraction of DashSpeed is kept when arriving at a bridge (0 = dead stop, 1 = full speed)")]
         public float BridgeArrivalSpeedFactor = 0.5f;
 
+        [Header("Wall Run")]
+        public float WallRunSpeed = 12f;
+        public float WallRunInitialUpSpeed = 6f;
+        public float WallRunGravity = 12f;
+        public float WallJumpForwardForce = 12f;
+        public float WallJumpUpForce = 8f;
+        public float MaxWallRunTime = 1.2f;
+
         public CharacterState CurrentCharacterState { get; private set; }
 
         private Collider[] _probedColliders = new Collider[8];
@@ -121,6 +126,12 @@ namespace KinematicCharacterController.Examples
         private Collider _lastTargetBridge;
         private float _lastBridgeCooldownTimer;
 
+        private Vector3 _wallNormal;
+        private Vector3 _wallForward;
+        private float _wallRunTimer = 0f;
+        private float _wallRunCooldown = 0f;
+        private float _wallVerticalVelocity = 0f;
+
         // Combo & Attack
         private int _comboIndex = 0;
         private bool _isAttacking;
@@ -141,6 +152,7 @@ namespace KinematicCharacterController.Examples
         private readonly int _animRun = Animator.StringToHash("Run");
         private readonly int _animBlock = Animator.StringToHash("Block");
         bool _alreadyAir = false;
+        Vector3 lastStablePosition_;
 
         private void Awake()
         {
@@ -221,6 +233,13 @@ namespace KinematicCharacterController.Examples
             {
                 case CharacterState.Default:
                     {
+                        break;
+                    }
+                case CharacterState.WallRun:
+                    {
+                        _wallRunTimer = 0f;
+                        _wallVerticalVelocity = WallRunInitialUpSpeed;
+                        Motor.ForceUnground();
                         break;
                     }
             }
@@ -423,6 +442,15 @@ namespace KinematicCharacterController.Examples
 
                         break;
                     }
+                case CharacterState.WallRun:
+                    {
+                        if (inputs.JumpDown)
+                        {
+                            _timeSinceJumpRequested = 0f;
+                            _jumpRequested = true;
+                        }
+                        break;
+                    }
             }
         }
 
@@ -443,6 +471,60 @@ namespace KinematicCharacterController.Examples
         /// </summary>
         public void BeforeCharacterUpdate(float deltaTime)
         {
+            if (_wallRunCooldown > 0f)
+            {
+                _wallRunCooldown -= deltaTime;
+            }
+
+            if (CurrentCharacterState == CharacterState.Default && !Motor.GroundingStatus.IsStableOnGround && _wallRunCooldown <= 0f)
+            {
+                if (_jumpConsumed) // Только после прыжка
+                {
+                    Vector3 lookDir = Motor.CharacterForward;
+                    if (_moveInputVector.sqrMagnitude > 0)
+                    {
+                        lookDir = _moveInputVector.normalized;
+                    }
+                    
+                    Vector3 rightDir = Vector3.Cross(Motor.CharacterUp, lookDir).normalized;
+                    Vector3 leftDir = -rightDir;
+
+                    RaycastHit hit;
+                    bool wallHit = false;
+                    
+                    // Впритык (уменьшен радиус рейкаста до 0.15)
+                    if (Physics.Raycast(Motor.TransientPosition + Motor.CharacterUp * (Motor.Capsule.height * 0.4f), rightDir, out hit, Motor.Capsule.radius + 0.15f, Motor.CollidableLayers, QueryTriggerInteraction.Ignore))
+                    {
+                        wallHit = true;
+                    }
+                    else if (Physics.Raycast(Motor.TransientPosition + Motor.CharacterUp * (Motor.Capsule.height * 0.4f), leftDir, out hit, Motor.Capsule.radius + 0.15f, Motor.CollidableLayers, QueryTriggerInteraction.Ignore))
+                    {
+                        wallHit = true;
+                    }
+
+                    if (wallHit)
+                    {
+                        float wallDot = Vector3.Dot(Motor.CharacterUp, hit.normal);
+                        if (Mathf.Abs(wallDot) < 0.1f)
+                        {
+                            _wallNormal = hit.normal;
+                            _wallForward = Vector3.Cross(_wallNormal, Motor.CharacterUp);
+                            if (Vector3.Dot(_wallForward, lookDir) < 0)
+                            {
+                                _wallForward = -_wallForward;
+                            }
+
+                            // Проверка, что игрок давит в сторону стены (dot product меньше 0)
+                            bool pressingAgainstWall = _moveInputVector.sqrMagnitude > 0f && Vector3.Dot(_moveInputVector.normalized, hit.normal) < -0.1f;
+
+                            if (pressingAgainstWall) 
+                            {
+                                TransitionToState(CharacterState.WallRun);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -494,6 +576,15 @@ namespace KinematicCharacterController.Examples
                         {
                             Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, Vector3.up, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
                             currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
+                        }
+                        break;
+                    }
+                case CharacterState.WallRun:
+                    {
+                        if (OrientationSharpness > 0f)
+                        {
+                            Vector3 smoothedLookInputDirection = Vector3.Slerp(Motor.CharacterForward, _wallForward, 1 - Mathf.Exp(-OrientationSharpness * deltaTime)).normalized;
+                            currentRotation = Quaternion.LookRotation(smoothedLookInputDirection, Motor.CharacterUp);
                         }
                         break;
                     }
@@ -706,6 +797,50 @@ namespace KinematicCharacterController.Examples
                         }
                         break;
                     }
+                case CharacterState.WallRun:
+                    {
+                        _wallRunTimer += deltaTime;
+
+                        bool exitWallRun = false;
+                        if (_wallRunTimer > MaxWallRunTime || Motor.GroundingStatus.IsStableOnGround)
+                        {
+                            exitWallRun = true;
+                        }
+                        else
+                        {
+                            if (!Physics.Raycast(Motor.TransientPosition + Motor.CharacterUp * (Motor.Capsule.height * 0.4f), -_wallNormal, Motor.Capsule.radius + 0.6f, Motor.CollidableLayers, QueryTriggerInteraction.Ignore))
+                            {
+                                exitWallRun = true;
+                            }
+                        }
+
+                        if (exitWallRun)
+                        {
+                            _wallRunCooldown = 0.5f;
+                            _jumpConsumed = false; // Уничтожаем "улику" прыжка, чтобы герой не прилипал без прыжка
+                            TransitionToState(CharacterState.Default);
+                            break;
+                        }
+
+                        if (_jumpRequested)
+                        {
+                            _jumpRequested = false;
+                            _jumpConsumed = true; // Прыжок сохранен, чтобы позволить прицепиться к новой стене
+                            _wallRunCooldown = 0.5f;
+                            
+                            Vector3 jumpDir = (_wallNormal + Motor.CharacterForward).normalized;
+                            currentVelocity = jumpDir * WallJumpForwardForce + Motor.CharacterUp * WallJumpUpForce;
+                            
+                            TransitionToState(CharacterState.Default);
+                            break;
+                        }
+
+                        _wallVerticalVelocity -= WallRunGravity * deltaTime;
+                        currentVelocity = _wallForward * WallRunSpeed + Motor.CharacterUp * _wallVerticalVelocity;
+                        currentVelocity += -_wallNormal * 2f;
+
+                        break;
+                    }
             }
         }
 
@@ -861,8 +996,15 @@ namespace KinematicCharacterController.Examples
                 }
             }
             UpdateBridgeVisuals();
+            if (Motor.GroundingStatus.IsStableOnGround)
+            {
+                lastStablePosition_ = transform.position;
+            }
         }
-
+        public void TeleportToLastStablePoint()
+        {
+            Motor.SetPositionAndRotation(lastStablePosition_, transform.rotation);
+        }
         public void PostGroundingUpdate(float deltaTime)
         {
             // Handle landing and leaving ground
@@ -929,6 +1071,7 @@ namespace KinematicCharacterController.Examples
 
         protected void OnLanded()
         {
+            _wallRunCooldown = 0f;
             if (Animator)
             {
                 Animator.SetTrigger(_animIDGrounded);

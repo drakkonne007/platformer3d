@@ -444,7 +444,7 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 0, z: 1}
   rotationAngle: 160
   duration: 2
-  useRandomDelay: 0
+  useRandomDelay: 1
   maxRandomDelay: 1
 --- !u!4 &3234232082415657938 stripped
 Transform:
