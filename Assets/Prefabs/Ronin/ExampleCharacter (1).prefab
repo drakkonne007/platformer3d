@@ -364,7 +364,8 @@ MonoBehaviour:
   Motor: {fileID: 3813207328556861096}
   Animator: {fileID: 323055904348209401}
   PlayerLogic: {fileID: 2209010812462127067}
-  WeaponCollider: []
+  WeaponCollider:
+  - {fileID: 0}
   flyBridge: {fileID: 6061513312862913146}
   DashEffect: {fileID: 2735234480680728544}
   DashParticles: {fileID: 0}
@@ -395,10 +396,10 @@ MonoBehaviour:
   DashDuration: 0.05
   DashCooldown: 1
   BridgeArrivalSpeedFactor: 0.7
-  WallRunSpeed: 16
-  WallRunInitialUpSpeed: 12
+  WallRunSpeed: 20
+  WallRunInitialUpSpeed: 5
   WallRunGravity: 6
-  WallJumpForwardForce: 12
+  WallJumpForwardForce: 50
   WallJumpUpForce: 8
   MaxWallRunTime: 2
 --- !u!114 &3813207328556861096

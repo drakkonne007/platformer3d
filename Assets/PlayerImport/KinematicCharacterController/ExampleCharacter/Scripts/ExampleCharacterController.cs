@@ -355,10 +355,12 @@ namespace KinematicCharacterController.Examples
                         if (inputs.DashDown)
                         {
                             _isTargetedDash = false;
-                            if (nearFlyBridges.Count > 0)
+                            if (nearFlyBridges.Count > 0 && !Motor.GetState().GroundingStatus.IsStableOnGround)
                             {
                                 Collider bestBridge = null;
+                                Collider NonInputBestBridge = null;
                                 float minDist = float.MaxValue;
+                                float minNonInputDist = float.MaxValue;
                                 bool hasInput = _moveInputVector.sqrMagnitude > 0f;
 
                                 foreach (var bridge in nearFlyBridges)
@@ -373,6 +375,12 @@ namespace KinematicCharacterController.Examples
                                     Vector3 toBridge = (bridge.transform.position - Motor.TransientPosition);
                                     float dist = toBridge.magnitude;
 
+                                    if (dist < minNonInputDist)
+                                    {
+                                        minNonInputDist = dist;
+                                        NonInputBestBridge = bridge;
+                                    }
+
                                     if (hasInput)
                                     {
                                         Vector3 dirToBridge = toBridge.normalized;
@@ -386,15 +394,12 @@ namespace KinematicCharacterController.Examples
                                             }
                                         }
                                     }
-                                    else
-                                    {
-                                        // No input - just closest bridge overall
-                                        if (dist < minDist)
-                                        {
-                                            minDist = dist;
-                                            bestBridge = bridge;
-                                        }
-                                    }
+
+                                }
+
+                                if(bestBridge == null)
+                                {
+                                    bestBridge = NonInputBestBridge;
                                 }
 
                                 if (bestBridge != null)
@@ -481,25 +486,27 @@ namespace KinematicCharacterController.Examples
                 if (_jumpConsumed) // Только после прыжка
                 {
                     Vector3 lookDir = Motor.CharacterForward;
-                    if (_moveInputVector.sqrMagnitude > 0)
-                    {
-                        lookDir = _moveInputVector.normalized;
-                    }
                     
                     Vector3 rightDir = Vector3.Cross(Motor.CharacterUp, lookDir).normalized;
                     Vector3 leftDir = -rightDir;
 
-                    RaycastHit hit;
+                    Vector3[] rayDirs = new Vector3[] {
+                        rightDir,
+                        leftDir,
+                        lookDir,
+                        _moveInputVector.sqrMagnitude > 0f ? _moveInputVector.normalized : Vector3.zero
+                    };
+
+                    RaycastHit hit = new RaycastHit();
                     bool wallHit = false;
                     
-                    // Впритык (уменьшен радиус рейкаста до 0.15)
-                    if (Physics.Raycast(Motor.TransientPosition + Motor.CharacterUp * (Motor.Capsule.height * 0.4f), rightDir, out hit, Motor.Capsule.radius + 0.15f, Motor.CollidableLayers, QueryTriggerInteraction.Ignore))
+                    foreach (Vector3 dir in rayDirs)
                     {
-                        wallHit = true;
-                    }
-                    else if (Physics.Raycast(Motor.TransientPosition + Motor.CharacterUp * (Motor.Capsule.height * 0.4f), leftDir, out hit, Motor.Capsule.radius + 0.15f, Motor.CollidableLayers, QueryTriggerInteraction.Ignore))
-                    {
-                        wallHit = true;
+                        if (dir.sqrMagnitude > 0.1f && Physics.Raycast(Motor.TransientPosition + Motor.CharacterUp * (Motor.Capsule.height * 0.4f), dir, out hit, Motor.Capsule.radius + 0.3f, Motor.CollidableLayers, QueryTriggerInteraction.Ignore))
+                        {
+                            wallHit = true;
+                            break;
+                        }
                     }
 
                     if (wallHit)
@@ -1116,12 +1123,16 @@ namespace KinematicCharacterController.Examples
         private void UpdateBridgeVisuals()
         {
             Collider potentialTarget = null;
+            Collider potentialNonInputTarget = null;
 
             // Prediction logic: find which bridge would be selected if Shift was pressed
             if (nearFlyBridges.Count > 0 && !_isDashing)
             {
                 float minDist = float.MaxValue;
+                float minNonInputDist = float.MaxValue;
                 bool hasInput = _moveInputVector.sqrMagnitude > 0f;
+
+
 
                 foreach (var bridge in nearFlyBridges)
                 {
@@ -1133,6 +1144,12 @@ namespace KinematicCharacterController.Examples
 
                     Vector3 toBridge = (bridge.transform.position - Motor.TransientPosition);
                     float dist = toBridge.magnitude;
+
+                    if (dist < minNonInputDist)
+                    {
+                        minNonInputDist = dist;
+                        potentialNonInputTarget = bridge;
+                    }
 
                     if (hasInput)
                     {
@@ -1147,16 +1164,12 @@ namespace KinematicCharacterController.Examples
                             }
                         }
                     }
-                    else
-                    {
-                        // No input - just closest bridge overall
-                        if (dist < minDist)
-                        {
-                            minDist = dist;
-                            potentialTarget = bridge;
-                        }
-                    }
                 }
+            }
+
+            if(potentialTarget == null)
+            {
+                potentialTarget = potentialNonInputTarget;
             }
 
             // Apply Enable/Disable to switchers on all nearby bridges
